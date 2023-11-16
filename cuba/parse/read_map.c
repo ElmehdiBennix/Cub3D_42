@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 10:06:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 10:32:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,51 @@ int		allowed(char c, int *player)
 	return (-1);
 }
 
+char	*repeat_char(char c, int count)
+{
+    char* repeater = malloc(count + 1); // +1 for the null-terminating character
+    if (repeater != NULL) {
+        memset(repeater, c , count);
+        repeater[count] = '\0'; // null-terminating character
+    }
+    return repeater;
+}
+
 static	void	valid_map(t_data *game, char **file)
 {
 	int i = 0;
 	int j = 0;
-	int padding = 0;
+	int longest = 0;
 	int player = 0;
 	(void) game;
  // force new map after fields
 	while (file[i])
 	{
-		printf("file[%d] = |%s|\n",i,file[i]);
+		// printf("file[%d] = |%s|\n",i,file[i]);
 		while (file[i][j])
 		{
 			if (allowed(file[i][j], &player) == -1)
 				return (ft_fprintf(2,"wrong simbols map"), exit(1));
 			j++;
 		}
-		if (padding < j)
-			padding = j;
+		if (longest < j)
+			longest = j;
 		j = 0;
 		i++;
 	}
-
+	if (player != 1)
+		return (ft_fprintf(2,"wrong player"), exit(1));
+	i = 0;
+	int buffer = 0;
+	while (file[i])
+	{
+		buffer = longest - ft_strlen(file[i]);
+		// printf("buffer %d \n",buffer);
+		if (buffer > 0)
+			file[i] = ft_strjoin(file[i], repeat_char(' ', buffer));
+		// printf("|%s|\n",file[i]);
+		i++;
+	}
 }
 // ft_strlen(file[i]) > padding ? padding = ft_strlen(file[i]) : 0;
 

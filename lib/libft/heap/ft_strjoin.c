@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 22:11:13 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/13 13:04:56 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 10:20:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void free_flags(char *s1, char *s2, int flag[])
 	}
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2) // this is mostly used for buffering strings protect it for other uses
 {
 	t_join data;
 
