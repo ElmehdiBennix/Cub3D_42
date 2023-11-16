@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 09:47:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 10:06:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@
 // 	return (false);
 // }
 
-bool	direction(char c)
+bool	directions(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }
 
-int	allowed(char c, int *player)
+int		allowed(char c, int *player)
 {
 	if (c == '1' || c == '0' || c == ' ')
 		return (0);
-	else if (direction(c) == true)
+	else if (directions(c) == true)
 		return ((*player)++ ,1);
 	return (-1);
 }
@@ -61,15 +61,17 @@ static	void	valid_map(t_data *game, char **file)
 {
 	int i = 0;
 	int j = 0;
-	unsigned int player = 0;
-	unsigned int padding = 0;
-
+	int padding = 0;
+	int player = 0;
+	(void) game;
+ // force new map after fields
 	while (file[i])
 	{
+		printf("file[%d] = |%s|\n",i,file[i]);
 		while (file[i][j])
 		{
-			if (allowed(file[i][j], &player));
-			
+			if (allowed(file[i][j], &player) == -1)
+				return (ft_fprintf(2,"wrong simbols map"), exit(1));
 			j++;
 		}
 		if (padding < j)
@@ -86,7 +88,7 @@ char	*func(char *str)
 {
 	char *trimed = ft_strtrim(&str[2]," ");
 	
-	ft_fprintf(2 ,"we got it trimed = |%s|\n", trimed);
+	// ft_fprintf(2 ,"we got it trimed = |%s|\n", trimed);
 
 	return (trimed);
 }
@@ -95,7 +97,7 @@ char	*func(char *str)
 
 bool	elements_collect(char *line, int  *fields, t_data *game)
 {
-	printf("before line = |%s|\n",line);
+	// printf("before line = |%s|\n",line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
 		game->North.content_Nullable = func(line); // increment field
 	else if (line && ft_strncmp(line, "SO ", 3) == 0)
@@ -108,11 +110,11 @@ bool	elements_collect(char *line, int  *fields, t_data *game)
 		game->C_Floor.content_Nullable = func(line);
 	else if (line && ft_strncmp(line, "C ", 2) == 0)
 		game->C_Ceiling.content_Nullable = func(line);
-	else if (line && ft_strncmp(line, "\n", 1) == 0)
-		;
+	// else if (line && ft_strncmp(line, "\n", 1) == 0)
+	// 	;
 	else
 		return (false);
-	printf("\n");
+	// printf("\n");
 	(*fields)++;
 	return (true);
 }
@@ -167,12 +169,12 @@ void	world_fields(char **file, t_data  *game) // gets fields alone and retuns th
 
 	while (file[i] && fields < 6)
 	{
-		printf("%d\n",fields);
+		// printf("%d\n",fields);
 		if (elements_collect(file[i], &fields, game) == false)
 			return (ft_fprintf(2,"wrong fields"), exit(1));
 		i++;
 	}
-	printf("total fields = %d\n",fields);
+	// printf("total fields = %d\n",fields);
 	if (check_fields(game) == false)
 		return (ft_fprintf(2,"too many fields"), exit(1));
 	valid_map(game ,&file[i]); // i expect /n or map elements  // and get map
