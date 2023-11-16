@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 12:07:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 12:09:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ bool	plus_check(t_data *game, int i, int j)
 	if (game->map[i][j] == '1' || game->map[i][j] == '0' ||
 			game->map[i][j] == game->player_info.direction)
 		return (true);
+	printf("i = %d j = %d, char %c\n", i, j,game->map[i][j]);
 	return (false);
 }
 
