@@ -6,33 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 10:38:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 12:07:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-// static	void	data_loop(t_data *game, char **res, int x, int len)
-// {
-// 	int		y;
-// 	int		comp;
-
-// 	y = 0;
-// 	comp = ft_strlen(res[x]);
-// 	if (res[x][y] != '1')
-// 		exit_msg(2, "Map must be surrounded by walls.", RED, 1);
-// 	while (res[x][++y] && y < comp - 1)
-// 	{
-// 		if ((res[x][y] == '1' || res[x][y] == '0' || res[x][y] == 'P'
-// 				|| res[x][y] == 'C' || res[x][y] == 'E'
-// 				|| res[x][y] == 'T') && len == comp)
-// 			collect_data(game, res[x][y], x, y);
-// 		else
-// 			exit_msg(2, "Unallowed symbole or Map is not Rectangular.", RED, 1);
-// 	}
-// 	if (res[x][y] != '1')
-// 		exit_msg(2, "Map must be surrounded by walls.", RED, 1);
-// }
 
 // bool	white_spaces(char c)
 // {
@@ -48,7 +26,7 @@ bool	directions(char c)
 	return (false);
 }
 
-int		allowed(char c, int *player)
+int		allowed_units(char c, int *player)
 {
 	if (c == '1' || c == '0' || c == ' ')
 		return (0);
@@ -59,10 +37,10 @@ int		allowed(char c, int *player)
 
 char	*repeat_char(char c, int count)
 {
-    char* repeater = malloc(count + 1); // +1 for the null-terminating character
+    char*	repeater = malloc(count + 1);
     if (repeater != NULL) {
-        memset(repeater, c , count);
-        repeater[count] = '\0'; // null-terminating character
+        memset(repeater, c, count);
+        repeater[count] = '\0';
     }
     return repeater;
 }
@@ -80,8 +58,10 @@ static	void	valid_map(t_data *game, char **file) // leaks left
 		// printf("file[%d] = |%s|\n",i,file[i]);
 		while (file[i][j])
 		{
-			if (allowed(file[i][j], &player) == -1)
+			if (allowed_units(file[i][j], &player) == -1)
 				return (ft_fprintf(2,"wrong simbols map"), exit(1));
+			if (player == 1)
+				game->player_info.direction = file[i][j];
 			j++;
 		}
 		if (longest < j)
@@ -99,9 +79,11 @@ static	void	valid_map(t_data *game, char **file) // leaks left
 		// printf("buffer %d \n",buffer);
 		if (buffer > 0)
 			file[i] = ft_strjoin(file[i], repeat_char(' ', buffer));
-		printf("|%s|\n",file[i]);
+		printf("line = %d = |%s|\n", i, file[i]);
 		i++;
 	}
+	game->map_width = longest;
+	game->map_height = i;
 	game->map = file;
 }
 // ft_strlen(file[i]) > padding ? padding = ft_strlen(file[i]) : 0;
@@ -181,16 +163,56 @@ bool	check_fields(t_data *game)
 	if (game->C_Ceiling.content_Nullable == NULL)
 		return (false);
 	return (true);
-	
 }
+
+bool	plus_check(t_data *game, int i, int j)
+{
+	if (game->map[i][j] == '1' || game->map[i][j] == '0' ||
+			game->map[i][j] == game->player_info.direction)
+		return (true);
+	return (false);
+}
+
+bool adbdoul_lewel(char *line)
+{
+	int i;
+	
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1' || line[i] != ' ')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+/// @brief what if map has /n and it got merged cuz of split it happening right now
 
 void 	boundary_check(t_data *game)
 {
-	
+	int i = 1;
+	int j = 0;
 
+	// if (adbdoul_lewel(game->map[i]) == false)
+		
+	while (game->map[i])
+	{
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] == '0')
+			{
+				if (plus_check(game, i + 1, j) == false || plus_check(game, i - 1, j) == false ||
+					plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
+					return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
 	
 }
-
 
 void	world_fields(char **file, t_data  *game) // gets fields alone and retuns the map
 {
