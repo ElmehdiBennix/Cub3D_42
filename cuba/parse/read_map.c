@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 08:54:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:28:20 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*func(char *str)
 {
 	char *trimed = ft_strtrim(&str[2]," ");
 	
-	ft_fprintf(2 ,"we got it = %s\n", trimed);
+	ft_fprintf(2 ,"we got it trimed = |%s|\n", trimed);
 
 	return (trimed);
 }
@@ -65,7 +65,7 @@ char	*func(char *str)
 
 bool	elements_collect(char *line, int  *fields, t_data *game)
 {
-	printf("line = %s\n",line);
+	printf("before line = |%s|\n",line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
 		game->North.content_Nullable = func(line); // increment field
 	else if (line && ft_strncmp(line, "SO ", 3) == 0)
@@ -82,6 +82,7 @@ bool	elements_collect(char *line, int  *fields, t_data *game)
 		;
 	else
 		return (false);
+	printf("\n");
 	(*fields)++;
 	return (true);
 }
@@ -101,7 +102,6 @@ static char	**file_data(int fd) //,t_data *game)
 		free(row);
 	}
 	close(fd);
-	printf(RED"str = %s\n"DEFAULT,str);
 	char **res = ft_split(str, '\n');
 	free (str);
 	if (!res)
@@ -116,6 +116,24 @@ static char	**file_data(int fd) //,t_data *game)
 // 	return (false);
 // }
 
+bool	check_fields(t_data *game)
+{
+	if (game->North.content_Nullable == NULL)
+		return (false);
+	if (game->South.content_Nullable == NULL)
+		return (false);
+	if (game->West.content_Nullable == NULL)
+		return (false);
+	if (game->East.content_Nullable == NULL)
+		return (false);
+	if (game->C_Floor.content_Nullable == NULL)
+		return (false);
+	if (game->C_Ceiling.content_Nullable == NULL)
+		return (false);
+	return (true);
+	
+}
+
 void	world_fields(char **file, t_data  *game) // gets fields alone and retuns the map
 {
 	int fields = 0;
@@ -129,8 +147,10 @@ void	world_fields(char **file, t_data  *game) // gets fields alone and retuns th
 			return (ft_fprintf(2,"wrong fields"), exit(1));
 		i++;
 	}
-	if (fields > 6)
+	printf("total fields = %d\n",fields);
+	if (check_fields(game) == false)
 		return (ft_fprintf(2,"too many fields"), exit(1));
+	valid_map(&file[i], game); // i expect /n or map elements
 
 	
 }
@@ -139,7 +159,7 @@ void	read_map(char *map_name, t_data *game)
 {
 	int		fd;
 	char	*str;
-	char	**file_content;
+	// char	**file_content;
 
 	str = ft_strnstr(map_name, ".cub", ft_strlen(map_name));
 	if (!str || ft_strncmp(str, ".cub", ft_strlen(str)) != 0)
@@ -147,8 +167,7 @@ void	read_map(char *map_name, t_data *game)
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		return (ft_fprintf(2, RED "Error : Failed to open map file." DEFAULT), exit(2));
-	file_content = file_data(fd);
-	// world_fields(file_content, game);
+	world_fields(file_data(fd), game);
 	
 	(void) game;
 	printf(GREEN "DONNNEEEEEEE");

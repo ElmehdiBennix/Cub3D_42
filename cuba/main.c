@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 08:40:02 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:16:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char **av)
     	// 	ft_fprintf(2, "memory allocation failed.");
 		// 	exit(1);
 		// }
+		ft_bzero(&game, sizeof(t_data));
     	read_map(*(++av), &game);
     	// open_window(game);
     	// init_images(game);
