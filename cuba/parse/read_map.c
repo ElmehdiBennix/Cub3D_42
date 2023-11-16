@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 10:37:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 10:38:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 // 		exit_msg(2, "Map must be surrounded by walls.", RED, 1);
 // }
 
-// bool	direction(char c)
+// bool	white_spaces(char c)
 // {
-// 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+// 	if ()
 // 		return (true);
 // 	return (false);
 // }
