@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 10:32:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 10:37:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*repeat_char(char c, int count)
     return repeater;
 }
 
-static	void	valid_map(t_data *game, char **file)
+static	void	valid_map(t_data *game, char **file) // leaks left
 {
 	int i = 0;
 	int j = 0;
@@ -99,9 +99,10 @@ static	void	valid_map(t_data *game, char **file)
 		// printf("buffer %d \n",buffer);
 		if (buffer > 0)
 			file[i] = ft_strjoin(file[i], repeat_char(' ', buffer));
-		// printf("|%s|\n",file[i]);
+		printf("|%s|\n",file[i]);
 		i++;
 	}
+	game->map = file;
 }
 // ft_strlen(file[i]) > padding ? padding = ft_strlen(file[i]) : 0;
 
@@ -183,6 +184,14 @@ bool	check_fields(t_data *game)
 	
 }
 
+void 	boundary_check(t_data *game)
+{
+	
+
+	
+}
+
+
 void	world_fields(char **file, t_data  *game) // gets fields alone and retuns the map
 {
 	int fields = 0;
@@ -200,8 +209,8 @@ void	world_fields(char **file, t_data  *game) // gets fields alone and retuns th
 	if (check_fields(game) == false)
 		return (ft_fprintf(2,"too many fields"), exit(1));
 	valid_map(game ,&file[i]); // i expect /n or map elements  // and get map
-	// padding for the map 
-
+	// padding for the map is done
+	boundary_check(game);
 	
 }
 
