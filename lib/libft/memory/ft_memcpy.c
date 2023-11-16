@@ -6,11 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 07:20:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:42:41 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/13 13:04:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/utils.h"
+#include "../../inc/lib_42.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

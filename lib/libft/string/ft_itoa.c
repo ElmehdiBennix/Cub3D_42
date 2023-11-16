@@ -6,11 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 03:38:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:41:59 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/13 13:04:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/utils.h"
+#include "../../inc/lib_42.h"
 
 static int	len(int nb)
 {

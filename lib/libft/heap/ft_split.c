@@ -6,11 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:52:56 by ebennix           #+#    #+#             */
-/*   Updated: 2023/05/09 21:15:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/13 13:04:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/utils.h"
+#include "../../inc/lib_42.h"
 
 static	int	word_counter(char *str, char delim)
 {

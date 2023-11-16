@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   lib_42.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 22:39:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 07:48:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef lib_42_H
+# define lib_42_H
 
 # include "colors.h"
-# include <errno.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <stdarg.h>
 # include <fcntl.h>
 # include <limits.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-#include <stdbool.h>
+# include <errno.h>
+# include <stdbool.h>
 
 #if !defined(OPEN_MAX)
 #define OPEN_MAX 1024
 #endif // OPEN_MAX
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#if !defined BUFFER_SIZE
+#  define BUFFER_SIZE 1
 # endif
-
 
 int					ft_printchar(int fd, char c);
 int					ft_printstr(int fd, char *c);
@@ -39,6 +38,9 @@ int					ft_printunsigned(int fd, int n);
 int					ft_printnbr(int fd, int n);
 int					ft_hex(int fd, int n, char flag);
 int					ft_fprintf(int fd, const char *str, ...);
+
+char	            *get_next_line(int fd);
+
 
 int					ft_isalpha(char c);
 
@@ -59,5 +61,7 @@ char				*ft_itoa(int n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+char	            *ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	            *ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

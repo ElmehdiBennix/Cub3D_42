@@ -6,11 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:11:15 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 01:30:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/13 13:04:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/utils.h"
+#include "../../inc/lib_42.h"
 
 char	**free2d(char **array)
 {

@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/01 19:48:47 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/16 07:53:55 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,17 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Werror -Wextra 
+CFLAGS := -g -Wall -Wextra 
+# -Werror -Imlx 
 
-HEADER := Mandatory/inc/cub3d.h
+HEADER := cuba/inc/cub3d.h		cuba/inc/structs.h		cuba/inc/defin.h \
 
-FILES := Mandatory/cub3d \
-		 Mandatory/utils/ \
-		 Mandatory/parse/ \
+FILES := cuba/main \
+		 cuba/parse/read_map \
+		#  cuba/cb_utils/check_utils \
+		#  cuba/cb_utils/draw_utils \
+		#cuba/utils/    \
+		#cuba/parse/	\
 
 SRC := $(FILES:=.c)
 
@@ -42,8 +46,10 @@ library:
 $(EXE) : $(OBJ)
 	$(CC)  $(OBJ) $(ARCH) -o $(EXE) -lreadline
 
+# -lmlx -framework OpenGL -o
+
 %.o : %.c $(HEADER) | library
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean :
 	make clean -C lib
@@ -61,6 +67,9 @@ git :
 	git status
 	git commit -m "$(m)"
 	git push
+
+# play : re
+# 	./cub3d 
 
 ########################################################################
 
