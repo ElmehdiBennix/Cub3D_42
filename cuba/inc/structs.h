@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 03:07:19 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:50:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ typedef struct s_elements
 	void	*texture;
 }					t_elements;
 
-// typedef struct s_position
-// {
-// 	int				x;
-// 	int				y;
-// }					t_position;
+typedef struct s_position
+{
+	char			direction;
+	
+	int				x;
+	int				y;
+}					t_position;
 
 typedef struct s_data
 {
@@ -110,8 +112,7 @@ typedef struct s_data
 
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
-	// t_position		p_pos;
-
+	t_position	player_info;
 }					t_data;
 
 #endif

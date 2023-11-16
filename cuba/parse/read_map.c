@@ -6,12 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 09:28:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:47:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
 
 // static	void	data_loop(t_data *game, char **res, int x, int len)
 // {
@@ -35,21 +34,52 @@
 // 		exit_msg(2, "Map must be surrounded by walls.", RED, 1);
 // }
 
-// static	void	valid_map(t_data *game, char **res)
+// bool	direction(char c)
 // {
-// 	int		x;
-// 	int		len;
-
-// 	x = 0;
-// 	len = ft_strlen(res[x]);
-// 	ones_row(res[x]);
-// 	while (res[++x])
-// 		data_loop(game, res, x, len);
-// 	ones_row(res[--x]);
-// 	game->height = ++x;
-// 	game->width = len;
-// 	set_check(game);
+// 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+// 		return (true);
+// 	return (false);
 // }
+
+bool	direction(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (true);
+	return (false);
+}
+
+int	allowed(char c, int *player)
+{
+	if (c == '1' || c == '0' || c == ' ')
+		return (0);
+	else if (direction(c) == true)
+		return ((*player)++ ,1);
+	return (-1);
+}
+
+static	void	valid_map(t_data *game, char **file)
+{
+	int i = 0;
+	int j = 0;
+	unsigned int player = 0;
+	unsigned int padding = 0;
+
+	while (file[i])
+	{
+		while (file[i][j])
+		{
+			if (allowed(file[i][j], &player));
+			
+			j++;
+		}
+		if (padding < j)
+			padding = j;
+		j = 0;
+		i++;
+	}
+
+}
+// ft_strlen(file[i]) > padding ? padding = ft_strlen(file[i]) : 0;
 
 
 char	*func(char *str)
@@ -109,12 +139,7 @@ static char	**file_data(int fd) //,t_data *game)
 	return (res);
 }
 
-// bool	direction(char c)
-// {
-// 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-// 		return (true);
-// 	return (false);
-// }
+
 
 bool	check_fields(t_data *game)
 {
@@ -150,7 +175,8 @@ void	world_fields(char **file, t_data  *game) // gets fields alone and retuns th
 	printf("total fields = %d\n",fields);
 	if (check_fields(game) == false)
 		return (ft_fprintf(2,"too many fields"), exit(1));
-	valid_map(&file[i], game); // i expect /n or map elements
+	valid_map(game ,&file[i]); // i expect /n or map elements  // and get map
+	// padding for the map 
 
 	
 }
