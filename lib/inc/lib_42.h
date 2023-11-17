@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:51:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 20:44:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	            *get_next_line(int fd);
 
 
 int					ft_isalpha(char c);
+int	                ft_isdigit(char c);
 
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

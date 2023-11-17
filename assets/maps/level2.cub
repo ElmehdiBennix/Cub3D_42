@@ -1,12 +1,13 @@
 C 0,19,255
-F 0,128,0
+F 256,1,0
 
 NO ./texture/1c61b0435af5cc9d01a1a3364ae31abc.xpm
 SO ./texture/east.xpm
 EA ./texture/ross-elder-uXQVNkam3hE-unsplash.xpm
 WE ./texture/sprite.xpm
 
-11111111111111
+111111
+100011111111111
 10W000100000001
 10000111111111111111111111
 10000000000000000000110001

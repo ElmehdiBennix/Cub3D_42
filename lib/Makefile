@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/22 04:53:15 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/13 14:38:05 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/17 20:45:20 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ HEADER := ./inc/lib_42.h   ./inc/colors.h
 OBJ_DIR := obj_files
 
 FILES := libft/int/ft_atoi			libft/int/ft_isalpha	 	libft/int/ft_strncmp	   		\
-		 libft/int/ft_strlcpy		libft/int/ft_strlen	  		\
+		 libft/int/ft_strlcpy		libft/int/ft_strlen	  		libft/int/ft_isdigit			\
 		 libft/string/ft_itoa		libft/string/ft_strchr	 	libft/string/ft_strnstr			\
 		 libft/heap/ft_strdup	    libft/heap/ft_split	 		libft/heap/ft_strjoin 	   		\
 		 libft/heap/free2d          libft/heap/ft_strtrim		libft/heap/ft_calloc	   		\

@@ -6,11 +6,52 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 20:13:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:08:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+bool fill_colors(char *RGB ,t_RGB *color)
+{
+	int i = 0;
+	int deco[3];
+
+	char **splited = ft_split(RGB, ',');
+	if (!splited)
+		return (ft_fprintf(2,"failed split"), exit(1), 1);
+	while (splited[i] && i < 3)
+	{
+		deco[i] = atoi(splited[i]);
+		if (deco[i] < 0 || deco[i] > 255)
+			return (ft_fprintf(2,"between 0 and 255"), exit(1), 1);
+		i++;
+	}
+	color->R = deco[0];
+	color->G = deco[1];
+	color->B = deco[2];
+	return (true);
+}
+
+
+static bool	parse_colors(char *RGB)
+{
+	int i = 0;
+	int quote = 0;
+
+	while (RGB[i])
+	{
+		if (ft_isdigit(RGB[i]) == 0 && RGB[i] != ',')
+			return (false);
+		if (RGB[i] == ',')
+			quote++;
+		i++;
+	}
+	if (quote != 2 || (i < 5 || i > 11))
+		return (false);
+	
+	return (true);
+}
 
 static bool	check_fields(t_data *game)
 {
@@ -22,12 +63,15 @@ static bool	check_fields(t_data *game)
 		return (false);
 	if (game->East.content_Nullable == NULL)
 		return (false);
-	if (game->C_Floor.content_Nullable == NULL)
+	if (game->C_Floor.content_Nullable == NULL || parse_colors(game->C_Floor.content_Nullable) == false)
 		return (false);
-	if (game->C_Ceiling.content_Nullable == NULL)
+	if (game->C_Ceiling.content_Nullable == NULL || parse_colors(game->C_Ceiling.content_Nullable) == false)
 		return (false);
+	fill_colors(game->C_Floor.content_Nullable, &game->C_Ceiling);
+	fill_colors(game->C_Ceiling.content_Nullable, &game->C_Floor);
 	return (true);
 }
+
 
 static char	*func(char *str)
 {

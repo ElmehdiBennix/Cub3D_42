@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 19:40:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:09:17 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void 	boundary_check(t_data *game)
 
 	if (adbdoul_lewel(game->map[i]) == false)
 		return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
-		
 	while (game->map[++i] && (unsigned int)i < game->map_height - 1)
 	{
 		while (game->map[i][j])
@@ -74,6 +73,7 @@ void	parser(t_data   *game, char **file)
 {
     ft_bzero(game, sizeof(t_data));
 	game->map = world_fields(file, game); // ef eny fail free bool expressions
+	load_textures(game);
 	valid_map(game); // i expect /n or map elements  // and get map
 	map_padding(game);
 	boundary_check(game);
