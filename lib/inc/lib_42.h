@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 07:48:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:49:02 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include <errno.h>
 # include <stdbool.h>
 
-#if !defined(OPEN_MAX)
-#define OPEN_MAX 1024
-#endif // OPEN_MAX
+// #if !defined(OPEN_MAX)
+// #define OPEN_MAX 1024
+// #endif // OPEN_MAX
 
 #if !defined BUFFER_SIZE
 #  define BUFFER_SIZE 1

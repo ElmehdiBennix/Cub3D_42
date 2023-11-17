@@ -6,84 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:30:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:44:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-bool	directions(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (true);
-	return (false);
-}
-
-int		allowed_units(char c, int *player, t_data *game)
-{
-	if (c == '1' || c == '0' || c == ' ')
-		return (0);
-	else if (directions(c) == true)
-	{
-		game->player_info.direction = c;
-		return ((*player)++ ,1);
-	}
-	return (-1);
-}
-
-bool	plus_check(t_data *game, int i, int j)
-{
-	if (game->map[i][j] == '1' || game->map[i][j] == '0' ||
-			game->map[i][j] == game->player_info.direction)
-		return (true);
-	printf("i = %d j = %d, char %c , player = %c\n", i, j,game->map[i][j],game->player_info.direction);
-	return (false);
-}
-
-bool adbdoul_lewel(char *line)
-{
-	int i;
-	
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '1' && line[i] != ' ')
-		{
-			printf("|%d|\n", line[i]);
-			return (false);
-		}
-		i++;
-	}
-	return (true);
-}
-
-/// @brief what if map has /n and it got merged cuz of split it happening right now
-
-void 	boundary_check(t_data *game)
-{
-	int i = 0;
-	int j = 0;
-
-	if (adbdoul_lewel(game->map[i]) == false)
-		return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
-		
-	while (game->map[++i])
-	{
-		while (game->map[i][j])
-		{
-			if (game->map[i][j] == '0')
-			{
-				if (plus_check(game, i + 1, j) == false || plus_check(game, i - 1, j) == false ||
-					plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
-					return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
-			}
-			j++;
-		}
-		j = 0;
-	}
-}
-
-char	*repeat_char(char c, int count)
+static char	*repeat_char(char c, int count)
 {
     char*	repeater = malloc(count + 1);
     if (repeater != NULL) {
@@ -108,6 +37,34 @@ void map_padding(t_data *game)
 		printf("line = %d = |%s|\n", i, game->map[i]);
 		i++;
 	}
+}
+
+//#######################//#######################//#######################//#######################
+
+static bool	directions(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (true);
+	return (false);
+}
+
+//static bool	white_spaces(char c)
+// {
+// 	if ()
+// 		return (true);
+// 	return (false);
+// }
+
+static int		allowed_units(char c, int *player, t_data *game)
+{
+	if (c == '1' || c == '0' || c == ' ')
+		return (0);
+	else if (directions(c) == true)
+	{
+		game->player_info.direction = c;
+		return ((*player)++ ,1);
+	}
+	return (-1);
 }
 
 void	valid_map(t_data *game) // leaks left

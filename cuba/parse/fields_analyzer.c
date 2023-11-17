@@ -6,13 +6,30 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:29:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:41:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-char	*func(char *str)
+static bool	check_fields(t_data *game)
+{
+	if (game->North.content_Nullable == NULL)
+		return (false);
+	if (game->South.content_Nullable == NULL)
+		return (false);
+	if (game->West.content_Nullable == NULL)
+		return (false);
+	if (game->East.content_Nullable == NULL)
+		return (false);
+	if (game->C_Floor.content_Nullable == NULL)
+		return (false);
+	if (game->C_Ceiling.content_Nullable == NULL)
+		return (false);
+	return (true);
+}
+
+static char	*func(char *str)
 {
 	char *trimed = ft_strtrim(&str[2]," ");
 	
@@ -21,8 +38,7 @@ char	*func(char *str)
 	return (trimed);
 }
 
-
-bool	elements_collect(char *line, int  *fields, t_data *game)
+static bool	elements_collect(char *line, int  *fields, t_data *game)
 {
 	// printf("before line = |%s|\n",line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
@@ -41,23 +57,6 @@ bool	elements_collect(char *line, int  *fields, t_data *game)
 		return (false);
 	// printf("\n");
 	(*fields)++;
-	return (true);
-}
-
-bool	check_fields(t_data *game)
-{
-	if (game->North.content_Nullable == NULL)
-		return (false);
-	if (game->South.content_Nullable == NULL)
-		return (false);
-	if (game->West.content_Nullable == NULL)
-		return (false);
-	if (game->East.content_Nullable == NULL)
-		return (false);
-	if (game->C_Floor.content_Nullable == NULL)
-		return (false);
-	if (game->C_Ceiling.content_Nullable == NULL)
-		return (false);
 	return (true);
 }
 
