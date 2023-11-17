@@ -6,15 +6,15 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:16:42 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:48:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:52:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFIN_H_
 # define DEFIN_H_
 
-# define TRUE 1
-# define FALSE 0
+# define true 1
+# define false 0
 
 
 // # define MAC_W 13
