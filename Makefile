@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/16 12:43:01 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/17 18:35:19 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,12 @@ HEADER := cuba/inc/cub3d.h		cuba/inc/structs.h		cuba/inc/defin.h \
 
 FILES := cuba/main \
 		 cuba/parse/read_map \
-		#  cuba/cb_utils/check_utils \
-		#  cuba/cb_utils/draw_utils \
-		#cuba/utils/    \
-		#cuba/parse/	\
+		 cuba/parse/Ineterpreter \
+		 cuba/parse/fields_analyzer \
+		 cuba/parse/map_evaluator \
+		#  cuba/loader/ 	\
+		#  cuba/tools/parse_tools \
+		#  cuba/tools/free_game \
 
 SRC := $(FILES:=.c)
 
