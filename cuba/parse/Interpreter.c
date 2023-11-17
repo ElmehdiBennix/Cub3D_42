@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 22:09:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:43:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static bool adbdoul_lewel(char *line)
 	}
 	return (true);
 }
-
-/// @brief what if map has /n and it got merged cuz of split it happening right now
 
 void 	boundary_check(t_data *game)
 {
@@ -73,7 +71,6 @@ void	parser(t_data   *game, char **file)
 {
     ft_bzero(game, sizeof(t_data));
 	game->map = world_fields(file, game); // ef eny fail free bool expressions
-	load_textures(game);
 	valid_map(game); // i expect /n or map elements  // and get map
 	map_padding(game);
 	boundary_check(game);

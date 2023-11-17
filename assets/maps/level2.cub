@@ -1,5 +1,5 @@
 C 0,19,255
-F 256,1,0
+F 255,1,044
 
 NO ./texture/1c61b0435af5cc9d01a1a3364ae31abc.xpm
 SO ./texture/east.xpm

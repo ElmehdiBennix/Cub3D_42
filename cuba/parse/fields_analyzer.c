@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 22:08:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:41:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ bool fill_colors(char *RGB ,t_RGB *color)
 	color->B = deco[2];
 	return (true);
 }
-
 
 static bool	parse_colors(char *RGB)
 {

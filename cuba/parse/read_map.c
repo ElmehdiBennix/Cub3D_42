@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 20:31:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:42:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ static char	**file_data(int fd) //,t_data *game)
 		if (row == NULL)
 			break ;
 		if (map_flag == false && (row[0] == ' ' || row[0] == '1' || row[0] == '0'))
-		{
-			// if (!str || str[ft_strlen(str) - 1] != '\n') seg
-			// 	return (ft_fprintf(2 ,"%c == xx line in map\n",str[ft_strlen(str)]),exit(1),NULL);
 			map_flag = true;
-		}
 		if (row[0] == '\n' && map_flag == true)
 			return (ft_fprintf(2 ,"new line in map\n"),exit(1),NULL); // or spaces problem field
 		str = ft_strjoin(str, row);
@@ -46,7 +42,6 @@ char	**read_map(char *map_name)//, t_data *game)
 {
 	int		fd;
 	char	*str;
-	// char	**file_content;
 
 	str = ft_strnstr(map_name, ".cub", ft_strlen(map_name));
 	if (!str || ft_strncmp(str, ".cub", ft_strlen(str)) != 0)
