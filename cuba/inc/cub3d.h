@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:52:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:45:02 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // # include <time.h>
 // # include <mlx.h>
 
-char	**read_map(char *str);
+char	**read_file(char *str);
 void    parser(t_data   *game, char **file);
 
 char	**world_fields(char **file, t_data  *game); // gets fields alone and retuns the map
