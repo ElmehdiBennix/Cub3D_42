@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
+NO ./path_to_the_north_texture     
 SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture 
+EA ./path_to_the_east_texture
 
 F 220,100,0
 C 225,30,0
@@ -30,3 +30,14 @@ C 225,30,0
         loop over spaces wen i find smthing check top line for 1 and bottom line for 1
 
 0 check for all directions if 0 sourended by 1 or another 0 or player 
+
+
+/ new lines they just fuzz the map 
+
+and to check for all the 0s at begining and stuff 
+
+example : 
+
+01111110
+00100001
+01111110

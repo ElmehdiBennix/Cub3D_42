@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:36 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 02:41:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:17:16 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,3 +101,6 @@
 // 	init_images_6(game);
 // 	init_images_7(game);
 // }
+
+
+//so long funcs might use them

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 02:41:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:17:23 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,6 @@
 // 	last = ft_lstlast(game->componets.collectible);
 // 	last->next = game->componets.collectible;
 // }
+
+
+//so long funcs might use them

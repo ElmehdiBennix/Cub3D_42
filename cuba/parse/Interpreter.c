@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_window.c                                      :+:      :+:    :+:   */
+/*   Interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 20:29:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:17:39 by ebennix          ###   ########.fr       */
+/*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
+/*   Updated: 2023/11/17 18:30:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// void	open_window(t_data *game)
+// bool	white_spaces(char c)
 // {
-// 	int	hit;
-// 	int	wid;
-
-// 	hit = 96 * game->height;
-// 	wid = 96 * game->width;
-// 	if (wid > 2980 || hit > 1550)
-// 		exit_msg(2, "Map is valid but its too big for the window.", GREEN, 0);
-// 	game->mlx = mlx_init();
-// 	game->mlx_win = mlx_new_window(game->mlx, wid, hit, "cuba");
+// 	if ()
+// 		return (true);
+// 	return (false);
 // }
 
+// ft_strlen(file[i]) > padding ? padding = ft_strlen(file[i]) : 0;
+
+
+void	parser(t_data   *game, char **file)
+{
+    ft_bzero(game, sizeof(t_data));
+	game->map = world_fields(file, game);
+	valid_map(game); // i expect /n or map elements  // and get map
+	map_padding(game);
+	// padding for the map is done
+	boundary_check(game);
+    
+}

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 09:58:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:16:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,56 +21,15 @@ typedef struct s_list
 
 // typedef struct s_walls
 // {
-// 	void			*top_v1;
-// 	void			*top_v2;
-// 	void			*down_v1;
-// 	void			*down_v2;
-// 	void			*right_v1;
-// 	void			*right_v2;
-// 	void			*left_v1;
-// 	void			*left_v2;
-// 	void			*down_right;
-// 	void			*down_left;
-// 	void			*block_v1;
-// 	void			*block_v2;
-// 	void			*full;
+// 	void			*TEX_NORTH;
+// 	void			*TEX_;
+// 	void			*TEX_WEST;
+// 	void			*TEX_SOUTH;
 
 // 	int				img_width;
 // 	int				img_height;
 // }					t_walls;
 
-// typedef struct s_textures
-// {
-// 	void			*floor;
-// 	void			*bones;
-// 	void			*rocks;
-// 	void			*head_bone;
-// 	void			*web;
-
-// 	int				img_height;
-// 	int				img_width;
-// }					t_textures;
-
-// typedef struct s_componets
-// {
-// 	t_list			*player;
-// 	t_list			*exit;
-// 	t_list			*collectible;
-// 	t_list			*floor_enemy;
-// 	t_list			*wall_enemy;
-// 	t_list			*tmp;
-
-// 	int				enemy_status;
-// 	int				img_height;
-// 	int				img_width;
-// }					t_componets;
-
-// typedef struct s_elements
-// {
-// 	unsigned int	identifiers;
-// 	unsigned int	c_count;
-// 	unsigned int	e_count;
-// }					t_elements;
 
 typedef struct 	s_RGB
 {
