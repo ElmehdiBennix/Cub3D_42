@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:44:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 19:35:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void map_padding(t_data *game)
 
 //#######################//#######################//#######################//#######################
 
-static bool	directions(char c)
+static bool	player_directions(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
@@ -59,7 +59,7 @@ static int		allowed_units(char c, int *player, t_data *game)
 {
 	if (c == '1' || c == '0' || c == ' ')
 		return (0);
-	else if (directions(c) == true)
+	else if (player_directions(c) == true)
 	{
 		game->player_info.direction = c;
 		return ((*player)++ ,1);
@@ -81,7 +81,7 @@ void	valid_map(t_data *game) // leaks left
 		while (game->map[i][j])
 		{
 			if (allowed_units(game->map[i][j], &player, game) == -1)
-				return (ft_fprintf(2,"wrong simbols map"), exit(1));
+				return (ft_fprintf(2,"wrong simbols map or one or more players"), exit(1));
 			j++;
 		}
 		if (longest < j)

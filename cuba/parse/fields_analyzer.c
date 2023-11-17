@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:41:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 20:13:17 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*func(char *str)
 
 static bool	elements_collect(char *line, int  *fields, t_data *game)
 {
-	// printf("before line = |%s|\n",line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
 		game->North.content_Nullable = func(line); // increment field
 	else if (line && ft_strncmp(line, "SO ", 3) == 0)
@@ -73,7 +72,7 @@ char	**world_fields(char **file, t_data  *game) // gets fields alone and retuns 
 			return (ft_fprintf(2,"wrong fields"), exit(1), NULL);
 		i++;
 	}
-	// printf("total fields = %d\n",fields);
+	printf("total fields = %d\n",fields);
 	if (check_fields(game) == false)
 		return (ft_fprintf(2,"too many fields"), exit(1), NULL);
 	return (&file[i]);

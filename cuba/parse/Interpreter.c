@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:56:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 19:40:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void 	boundary_check(t_data *game)
 	if (adbdoul_lewel(game->map[i]) == false)
 		return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
 		
-	while (game->map[++i])
+	while (game->map[++i] && (unsigned int)i < game->map_height - 1)
 	{
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] == '0')
+			if (game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
 			{
 				if (plus_check(game, i + 1, j) == false || plus_check(game, i - 1, j) == false ||
 					plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
@@ -62,6 +62,8 @@ void 	boundary_check(t_data *game)
 		}
 		j = 0;
 	}
+	if (adbdoul_lewel(game->map[i]) == false)
+		return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
 }
 
 //#######################//#######################//#######################//#######################
@@ -75,4 +77,5 @@ void	parser(t_data   *game, char **file)
 	valid_map(game); // i expect /n or map elements  // and get map
 	map_padding(game);
 	boundary_check(game);
+	printf(GREEN"DONE\n");
 }

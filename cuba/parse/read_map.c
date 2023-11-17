@@ -6,23 +6,31 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:17:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/17 20:30:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-
 static char	**file_data(int fd) //,t_data *game)
 {
 	char	*str = NULL; /// loooooollllllllll C never fails to take me sanity away 0_0
 	char	*row;
+	bool	map_flag = false;
 
 	while (true)
 	{
 		row = get_next_line(fd);
 		if (row == NULL)
 			break ;
+		if (map_flag == false && (row[0] == ' ' || row[0] == '1' || row[0] == '0'))
+		{
+			// if (!str || str[ft_strlen(str) - 1] != '\n') seg
+			// 	return (ft_fprintf(2 ,"%c == xx line in map\n",str[ft_strlen(str)]),exit(1),NULL);
+			map_flag = true;
+		}
+		if (row[0] == '\n' && map_flag == true)
+			return (ft_fprintf(2 ,"new line in map\n"),exit(1),NULL); // or spaces problem field
 		str = ft_strjoin(str, row);
 		free(row);
 	}
