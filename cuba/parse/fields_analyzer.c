@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 22:41:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:30:17 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool fill_colors(char *RGB ,t_RGB *color)
 		return (ft_fprintf(2,"failed split"), exit(1), 1);
 	while (splited[i] && i < 3)
 	{
-		deco[i] = atoi(splited[i]);
+		deco[i] = ft_atoi(splited[i]);
 		if (deco[i] < 0 || deco[i] > 255)
 			return (ft_fprintf(2,"between 0 and 255"), exit(1), 1);
 		i++;
@@ -37,16 +37,24 @@ static bool	parse_colors(char *RGB)
 {
 	int i = 0;
 	int quote = 0;
+	bool color_field = false;
 
 	while (RGB[i])
 	{
-		if (ft_isdigit(RGB[i]) == 0 && RGB[i] != ',')
-			return (false);
-		if (RGB[i] == ',')
+		// if (ft_isdigit(RGB[i]) == 0 && RGB[i] != ',')
+		// 	return (false);
+		if (ft_isdigit(RGB[i]) == 1)
+			color_field = true;
+		else if (RGB[i] == ',' && color_field == true)
+		{
 			quote++;
+			color_field = false;
+		}
+		else
+			return (false);
 		i++;
 	}
-	if (quote != 2 || (i < 5 || i > 11))
+	if (color_field == false || quote != 2 || (i < 5 || i > 11)) // 255,255,255
 		return (false);
 	
 	return (true);

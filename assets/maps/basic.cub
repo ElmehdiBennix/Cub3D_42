@@ -1,9 +1,38 @@
 SO ./assets/textures/Brick_10-512x512.xpm
+
+
+
+
+
+
+                            
+                     
 EA ./assets/textures/Metal_08-512x512.xpm
+
+
+
+
 NO ./assets/textures/Stone_14-512x512.xpm
+
+
+
+
 WE ./assets/textures/Metal_08-512x512.xpm
-C 135,206,250
+
+
+
+
+C 135,206,25
+
+
+
+
 F 47,82,65
+
+
+
+
+
         1111111111111111111111111
         1000000110000000000000001
         1011000000E00000000000001

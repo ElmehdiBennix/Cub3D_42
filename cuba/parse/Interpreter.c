@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 22:43:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:32:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	plus_check(t_data *game, int i, int j)
 	return (false);
 }
 
-static bool adbdoul_lewel(char *line)
+bool adbdoul_lewel(char *line)
 {
 	int i;
 	
@@ -43,10 +43,12 @@ void 	boundary_check(t_data *game)
 	int i = 0;
 	int j = 0;
 
-	if (adbdoul_lewel(game->map[i]) == false)
+	if (adbdoul_lewel(game->map[i]) == false) // check for 0 in j
 		return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
 	while (game->map[++i] && (unsigned int)i < game->map_height - 1)
 	{
+		if (game->map[i][0] == '0')
+			return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
 		while (game->map[i][j])
 		{
 			if (game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
@@ -57,7 +59,7 @@ void 	boundary_check(t_data *game)
 			}
 			j++;
 		}
-		j = 0;
+		j = 1;
 	}
 	if (adbdoul_lewel(game->map[i]) == false)
 		return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));

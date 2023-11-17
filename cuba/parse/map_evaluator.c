@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 19:35:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:24:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	valid_map(t_data *game) // leaks left
 		while (game->map[i][j])
 		{
 			if (allowed_units(game->map[i][j], &player, game) == -1)
-				return (ft_fprintf(2,"wrong simbols map or one or more players"), exit(1));
+				return (ft_fprintf(2,"wrong simbols map or one or more players %s\n",game->map[i]), exit(1));
 			j++;
 		}
 		if (longest < j)
