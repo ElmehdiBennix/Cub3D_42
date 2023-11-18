@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 22:44:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:14:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int	main(int ac, char **av)
 	return (0);
 }
 
+// must error messeges are generic and not specific to the error
 
 // empty texture file but the file exists

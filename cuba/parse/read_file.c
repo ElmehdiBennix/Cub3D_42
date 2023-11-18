@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 01:24:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:12:09 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,27 @@ bool map_head(char *line)
 {
 	int i = 0;
 
-	int len = ft_strlen(line);
-	while (line[i] && i < len - 2)
+	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '1' && line[i] != '0')
+		if (line[i] != ' ' && line[i] != '1' && line[i] != '0' && line[i] != '\n')
 			return(false);
 		i++;
 	}
+	// printf("line = %s char = %c\n", line ,line[i]);
 	return(true);
+}
+
+bool spaces(char *line , bool new_line)
+{
+	int i = 0;
+
+	while (line[i] && line[i] == ' ')
+		i++;
+	if (new_line == true && line[i] == '\n')
+		return (true);
+	else if (new_line == false && line[i] == '\0')
+		return (true);
+	return (false);
 }
 
 static char	**file_data(int fd) //,t_data *game)
@@ -37,7 +50,7 @@ static char	**file_data(int fd) //,t_data *game)
 		row = get_next_line(fd);
 		if (row == NULL)
 			break ;
-		if (map_flag == false && map_head(row) == true) // there is problem if trigged flasely
+		if (map_flag == false && spaces(row,true) == false && map_head(row) == true) // there is problem if trigged flasely
 			map_flag = true;
 		else if (row[0] == '\n' && map_flag == true) // not logical
 			return (ft_fprintf(2 ,"new line in map\n"),exit(1),NULL); // or spaces problem field

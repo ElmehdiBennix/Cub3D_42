@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 00:33:01 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 01:43:47 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 char	**read_file(char *str);
 void    parser(t_data   *game, char **file);
 
-bool adbdoul_lewel(char *line);
+bool spaces(char *line ,bool new_line);
 
 
 char	**world_fields(char **file, t_data  *game); // gets fields alone and retuns the map

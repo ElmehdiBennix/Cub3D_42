@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 00:30:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:13:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static char	*func(char *str)
 
 static bool	elements_collect(char *line, int  *fields, t_data *game)
 {
+	printf("line = |%s|\n", line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
 		game->North.content_Nullable = func(line); // increment field
 	else if (line && ft_strncmp(line, "SO ", 3) == 0)
@@ -103,6 +104,8 @@ static bool	elements_collect(char *line, int  *fields, t_data *game)
 		game->C_Floor.content_Nullable = func(line);
 	else if (line && ft_strncmp(line, "C ", 2) == 0)
 		game->C_Ceiling.content_Nullable = func(line);
+	else if (spaces(line , false) == true)
+		return (true);
 	else
 		return (false);
 	// printf("\n");
