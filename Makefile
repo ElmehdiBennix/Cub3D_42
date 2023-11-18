@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/17 22:45:09 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/19 00:30:29 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,17 @@ EXE := cub3d
 
 ARCH := lib/lib_42.a
 
+MLX_ARCH = MLX42/build/libmlx42.a
+
 CC := cc 
 
 CFLAGS := -g -Wall -Wextra 
-# -Werror -Imlx 
+# -Werror 
+
+MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -lglfw
+
+I = -I/Users/${USER}/.brew/Cellar/glfw/3.3.8/include/GLFW
+L = -L/Users/${USER}/.brew/Cellar/glfw/3.3.8/lib
 
 HEADER := cuba/inc/cub3d.h		cuba/inc/structs.h		cuba/inc/defin.h \
 
@@ -45,13 +52,11 @@ all : $(EXE)
 library:
 	make -C lib
 
-$(EXE) : $(OBJ)
-	$(CC)  $(OBJ) $(ARCH) -o $(EXE) -lreadline
-
-# -lmlx -framework OpenGL -o
+$(EXE): $(OBJ)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(ARCH) $(MLX_ARCH) $(L) $(I) -o $(EXE)
 
 %.o : %.c $(HEADER) | library
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $< $(I)
 
 clean :
 	make clean -C lib
