@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 02:53:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:30:57 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ static char	**file_data(int fd) //,t_data *game)
 {
 	char	*str = NULL; /// loooooollllllllll C never fails to take me sanity away 0_0
 	char	*row = NULL;
-	char 	*tmp = NULL;
 	bool	map_flag = false;
 
 	while (true)
 	{
-		while(1);
 		row = get_next_line(fd);
 		if (row == NULL)
 			break ;
@@ -56,8 +54,9 @@ static char	**file_data(int fd) //,t_data *game)
 			map_flag = true;
 		else if (row[0] == '\n' && map_flag == true) // not logical
 			return (ft_fprintf(2 ,"new line in map\n"),exit(1),NULL); // or spaces problem field
-		str = tmp;
-		str = join_em(tmp, row , 3);
+		str = ft_strjoin(str, row);
+		free(row);
+		
 	}
 	close(fd);
 	char **res = ft_split(str, '\n');
