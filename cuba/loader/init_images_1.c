@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:17:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:28:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@
 // 			&game->componets.img_width, &game->componets.img_height));
 // 	last = ft_lstlast(game->componets.collectible);
 // 	last->next = game->componets.collectible;
+// }
+
+// void	init_images(t_data *game)
+// {
+// 	init_images_1(game);
+// 	init_images_2(game);
+// 	init_images_3(game);
+// 	init_images_4(game);
 // }
 
 
