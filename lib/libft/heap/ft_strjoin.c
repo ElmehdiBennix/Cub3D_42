@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 22:11:13 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 10:20:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:52:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,20 @@ char	*ft_strjoin(char *s1, char *s2) // this is mostly used for buffering string
 	while (s2[++data.j])
 		data.str[data.i + data.j] = s2[data.j];
 	return (free_flags(s1, s2, data.flag) ,data.str);
+}
+
+char **join_em(char *s1, char *s2, int free) // free 1 for s1 and 2 for s2 and 0 for none and 3 for both
+{
+	char **str = ft_strjoin(s1,s2);
+	if (flag == 1 || flag == 3)
+	{
+		free(s1);
+		s1 = NULL;
+	}
+	if (flag == 2 || flag == 3)
+	{
+		free(s2);
+		s2 = NULL;
+	}
+	return (str);
 }

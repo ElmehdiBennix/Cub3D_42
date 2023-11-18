@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 21:08:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/13 13:15:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:54:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	*ft_readit(int fd, char *buffer)
 			return (NULL);
 		}
 		row[i] = '\0';
-		buffer = ft_strjoin(buffer, row);
+		buffer = ft_strjoin(buffer, row); // leaking hard
 	}
 	free (row);
 	return (buffer);

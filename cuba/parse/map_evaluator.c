@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 00:24:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:54:35 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void map_padding(t_data *game)
 		padding = game->map_width - ft_strlen(game->map[i]);
 		// printf("padding %d \n",padding);
 		if (padding > 0)
-			game->map[i] = ft_strjoin(game->map[i], repeat_char(' ', padding));
+			game->map[i] = join_em(game->map[i], repeat_char(' ', padding),3);
 		printf("line = %d = |%s|\n", i, game->map[i]);
 		i++;
 	}

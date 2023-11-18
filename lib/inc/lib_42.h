@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 20:44:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/18 02:52:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // #endif // OPEN_MAX
 
 #if !defined BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 32
 # endif
 
 int					ft_printchar(int fd, char c);
@@ -54,6 +54,8 @@ void				*ft_calloc(size_t nelem, size_t size);
 char				**ft_split(char *str, char delim);
 char				*ft_strdup(const char *s);
 char				*ft_strjoin(char *s1, char *s2);
+char                **join_em(char *s1, char *s2, int free); // free 1 for s1 and 2 for s2 and 0 for none and 3 for both
+
 char				*ft_strtrim(char const *s1, char const *set);
 int					ft_atoi(const char *str);
 char				*ft_strchr(const char *s, int c);
