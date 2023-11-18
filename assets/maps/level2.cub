@@ -1,13 +1,12 @@
 
 NO ./texture/1c61b0435af5cc9d01a1a3364ae31abc.xpm
-SO ./texture/east.xpm
 
+SO ./texture/east.xpm
 
 
 F 0,19,255
 
 EA ./texture/ross-elder-uXQVNkam3hE-unsplash.xpm
- 
 
 
 WE ./texture/sprite.xpm
