@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/17 16:50:15 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/19 00:38:59 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <math.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 
 void ft_helper(t_Player *player);
@@ -131,7 +132,7 @@ void	generate3DMap(t_Player *player)
 		float distanceProj = ((float)WIDTH / 2) / tan(FOV_ANGLE / 2);
 		float projectedWAllHeight = (TILE_S / corrDistance) * distanceProj;
 
-		int wallStripHeight = projectedWAllHeight;
+		int wallStripHeight = (int)projectedWAllHeight;
 		int wallTopPixel = (HEIGHT / 2) - (wallStripHeight / 2);
 		wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
 		
@@ -152,11 +153,16 @@ void	generate3DMap(t_Player *player)
 			textOffsetX = (int)player->rays[i].wallHitX % TILE_S;
 
 		y = wallTopPixel;
+		 //int txtnum = player->rays[i].wallHitContent - 1;
 		while (y < wallBottomPixel)
 		{
-			int color = 0x0000FFFF;
-			// int textOffsetY = (y - wallTopPixel) * (TEX_HEIGHT / wallStripHeight);
-			color = player->rays[i].wasHitVertical ? 0x0000FFFF : 0x0000CCCC;
+			//int color = 0x0000FFFF;
+			int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
+			int textOffsetY = distanceFromTop * ((float)TEX_HEIGHT / wallStripHeight);
+			// printf("%s\n", player->text1->pixels);
+			//int color = player->text1[(TEX_WIDTH * textOffsetY) + textOffsetX];
+  			uint32_t color = player->text1->pixels[(TEX_WIDTH * textOffsetY) + textOffsetX];
+			//color = player->rays[i].wasHitVertical ? 0x0000FFFF : 0x0000CCCC;
 			mlx_put_pixel(player->img, i, y, color);
 			y++;
 		}
@@ -197,12 +203,76 @@ void renderPlayer(t_Player *player)
 	// 	i++;
 	// }
 }
-int check_walls(float px, float py)
+
+int is_left_up(t_Player *player)
 {
+	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
+	int isRayFacingUp = !isRayFacingDown;
+	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
+	int isRayFacingLeft = !isRayFacingRight;
+	if (isRayFacingUp && isRayFacingLeft)
+		return 1;
+	return 0;
+}
+int is_right_up(t_Player *player)
+{
+	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
+	int isRayFacingUp = !isRayFacingDown;
+	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
+	if (isRayFacingUp && isRayFacingRight)
+		return 1;
+	return 0;
+}
+int is_left_down(t_Player *player)
+{
+	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
+	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
+	int isRayFacingLeft = !isRayFacingRight;
+	if (isRayFacingDown && isRayFacingLeft)
+		return 1;
+	return 0;
+}
+int is_right_down(t_Player *player)
+{
+	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
+	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
+	if (isRayFacingDown && isRayFacingRight)
+		return 1;
+	return 0;
+}
+int check_walls(t_Player *player, float px, float py)
+{
+	(void)player;
 	if (px < 0 || px > WINDOW_WIDTH || py < 0 || py > WINDOW_HEIGHT)
 		return 0;
 	int mapgridX = floor(px / TILE_S);
 	int mapgridY = floor(py / TILE_S);
+	// if (is_right_up(player))
+	// {
+	// 	if ((map[mapgridY][mapgridX- 1] == 1 && map[mapgridY + 1][mapgridX] == 1))
+	// 		return 0;
+	// }
+	// if (is_right_down(player))
+	// {
+	// 	if ((map[mapgridY][mapgridX- 1] == 1 && map[mapgridY - 1][mapgridX] == 1))
+	// 		return 0;
+	// }
+	// if (is_left_up(player))
+	// {
+	// 	if ((map[mapgridY][mapgridX+ 1] == 1 && map[mapgridY + 1][mapgridX] == 1))
+	// 		return 0;
+	// }
+	// if (is_left_down(player))
+	// {
+	// 	if ((map[mapgridY][mapgridX + 1] == 1 && map[mapgridY - 1][mapgridX] == 1))
+	// 		return 0;
+	// }
+	// if ((map[mapgridY][mapgridX] == 1 && map[mapgridY][mapgridX] == 1))
+	// 	return 0;
+	// int oldX = floor(player->x / TILE_S);
+	// int oldY = floor(player->y / TILE_S);
+	// if ((map[mapgridY][oldX] == 1 && map[oldY][mapgridX] == 1))
+	// 	return 0;
 	return map[mapgridY][mapgridX] != 0;
 }
 
@@ -214,7 +284,7 @@ void ft_update(t_Player *player)
 	float newplayerY = sin(player->rotationA) * movestep;
 	float px = player->x + newplayerX;
 	float py = player->y + newplayerY;
-	if (!check_walls(px, py))
+	if (!check_walls(player, px, py))
 	{
 		player->x = px;
 		player->y = py;
@@ -283,7 +353,7 @@ void	castRay(float rayA, int sId, t_Player *player)
 		float xToCheck = nextHorzTouchX;
 		float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
 
-		if (check_walls(xToCheck, yToCheck))
+		if (check_walls(player, xToCheck, yToCheck))
 		{
 			// found a wall hit
 			horzWallHitX = nextHorzTouchX;
@@ -333,7 +403,7 @@ void	castRay(float rayA, int sId, t_Player *player)
 		float xToCheck = nextVertTouchX + (isRayFacingLeft ? -1 : 0);
 		float yToCheck = nextVertTouchY;
 
-		if (check_walls(xToCheck, yToCheck))
+		if (check_walls(player, xToCheck, yToCheck))
 		{
 			// found a wall hit
 			vertWallHitX = nextVertTouchX;
@@ -479,7 +549,7 @@ int	main()
 	if (!player.mlx)
 		ft_error();
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
-	player.text1 = mlx_load_png("wall1.png");
+	player.text1 = mlx_load_png("wall3.png");
 	if (!player.text1)
 		ft_error();
 	// player.text2 = mlx_load_png("./Downloads/jpg2png/wall2.png");
