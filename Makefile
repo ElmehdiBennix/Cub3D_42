@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/19 00:30:29 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/19 02:05:47 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ FILES := cuba/main \
 		 cuba/parse/Interpreter \
 		 cuba/parse/fields_analyzer \
 		 cuba/parse/map_evaluator \
+		 cuba/graphics/draw \
 		#  cuba/loader/ 	\
 		#  cuba/tools/parse_tools \
 		#  cuba/tools/free_game \

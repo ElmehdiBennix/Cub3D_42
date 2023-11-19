@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 02:14:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 02:07:04 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@ int	main(int ac, char **av)
 {
     t_data	game;
 	
-    if (ac == 2)
-    {
-    	// game = (t_data *)ft_calloc(sizeof(t_data), 1);
-    	// if (!game)
-		// {
-    	// 	ft_fprintf(2, "memory allocation failed.");
-		// 	exit(1);
-		// }
-		parser(&game, read_file(*(++av)));
-    	// open_window(game);
-    	// init_images(game);
-    }
-	ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT);
+    if (ac != 2)
+		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
+	// game = (t_data *)ft_calloc(sizeof(t_data), 1);
+    // if (!game)
+	// {
+    // 	ft_fprintf(2, "memory allocation failed.");
+	// 	exit(1);
+	// }
+    // init_images(game);
+    // open_window(game);
+	parser(&game, read_file(*(++av)));
+	drawing();
 	return (0);
 }
 

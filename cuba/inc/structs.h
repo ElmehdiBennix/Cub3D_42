@@ -6,12 +6,47 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/17 18:16:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 02:04:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H_
 # define STRUCTS_H_
+
+
+typedef struct Ray
+{
+	float rayAngle;
+	float wallHitX;
+	float wallHitY;
+	float distance;
+	int wasHitVertical;
+	int isRayfacingUp;
+	int isRayfacingDown;
+	int isRayfacingleft;
+	int isRayfacingRight;
+	int wallHitContent;
+}	t_Ray[NUM_RAYS];
+
+typedef struct Player
+{
+	float x;
+	float y;
+	float width;
+	float height;
+	int turnD; // -1 for left, +1 for right
+	int walkD; // -1 for back, +1 for front
+	float rotationA; // for retation angle
+	float walkS; // for walk speed
+	float turnS; // for turn speed
+	mlx_t* mlx;
+	mlx_image_t* img;
+	mlx_texture_t* text1;
+	mlx_texture_t* text2;
+	t_Ray rays;
+}	t_Player;
+
+
 
 typedef struct s_list
 {

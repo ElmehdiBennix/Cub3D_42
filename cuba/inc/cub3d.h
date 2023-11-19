@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 01:43:47 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 02:05:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define CUB3D_H_
 
 # include "../../lib/inc/lib_42.h"
+# include "../../MLX42/include/MLX42/MLX42.h"
 # include "../inc/defin.h"
 # include "../inc/structs.h"
+# include <math.h>
 // # include <time.h>
-// # include <mlx.h>
 
 char	**read_file(char *str);
 void    parser(t_data   *game, char **file);
@@ -31,6 +32,7 @@ void    map_padding(t_data *game);
 void 	boundary_check(t_data *game);
 
 // void	open_window(t_data *game);
+int	drawing(void);
 
 // void	*protect_image(void *mlx_ptr, char *filename, int *width, int *height);
 // void	init_images(t_data *game);
