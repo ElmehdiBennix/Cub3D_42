@@ -6,30 +6,50 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 04:33:47 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 20:21:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-void 	draw_cub(t_data *game)
+void 	draw_cub(t_data *game, unsigned char size)
 {
-	int x = 0;
-	int y = 0;
+	unsigned char x = 0;
+	unsigned char y = 0;
 
-	const int cube_size = 50;
-
-	while (y < cube_size + 50 )
+	while (y < size)
 	{
-		while (x < cube_size + 50)
+		while (x < size)
 		{
-			mlx_put_pixel(game->img, x+20, y+20, 0x00FFFFF);
-			printf("x = %d, y = %d\n", x, y);
+			mlx_put_pixel(game->img, x, y, 0x0FFFFFF);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
+}
+
+void	draw_map(t_data *game)
+{
+	int x = 0;
+	int y = 0;
+
+	int size = 15;
+
+	while (game->map[y])
+	{
+		while (game->map[y][x])
+		{
+			if (game->map[y][x] == '1')
+				draw_cub(game,size);
+			size += 15;
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	
+	
 }
 
 int	main(int ac, char **av)
@@ -48,10 +68,11 @@ int	main(int ac, char **av)
     // open_window(game);
 	parser(&game, read_file(*(++av)));
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cuba",false);
-	game.img = mlx_new_image(game.mlx, 500, 500);
+	game.img = mlx_new_image(game.mlx, HEIGHT, WIDTH);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 
-	draw_cub(&game);
+	// draw_cub(&game,15);
+	draw_map(&game);
 	// mlx_put_pixel(game.img, 200, 200, 0xFFFFFFFF);
 
 	// // mlx_key_hook(game.mlx, ft_key, game);
