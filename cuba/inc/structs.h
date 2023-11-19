@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 02:04:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 02:31:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_elements
 {
 	char 	*content_Nullable;
 
-	void	*texture;
+	mlx_texture_t	*texture;
 }					t_elements;
 
 typedef struct s_position
@@ -92,8 +92,7 @@ typedef struct s_position
 
 typedef struct s_data
 {
-	// void			*mlx;
-	// void			*mlx_win;
+	mlx_t			*mlx;
 
 	char			**map;
 	unsigned int	map_height;

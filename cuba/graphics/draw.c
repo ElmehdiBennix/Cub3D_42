@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/19 02:07:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 02:54:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,7 +465,7 @@ void ft_helper(t_Player *player)
 	// end   2
 }
 
-int	drawing(void)
+int	drawing()
 { 
 	t_Player player;
 	// start 0
