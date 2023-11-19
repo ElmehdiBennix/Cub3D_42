@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 21:30:57 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 20:52:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static char	**file_data(int fd) //,t_data *game)
 		
 	}
 	close(fd);
+	printf("str = %s\n", str);
 	char **res = ft_split(str, '\n');
 	free (str);
 	if (!res)

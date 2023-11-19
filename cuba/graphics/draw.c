@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/19 04:15:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 20:40:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,6 +413,7 @@ void	ft_loop(void* param)
 	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
 		ft_error();
 }
+
 void ft_key(mlx_key_data_t keycode, void *param)
 {
 	t_Player *player = param;
@@ -471,7 +472,7 @@ int	drawing()
 	t_Player player;
 	// start 0
 	setup(&player);
-	player.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	player.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (!player.mlx)
 		ft_error();
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
