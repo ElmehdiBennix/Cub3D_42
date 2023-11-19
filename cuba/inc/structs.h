@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 02:31:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 04:18:40 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ typedef struct s_data
 	t_elements		South;
 	t_elements		West;
 	t_elements		East;
+
+	mlx_image_t	*img;
+
 
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;

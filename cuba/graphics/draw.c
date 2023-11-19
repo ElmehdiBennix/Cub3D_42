@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/19 02:58:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/19 04:15:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,6 +396,7 @@ void	ft_loop(void* param)
 	generate3DMap(player);
 	renderMap(player);
 	renderRays(player);
+
 	// renderPlayer(player);
 	//draw_line(player->img, player->x , player->y , player->x + cos(player->rotationA) * 30, player->y + sin(player->rotationA) * 30);
 	// player->img = mlx_new_image(player->mlx, WIDTH, HEIGHT);
