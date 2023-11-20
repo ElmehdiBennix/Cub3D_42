@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/20 02:15:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:09:44 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,40 +81,8 @@ void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile)
 	}
 }
 
-void renderMap(t_Player *player)
-{
-	int i;
-	int j;
 
-	i = 0;
-	while(i < MAP_NUM_ROWS)
-	{
-		j = 0;
-		while(j < MAP_NUM_COLS)
-		{
-			if(map[i][j] == 1)
-				draw_rectangle(player->img, i * TILE_S, j * TILE_S, 0xFFFFFFFF, 32);
-			else if(map[i][j] == 0)
-				draw_rectangle(player->img, i * TILE_S, j * TILE_S, 0x000000FF, 32);
-			j++;
-		}
-		i++;
-	}
-	// if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
-	// 	ft_error();
-}
 
-void	renderRays(t_Player *player)
-{
-	int	i;
-
-	i = 0;
-	while (i < NUM_RAYS)
-	{
-		draw_line(player->img, player->x * MINIMAP, player->y * MINIMAP, player->rays[i].wallHitX * MINIMAP, player->rays[i].wallHitY * MINIMAP);
-		i++;
-	}
-}
 
 void	generate3DMap(t_Player *player)
 {
@@ -385,6 +353,42 @@ void	castAllRays(t_Player *player)
 	}
 }
 
+void	renderRays(t_Player *player)
+{
+	int	i;
+
+	i = 0;
+	while (i < NUM_RAYS)
+	{
+		draw_line(player->img, player->x * MINIMAP, player->y * MINIMAP, player->rays[i].wallHitX * MINIMAP, player->rays[i].wallHitY * MINIMAP);
+		i++;
+	}
+}
+
+void renderMap(t_Player *player)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(i < MAP_NUM_ROWS)
+	{
+		j = 0;
+		while(j < MAP_NUM_COLS)
+		{
+			if(map[i][j] == 1)
+				draw_rectangle(player->img, i * TILE_S, j * TILE_S, 0xFFFFFFFF, 32);
+			else if(map[i][j] == 0)
+				draw_rectangle(player->img, i * TILE_S, j * TILE_S, 0x000000FF, 32);
+			j++;
+		}
+		i++;
+	}
+	// if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
+	// 	ft_error();
+}
+
+
 void	ft_loop(void* param)
 {
 	(void)param;
@@ -395,6 +399,7 @@ void	ft_loop(void* param)
 	castAllRays(player);
 	ft_update(player);
 	generate3DMap(player);
+	
 	renderMap(player);
 	renderRays(player);
 
@@ -479,26 +484,9 @@ int	drawing()
 	if (!player.mlx)
 		ft_error();
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
-	player.text1 = mlx_load_png("./assets/textures/wall1.png");
-	if (!player.text1)
-		ft_error();
-	// player.text2 = mlx_load_png("./Downloads/jpg2png/wall2.png");
-	// if (!player.text2)
-	// 	ft_error();
+
+
+
 	ft_helper(&player);
-	// end   0
-	// // start 1
-	// renderMap(player.img);
-	// renderPlayer(player.img, &player);
-	// 	//renderRays();
-	// // end   1
-	// // start 2
-	// if (!player.img || (mlx_image_to_window(player.mlx, player.img, 0, 0) < 0))
-	// 	ft_error();
-	// mlx_key_hook(player.mlx, ft_key, &player);
-	// mlx_loop_hook(player.mlx, ft_loop, &player);
-	// mlx_loop(player.mlx);
-	// mlx_terminate(player.mlx);
-	// // end   2
 	return (EXIT_SUCCESS);
 }

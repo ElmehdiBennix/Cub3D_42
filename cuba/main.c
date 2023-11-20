@@ -6,19 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 05:05:02 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:15:09 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
-
-
-// #define red 0xFFFF0000
-// #define green 0xFF00FF00
-// #define blue 0xFF0000FF
-// #define yellow 0xFFFFFF00
-// #define white 0xFFFFFFFF
-// #define black 0xFF000000
 
 void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
 {
@@ -80,7 +72,7 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 	printf("h = %d w = %d\n", game->map_height ,game->map_width);
 	printf("##############################\n");
 
-	const int size = 20;
+	const int size = 10;
 
 	int draw_x = 0;
 	int draw_y = 0;
@@ -138,12 +130,13 @@ void	my_drawing(t_data *game)
 	mlx_delete_image(game->mlx, game->img);
 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
-	mini_map(game, 20, 10); // segs becouse of window size
+	mini_map(game, 10, 10); // segs becouse of window size
 
-	// draw_cub(game,20,0,0,0xFFFFFFFF); //0x000000FF // 0x66FFFFFF // 0x0000CCCC // 0xCC6600FF
 
-	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	// while(1);
+	
+	if (!game->img || (mlx_image_to_window(game->mlx, game->img, 0, 0)) < 0)
+		ft_error();
+
 }
 
 void key_hooks(mlx_key_data_t keycode, t_data *game)
@@ -176,6 +169,8 @@ void key_hooks(mlx_key_data_t keycode, t_data *game)
 		exit(EXIT_SUCCESS);
 }
 
+
+
 int	main(int ac, char **av)
 {
     t_data	game;
@@ -185,9 +180,6 @@ int	main(int ac, char **av)
 	parser(&game, read_file(*(++av)));
     // init_images(game);
     // open_window(game);
-
-
-	game.mlx = mlx_init(WIDTH, HEIGHT, "cuba", true);
 
 	mlx_key_hook(game.mlx, (void *)key_hooks, &game);
 	mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
