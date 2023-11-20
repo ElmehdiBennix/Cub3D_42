@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 04:35:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 05:02:29 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,25 +95,25 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
 			{
 				printf("*");
-				draw_cub(game,size,draw_x,draw_y,0xFF000000);
+				draw_cub(game,size,draw_x,draw_y,0x000000FF);
 				// printf("red");
 			}
 			else if (game->map[y][x] == '1')
 			{
 				printf("1");
-				draw_cub(game,size,draw_x,draw_y,0x00FF0000);
+				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
 				// printf("green");
 			}
 			else if (game->map[y][x] == '0')
 			{
 				printf("0");
-				draw_cub(game,size,draw_x,draw_y,0x0000FF00);
+				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
 				// printf("blue");
 			}
 			else if (game->map[y][x] == game->player_info.direction)
 			{
 				printf("P");
-				draw_cub(game,size,draw_x,draw_y,0x000000FF);
+				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
 				// printf("black");
 			}
 			x++;
@@ -134,14 +134,15 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 }
 
 
-
-
 void	my_drawing(t_data *game)
 {
 	mlx_delete_image(game->mlx, game->img);
 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
-	mini_map(game, 20, 20);
+	mini_map(game, 5, 5);
+
+	// draw_cub(game,20,0,0,0xFFFFFFFF); //0x000000FF // 0x66FFFFFF // 0x0000CCCC // 0xCC6600FF
+
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	// while(1);
 }
