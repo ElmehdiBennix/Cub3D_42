@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 04:19:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 04:31:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,25 +95,25 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
 			{
 				printf("*");
-				draw_cub(game,size,draw_x,draw_y,green);
+				draw_cub(game,size,draw_x,draw_y,0xFF000000);
 				// printf("red");
 			}
 			else if (game->map[y][x] == '1')
 			{
 				printf("1");
-				draw_cub(game,size,draw_x,draw_y,red);
+				draw_cub(game,size,draw_x,draw_y,0x00FF0000);
 				// printf("green");
 			}
 			else if (game->map[y][x] == '0')
 			{
 				printf("0");
-				draw_cub(game,size,draw_x,draw_y,blue);
+				draw_cub(game,size,draw_x,draw_y,0x0000FF00);
 				// printf("blue");
 			}
 			else if (game->map[y][x] == game->player_info.direction)
 			{
 				printf("P");
-				draw_cub(game,size,draw_x,draw_y,black);
+				draw_cub(game,size,draw_x,draw_y,0x000000FF);
 				// printf("black");
 			}
 			x++;
@@ -133,6 +133,9 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 	
 }
 
+
+
+
 void	my_drawing(t_data *game)
 {
 	mlx_delete_image(game->mlx, game->img);
@@ -141,6 +144,36 @@ void	my_drawing(t_data *game)
 	mini_map(game, 2, 2);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	// while(1);
+}
+
+void key_hooks(mlx_key_data_t keycode, t_data *game)
+{
+	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_PRESS)
+	{
+		game->map[game->player_info.y][game->player_info.x] = '0';
+		game->player_info.y += -1;
+		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+	}
+	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_PRESS)
+	{
+		game->map[game->player_info.y][game->player_info.x] = '0';
+		game->player_info.y += +1;
+		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+	}
+	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_PRESS)
+	{
+		game->map[game->player_info.y][game->player_info.x] = '0';
+		game->player_info.x += 1;
+		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+	}
+	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_PRESS)
+	{
+		game->map[game->player_info.y][game->player_info.x] = '0';
+		game->player_info.x += -1;
+		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+	}
+	else if (keycode.key == MLX_KEY_ESCAPE)
+		exit(EXIT_SUCCESS);
 }
 
 
@@ -157,7 +190,7 @@ int	main(int ac, char **av)
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cuba", true);
 
-	// mlx_key_hook(game.mlx, (void *)key_hooks, &game);
+	mlx_key_hook(game.mlx, (void *)key_hooks, &game);
 	mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
 
 	mlx_loop(game.mlx);
