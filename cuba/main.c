@@ -6,19 +6,19 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 05:02:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 05:03:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
 
-#define red 0xFFFF0000
-#define green 0xFF00FF00
-#define blue 0xFF0000FF
-#define yellow 0xFFFFFF00
-#define white 0xFFFFFFFF
-#define black 0xFF000000
+// #define red 0xFFFF0000
+// #define green 0xFF00FF00
+// #define blue 0xFF0000FF
+// #define yellow 0xFFFFFF00
+// #define white 0xFFFFFFFF
+// #define black 0xFF000000
 
 void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
 {
@@ -139,7 +139,7 @@ void	my_drawing(t_data *game)
 	mlx_delete_image(game->mlx, game->img);
 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
-	mini_map(game, 5, 5);
+	mini_map(game, 5, 5); // segs becouse of window size
 
 	// draw_cub(game,20,0,0,0xFFFFFFFF); //0x000000FF // 0x66FFFFFF // 0x0000CCCC // 0xCC6600FF
 
