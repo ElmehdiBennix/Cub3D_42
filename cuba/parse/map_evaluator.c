@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 02:54:35 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 03:45:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,16 @@ static bool	player_directions(char c)
 // 	return (false);
 // }
 
-static int		allowed_units(char c, int *player, t_data *game)
+static int		allowed_units(t_data *game, int i, int j, int *player)
 {
+	char c = game->map[i][j];
 	if (c == '1' || c == '0' || c == ' ')
 		return (0);
 	else if (player_directions(c) == true)
 	{
 		game->player_info.direction = c;
+		game->player_info.x = j;
+		game->player_info.y = i;
 		return ((*player)++ ,1);
 	}
 	return (-1);
@@ -80,7 +83,7 @@ void	valid_map(t_data *game) // leaks left
 		// printf("game->map[%d] = |%s|\n",i,game->map[i]);
 		while (game->map[i][j])
 		{
-			if (allowed_units(game->map[i][j], &player, game) == -1)
+			if (allowed_units(game, i, j, &player) == -1)
 				return (ft_fprintf(2,"wrong simbols map or one or more players %s\n",game->map[i]), exit(1));
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/19 20:40:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 02:15:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile)
 		i++;
 	}
 }
+
 void renderMap(t_Player *player)
 {
 	int i;
@@ -420,20 +421,22 @@ void ft_key(mlx_key_data_t keycode, void *param)
 
 	if (keycode.key == MLX_KEY_UP && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->walkD = 1;
-	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_RELEASE)
+	else if (keycode.key == MLX_KEY_UP && keycode.action == MLX_RELEASE)
 		player->walkD = 0;
-	if (keycode.key == MLX_KEY_DOWN && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	else if (keycode.key == MLX_KEY_DOWN && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->walkD = -1;
-	if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_RELEASE)
+	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_RELEASE)
 		player->walkD = 0;
-	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	else if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->turnD = 1;
-	if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
+	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
-	if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	else if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->turnD = -1;
-	if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
+	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
+	else if (keycode.key == MLX_KEY_ESCAPE)
+		exit(EXIT_SUCCESS);
 }
 
 void setup(t_Player *player)

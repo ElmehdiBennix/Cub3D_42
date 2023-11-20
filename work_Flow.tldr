@@ -66,9 +66,9 @@
     {
       "id": "pointer:pointer",
       "typeName": "pointer",
-      "x": 310.5924377441406,
-      "y": 423.18359375,
-      "lastActivityTimestamp": 1700436813143,
+      "x": -739.6323641565434,
+      "y": 667.2903584632685,
+      "lastActivityTimestamp": 1700439261494,
       "meta": {}
     },
     {
@@ -79,8 +79,8 @@
       "typeName": "page"
     },
     {
-      "x": 0,
-      "y": 0,
+      "x": 772.614133718311,
+      "y": -48.11067096326852,
       "z": 1,
       "meta": {},
       "id": "camera:page:page",
@@ -89,8 +89,10 @@
     {
       "editingShapeId": null,
       "croppingShapeId": null,
-      "selectedShapeIds": [],
-      "hoveredShapeId": null,
+      "selectedShapeIds": [
+        "shape:7M7an2fJi1N9SENCfhilS"
+      ],
+      "hoveredShapeId": "shape:7M7an2fJi1N9SENCfhilS",
       "erasingShapeIds": [],
       "hintingShapeIds": [],
       "focusedGroupId": null,
@@ -108,7 +110,7 @@
       "brush": null,
       "scribbles": [],
       "cursor": {
-        "type": "cross",
+        "type": "grab",
         "rotation": 0
       },
       "isFocusMode": false,
@@ -118,7 +120,7 @@
       "screenBounds": {
         "x": 0,
         "y": 0,
-        "w": 694.1666259765625,
+        "w": 738.3333129882812,
         "h": 712.5
       },
       "zoomBrush": null,
@@ -131,7 +133,7 @@
       "isFocused": true,
       "devicePixelRatio": 2.4000000953674316,
       "isCoarsePointer": false,
-      "isHoveringCanvas": true,
+      "isHoveringCanvas": false,
       "openMenus": [],
       "isChangingStyle": false,
       "isReadonly": false,
@@ -2315,6 +2317,167 @@
       },
       "parentId": "page:page",
       "index": "a8",
+      "typeName": "shape"
+    },
+    {
+      "x": -549.6145553588867,
+      "y": 139.6061305999756,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:4kLD1mQfJ4su0lt3KHg6C",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 940.1470947265625,
+        "text": "we have a part of the window that we would like to put an image too with ",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "a9",
+      "typeName": "shape"
+    },
+    {
+      "x": -551.4667510986328,
+      "y": 174.3904323577881,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:VGSJi-0GrXD_1wAykmvce",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 401.13018798828125,
+        "text": "a specific size depending on the ",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "aA",
+      "typeName": "shape"
+    },
+    {
+      "x": -151.90240729403718,
+      "y": 173.9900417327881,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:zXZsnrFuqcvNJVPCwMZr1",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 304.8932189941406,
+        "text": "window width and hight",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "aB",
+      "typeName": "shape"
+    },
+    {
+      "x": -556.3401163843266,
+      "y": 211.55423442457223,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:QAUpMsdob1iOfd7Oicdhj",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 1158.3046875,
+        "text": "and should be rendered in a camera ves player is fixed and map moving under that scale size",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "aC",
+      "typeName": "shape"
+    },
+    {
+      "x": -553.0425242212407,
+      "y": 247.01324931715033,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:PZWwBFxTkM4g6R8xckC4K",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 516.2799072265625,
+        "text": "then maybe add a hud and bullet counter",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "aD",
+      "typeName": "shape"
+    },
+    {
+      "x": -672.4110239771001,
+      "y": 407.1105088386347,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:fuUdGsD_Y-iBdffEvWtCY",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 530.70703125,
+        "text": "render a range then move inside that rage",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "aE",
+      "typeName": "shape"
+    },
+    {
+      "x": -681.0633600977055,
+      "y": 535.4112900886347,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:7M7an2fJi1N9SENCfhilS",
+      "type": "text",
+      "props": {
+        "color": "light-green",
+        "size": "m",
+        "w": 198.1614532470703,
+        "text": "10      x-10  x+10\n\n\n",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "aF",
       "typeName": "shape"
     }
   ]
