@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 04:31:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 04:33:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,25 +148,25 @@ void	my_drawing(t_data *game)
 
 void key_hooks(mlx_key_data_t keycode, t_data *game)
 {
-	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_PRESS)
+	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_PRESS && game->map[game->player_info.y - 1][game->player_info.x] == '0')
 	{
 		game->map[game->player_info.y][game->player_info.x] = '0';
 		game->player_info.y += -1;
 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
 	}
-	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_PRESS)
+	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_PRESS && game->map[game->player_info.y + 1][game->player_info.x] == '0')
 	{
 		game->map[game->player_info.y][game->player_info.x] = '0';
 		game->player_info.y += +1;
 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
 	}
-	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_PRESS)
+	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x + 1] == '0')
 	{
 		game->map[game->player_info.y][game->player_info.x] = '0';
 		game->player_info.x += 1;
 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
 	}
-	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_PRESS)
+	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x - 1] == '0')
 	{
 		game->map[game->player_info.y][game->player_info.x] = '0';
 		game->player_info.x += -1;
