@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 04:33:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 04:35:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	my_drawing(t_data *game)
 	mlx_delete_image(game->mlx, game->img);
 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
-	mini_map(game, 2, 2);
+	mini_map(game, 20, 20);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	// while(1);
 }
