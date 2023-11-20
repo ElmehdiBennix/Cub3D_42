@@ -6,169 +6,184 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 00:15:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:42:44 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
-{
-	int x = 0;
-	int y = 0;
+// static void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
+// {
+// 	int x = 0;
+// 	int y = 0;
 	
-	while (y < size)
-	{
-		while (x < size)
-		{
-			mlx_put_pixel(game->img, _x + x , _y + y, color);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
+// 	while (y < size)
+// 	{
+// 		while (x < size)
+// 		{
+// 			mlx_put_pixel(game->img, _x + x , _y + y, color);
+// 			x++;
+// 		}
+// 		x = 0;
+// 		y++;
+// 	}
+// }
 
- // proportional to the size of the map and move the map with keys
-// instead of the player
-void	draw_map(t_data *game, int size ,int _x, int _y)
-{
-	int x = 0;
-	int y = 0;
+//  // proportional to the size of the map and move the map with keys
+// // instead of the player
+// static void	draw_map(t_data *game, int size ,int _x, int _y)
+// {
+// 	int x = 0;
+// 	int y = 0;
 
-	int moves_x = 0;
-	int moves_y = 0;
+// 	int moves_x = 0;
+// 	int moves_y = 0;
 
-	while (game->map[y])
-	{
-		while (game->map[y][x])
-		{
-			if (game->map[y][x] == '1')
-				draw_cub(game,size,_x+x+moves_x,_y+y+moves_y,0x00FF00FF);
-			else if (game->map[y][x] == '0')
-				draw_cub(game,size,_x+x+moves_x,_y+y+moves_y,0x000000FF);
-			// if (game->map[y][x] == game->player_info.direction)
-			// 	draw_cub(game,2,_x+x+moves_x,_y+y+moves_y); // center the dot draw a cercle
-			x++;
-			moves_x += size;
-		}
-		moves_x = 0;
-		x = 0;
-		y++;
-		moves_y += size;
-	}
-}
+// 	while (game->map[y])
+// 	{
+// 		while (game->map[y][x])
+// 		{
+// 			if (game->map[y][x] == '1')
+// 				draw_cub(game,size,_x+x+moves_x,_y+y+moves_y,0x00FF00FF);
+// 			else if (game->map[y][x] == '0')
+// 				draw_cub(game,size,_x+x+moves_x,_y+y+moves_y,0x000000FF);
+// 			// if (game->map[y][x] == game->player_info.direction)
+// 			// 	draw_cub(game,2,_x+x+moves_x,_y+y+moves_y); // center the dot draw a cercle
+// 			x++;
+// 			moves_x += size;
+// 		}
+// 		moves_x = 0;
+// 		x = 0;
+// 		y++;
+// 		moves_y += size;
+// 	}
+// }
 
-void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
-{
-	int x_distance = x_vis * 2 + 1;
-	int y_distance = y_vis * 2 + 1;
+// static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
+// {
+// 	int x_distance = x_vis * 2 + 1;
+// 	int y_distance = y_vis * 2 + 1;
 
-	int x = game->player_info.x - x_vis;
-	int y = game->player_info.y - y_vis;
+// 	int x = game->player_info.x - x_vis;
+// 	int y = game->player_info.y - y_vis;
 
-	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
-	printf("X = %d Y = %d\n", x ,y);
-	printf("h = %d w = %d\n", game->map_height ,game->map_width);
-	printf("##############################\n");
+// 	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
+// 	printf("X = %d Y = %d\n", x ,y);
+// 	printf("h = %d w = %d\n", game->map_height ,game->map_width);
+// 	printf("##############################\n");
 
-	const int size = 10;
+// 	const int size = 10;
 
-	int draw_x = 0;
-	int draw_y = 0;
+// 	int draw_x = 0;
+// 	int draw_y = 0;
 	
-	int count = 0;
+// 	int count = 0;
 	
-	while (y_distance)
-	{
-		printf("line %d = ", count);
-		while (x_distance)
-		{
-			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
-			{
-				printf("*");
-				draw_cub(game,size,draw_x,draw_y,0x000000FF);
-				// printf("red");
-			}
-			else if (game->map[y][x] == '1')
-			{
-				printf("1");
-				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
-				// printf("green");
-			}
-			else if (game->map[y][x] == '0')
-			{
-				printf("0");
-				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
-				// printf("blue");
-			}
-			else if (game->map[y][x] == game->player_info.direction)
-			{
-				printf("P");
-				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
-				// printf("black");
-			}
-			x++;
-			draw_x += size;
-			x_distance--;
-		}
-		printf(" || x = %d y = %d", x, y);
-		printf("\n");
-		count++;
-		x = game->player_info.x - x_vis;
-		y++;
-		draw_x = 0;
-		draw_y += size;
-		x_distance = x_vis * 2 + 1;
-		y_distance--;
-	}
+// 	while (y_distance)
+// 	{
+// 		printf("line %d = ", count);
+// 		while (x_distance)
+// 		{
+// 			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
+// 			{
+// 				printf("*");
+// 				draw_cub(game,size,draw_x,draw_y,0x000000FF);
+// 				// printf("red");
+// 			}
+// 			else if (game->map[y][x] == '1')
+// 			{
+// 				printf("1");
+// 				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
+// 				// printf("green");
+// 			}
+// 			else if (game->map[y][x] == '0')
+// 			{
+// 				printf("0");
+// 				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
+// 				// printf("blue");
+// 			}
+// 			else if (game->map[y][x] == game->player_info.direction)
+// 			{
+// 				printf("P");
+// 				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
+// 				// printf("black");
+// 			}
+// 			x++;
+// 			draw_x += size;
+// 			x_distance--;
+// 		}
+// 		printf(" || x = %d y = %d", x, y);
+// 		printf("\n");
+// 		count++;
+// 		x = game->player_info.x - x_vis;
+// 		y++;
+// 		draw_x = 0;
+// 		draw_y += size;
+// 		x_distance = x_vis * 2 + 1;
+// 		y_distance--;
+// 	}
 	
-}
+// }
 
-void	my_drawing(t_data *game)
-{
-	mlx_delete_image(game->mlx, game->img);
-	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
-	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
-	mini_map(game, 10, 10); // segs becouse of window size
+// static void	my_drawing(t_data *game)
+// {
+// 	mlx_delete_image(game->mlx, game->img);
+// 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
+// 	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
+// 	mini_map(game, 10, 10); // segs becouse of window size
 
 
 	
-	if (!game->img || (mlx_image_to_window(game->mlx, game->img, 0, 0)) < 0)
-		ft_error();
+// 	// if (!game->img || (mlx_image_to_window(game->mlx, game->img, 0, 0)) < 0)
+// 	// 	ft_error();
 
-}
+// }
 
-void key_hooks(mlx_key_data_t keycode, t_data *game)
-{
-	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_PRESS && game->map[game->player_info.y - 1][game->player_info.x] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.y += -1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_PRESS && game->map[game->player_info.y + 1][game->player_info.x] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.y += +1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x + 1] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.x += 1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x - 1] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.x += -1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_ESCAPE)
-		exit(EXIT_SUCCESS);
-}
+// static void key_hooks(mlx_key_data_t keycode, t_data *game)
+// {
+// 	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_PRESS && game->map[game->player_info.y - 1][game->player_info.x] == '0')
+// 	{
+// 		game->map[game->player_info.y][game->player_info.x] = '0';
+// 		game->player_info.y += -1;
+// 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+// 	}
+// 	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_PRESS && game->map[game->player_info.y + 1][game->player_info.x] == '0')
+// 	{
+// 		game->map[game->player_info.y][game->player_info.x] = '0';
+// 		game->player_info.y += +1;
+// 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+// 	}
+// 	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x + 1] == '0')
+// 	{
+// 		game->map[game->player_info.y][game->player_info.x] = '0';
+// 		game->player_info.x += 1;
+// 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+// 	}
+// 	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x - 1] == '0')
+// 	{
+// 		game->map[game->player_info.y][game->player_info.x] = '0';
+// 		game->player_info.x += -1;
+// 		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
+// 	}
+// 	else if (keycode.key == MLX_KEY_ESCAPE)
+// 		exit(EXIT_SUCCESS);
+// }
 
+
+// static void setup(t_Player *player)
+// {
+// 	player->x = 0;
+// 	player->y = 0;
+
+// 	player->width = 5;
+// 	player->height = 5;
+
+// 	player->turnD = 0;
+// 	player->walkD = 0;
+// 	player->rotationA = M_PI / 2;
+// 	player->walkS = 1;
+// 	player->turnS = 2 * (M_PI / 180);
+// }
 
 
 int	main(int ac, char **av)
@@ -181,11 +196,11 @@ int	main(int ac, char **av)
     // init_images(game);
     // open_window(game);
 
-	mlx_key_hook(game.mlx, (void *)key_hooks, &game);
-	mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
+	// mlx_key_hook(game.mlx, (void *)key_hooks, &game);
+	// mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
 
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
+	// mlx_loop(game.mlx);
+	// mlx_terminate(game.mlx);
 
 	// merged 
 	// drawing();

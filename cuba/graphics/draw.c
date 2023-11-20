@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/21 00:09:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:42:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 void ft_helper(t_Player *player);
 
-void ft_error(void)
-{
-	perror(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
+
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -80,9 +76,6 @@ void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile)
 		i++;
 	}
 }
-
-
-
 
 void	generate3DMap(t_Player *player)
 {
@@ -446,8 +439,8 @@ void ft_key(mlx_key_data_t keycode, void *param)
 
 void setup(t_Player *player)
 {
-	player->x = 200;
-	player->y = 170;
+	player->x = TILE_S + (TILE_S / 2); // tile size mine 
+	player->y = TILE_S + (TILE_S / 2); // tile size mine 
 	player->width = 5;
 	player->height = 5;
 	player->turnD = 0;
@@ -484,9 +477,26 @@ int	drawing()
 	if (!player.mlx)
 		ft_error();
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
-
-
-
+	player.text1 = mlx_load_png("./assets/textures/wall1.png");
+	if (!player.text1)
+		ft_error();
+	// player.text2 = mlx_load_png("./Downloads/jpg2png/wall2.png");
+	// if (!player.text2)
+	// 	ft_error();
 	ft_helper(&player);
+	// end   0
+	// // start 1
+	// renderMap(player.img);
+	// renderPlayer(player.img, &player);
+	// 	//renderRays();
+	// // end   1
+	// // start 2
+	// if (!player.img || (mlx_image_to_window(player.mlx, player.img, 0, 0) < 0))
+	// 	ft_error();
+	// mlx_key_hook(player.mlx, ft_key, &player);
+	// mlx_loop_hook(player.mlx, ft_loop, &player);
+	// mlx_loop(player.mlx);
+	// mlx_terminate(player.mlx);
+	// // end   2
 	return (EXIT_SUCCESS);
 }

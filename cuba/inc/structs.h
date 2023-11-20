@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 04:18:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:37:29 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,47 @@ typedef struct s_position
 	int				y;
 }					t_position;
 
+typedef struct s_state
+{
+	float x;
+	float y;
+	float width;
+	float height;
+	int turnD; // -1 for left, +1 for right
+	int walkD; // -1 for back, +1 for front
+	float rotationA; // for retation angle
+	float walkS; // for walk speed
+	float turnS; // for turn speed
+	
+} t_state;
+
 typedef struct s_data
 {
 	mlx_t			*mlx;
+	int				win_width;
+	int				win_height;
 
 	char			**map;
 	unsigned int	map_height;
 	unsigned int	map_width;
+	t_position		player_info;
+
+	t_state			player;
 
 	t_elements		North;
 	t_elements		South;
 	t_elements		West;
 	t_elements		East;
 
-	mlx_image_t	*img;
-
-
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
-	t_position	player_info;
+	
+	mlx_image_t		*HUD_Frame;
+	mlx_image_t		*img1;
+	mlx_image_t		*img2;
+	mlx_image_t		*img3;
+
+	t_Ray rays;
 }					t_data;
 
 #endif

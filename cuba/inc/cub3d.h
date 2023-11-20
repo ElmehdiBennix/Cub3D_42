@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 02:05:56 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:39:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 char	**read_file(char *str);
 void    parser(t_data   *game, char **file);
 
-bool spaces(char *line ,bool new_line);
+bool    spaces(char *line ,bool new_line);
 
 
 char	**world_fields(char **file, t_data  *game); // gets fields alone and retuns the map
@@ -32,16 +32,9 @@ void    map_padding(t_data *game);
 void 	boundary_check(t_data *game);
 
 // void	open_window(t_data *game);
-int	drawing(void);
+int     drawing(void);
 
-// void	*protect_image(void *mlx_ptr, char *filename, int *width, int *height);
-// void	init_images(t_data *game);
-// void	init_images_1(t_data *game);
-// void	init_images_2(t_data *game);
-// void	init_images_3(t_data *game);
-// void	init_images_4(t_data *game);
+void    ft_error(void);
 
-// void	free_game(t_data *game);
-// int	exit_game(t_data *game);
 
 #endif

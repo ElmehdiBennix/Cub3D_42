@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/16 02:41:10 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:16:02 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,9 @@
 // 	exit_msg(1, "Quit.", YELLOW, 0);
 // 	return (0);
 // }
+
+void ft_error(void)
+{
+	perror(mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
+}

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:16:42 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 02:30:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:30:17 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@
 # define HEIGHT 1000
 
 # define TILE_S 32
-# define MAP_NUM_ROWS 12
-# define MAP_NUM_COLS 20
+
+
+# define MAP_NUM_ROWS 12 // mine 
+# define MAP_NUM_COLS 20 // mine 
+
 
 # define MINIMAP 0.5
 
-# define WINDOW_WIDTH (MAP_NUM_COLS * TILE_S)
-# define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_S)
+# define WINDOW_WIDTH (MAP_NUM_COLS * TILE_S) // add to stuct
+# define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_S) // add to stuct
 
 # define NUM_RAYS WIDTH
 
