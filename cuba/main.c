@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 04:00:06 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/20 04:19:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ void	draw_map(t_data *game, int size ,int _x, int _y)
 void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
 {
 	int x_distance = x_vis * 2 + 1;
-	int y_distance = x_vis * 2 + 1;
+	int y_distance = y_vis * 2 + 1;
 
 	int x = game->player_info.x - x_vis;
 	int y = game->player_info.y - y_vis;
 
 	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
+	printf("X = %d Y = %d\n", x ,y);
+	printf("h = %d w = %d\n", game->map_height ,game->map_width);
 	printf("##############################\n");
 
 	const int size = 20;
@@ -90,16 +92,16 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 		printf("line %d = ", count);
 		while (x_distance)
 		{
-			if (x < 0 || y < 0)
+			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
 			{
 				printf("*");
-				draw_cub(game,size,draw_x,draw_y,red);
+				draw_cub(game,size,draw_x,draw_y,green);
 				// printf("red");
 			}
 			else if (game->map[y][x] == '1')
 			{
 				printf("1");
-				draw_cub(game,size,draw_x,draw_y,green);
+				draw_cub(game,size,draw_x,draw_y,red);
 				// printf("green");
 			}
 			else if (game->map[y][x] == '0')
@@ -117,8 +119,8 @@ void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // dr
 			x++;
 			draw_x += size;
 			x_distance--;
-			// printf(" || x = %d y = %d\n", x, y);
 		}
+		printf(" || x = %d y = %d", x, y);
 		printf("\n");
 		count++;
 		x = game->player_info.x - x_vis;
@@ -136,7 +138,7 @@ void	my_drawing(t_data *game)
 	mlx_delete_image(game->mlx, game->img);
 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 	// draw_map(game,16,20,20); // cant resize to a minimun set and maximum set
-	mini_map(game, 5, 5);
+	mini_map(game, 2, 2);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	// while(1);
 }
