@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 08:40:47 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 09:44:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static char	**file_data(int fd)
 		str = join_em(str, row, 3);
 	}
 	close(fd);
-	fprintf(stderr, "%s", str);
 	char **res = ft_split(str, '\n');
 	free (str);
 	if (!res)

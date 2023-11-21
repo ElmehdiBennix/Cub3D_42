@@ -6,13 +6,12 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:38:42 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:03:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H_
 # define STRUCTS_H_
-
 
 typedef struct Ray
 {
@@ -112,9 +111,9 @@ typedef struct s_data
 	t_RGB		C_Ceiling;
 	
 	mlx_image_t		*HUD_Frame;
-	mlx_image_t		*img1;
-	mlx_image_t		*img2;
-	mlx_image_t		*img3;
+	// mlx_image_t		*img1;
+	// mlx_image_t		*img2;
+	// mlx_image_t		*img3;
 
 	t_Ray rays;
 }					t_data;
