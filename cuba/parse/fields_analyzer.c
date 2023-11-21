@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:27:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 04:33:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ static bool fill_colors(char *RGB ,t_RGB *color)
 	{
 		deco[i] = ft_atoi(splited[i]);
 		if (deco[i] < 0 || deco[i] > 255)
-			return (free2d(splited),false);
+			return (free2d(splited), free(splited) ,false);
 		i++;
 	}
 	color->R = deco[0];
 	color->G = deco[1];
 	color->B = deco[2];
 	free2d(splited);
+	free(splited);
 	return (true);
 }
 
@@ -60,13 +61,13 @@ static bool	parse_colors(char *RGB)
 
 static bool	check_fields(t_data *game)  // only top 6 values are readed else smthing will stay NULL
 {
-	if (game->North.content_Nullable == NULL || init_textures(game->North.content_Nullable ,game->North.texture) == false)
+	if (game->North.content_Nullable == NULL || init_textures(game->North.content_Nullable ,&(game->North.texture)) == false)
 		return (ft_fprintf(2,"Error : Failed to read North texture.\n"), false);
-	if (game->South.content_Nullable == NULL || init_textures(game->South.content_Nullable ,game->South.texture) == false)
+	if (game->South.content_Nullable == NULL || init_textures(game->South.content_Nullable ,&(game->South.texture)) == false)
 		return (ft_fprintf(2,"Error : Failed to read South texture.\n"), false);
-	if (game->West.content_Nullable == NULL || init_textures(game->West.content_Nullable ,game->West.texture) == false)
+	if (game->West.content_Nullable == NULL || init_textures(game->West.content_Nullable ,&(game->West.texture)) == false)
 		return (ft_fprintf(2,"Error : Failed to read West texture.\n"), false);
-	if (game->East.content_Nullable == NULL || init_textures(game->East.content_Nullable ,game->East.texture) == false)
+	if (game->East.content_Nullable == NULL || init_textures(game->East.content_Nullable ,&(game->East.texture)) == false)
 		return (ft_fprintf(2,"Error : Failed to read East texture.\n"), false);
 	if (game->C_Floor.content_Nullable == NULL || parse_colors(game->C_Floor.content_Nullable) == false)
 		return (ft_fprintf(2,"Error : Failed to parse Floor color.\n"), false);
@@ -93,16 +94,16 @@ static bool	collect_fields(char *line, int  *fields, t_data *game)
 	else if (line && ft_strncmp(line, "C ", 2) == 0)
 		game->C_Ceiling.content_Nullable = ft_strtrim(&line[1]," ");
 	else if (spaces(line , false) == true)
-		return (free(line) ,true);
+		return (free(line), true);
 	else
 		return (false);
 	// printf("\n");
-	free (line);
+	free(line);
 	(*fields)++;
 	return (true);
 }
 
-char	**world_fields(char **file, t_data  *game) // leaks free
+char	**world_fields(char **file, t_data  *game)
 {
 	int fields = 0;
 	unsigned int i = 0;
@@ -114,7 +115,7 @@ char	**world_fields(char **file, t_data  *game) // leaks free
 		i++;
 	}
 	if (check_fields(game) == false)
-		return (free2d(&file[i]), free_fields(game),free_texture(game), exit(1), NULL);
+		return (free2d(&file[i]), free(file) ,free_fields(game), free_texture(game), exit(1), NULL);
 	free_fields(game);
 	return (&file[i]);
-} // free textures
+}

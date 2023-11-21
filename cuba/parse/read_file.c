@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:34:56 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 08:40:47 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	map_head(char *line)
 
 static char	**file_data(int fd)
 {
-	char	*str = NULL; /// loooooollllllllll C never fails to take me sanity away 0_0
+	char	*str = NULL;
 	char	*row = NULL;
 	bool	map_flag = false;
 
@@ -56,6 +56,7 @@ static char	**file_data(int fd)
 		str = join_em(str, row, 3);
 	}
 	close(fd);
+	fprintf(stderr, "%s", str);
 	char **res = ft_split(str, '\n');
 	free (str);
 	if (!res)

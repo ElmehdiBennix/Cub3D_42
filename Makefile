@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/21 03:13:19 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/21 03:48:37 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,9 @@ FILES := cuba/main \
 		 cuba/parse/Interpreter \
 		 cuba/parse/fields_analyzer \
 		 cuba/parse/map_evaluator \
+		 cuba/loader/init_textures \
 		 cuba/graphics/draw \
 		 cuba/tools/free_game \
-		 cuba/loader/init_textures \
-		#  cuba/tools/parse_tools \
 
 SRC := $(FILES:=.c)
 
@@ -79,3 +78,6 @@ git :
 ########################################################################
 
 .PHONY : all clean fclean re git
+
+
+# if i change smthing in lib it dosnt remake fix it later

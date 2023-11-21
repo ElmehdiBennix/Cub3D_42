@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:32:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 08:54:44 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void 	boundary_check(t_data *game)
 	}
 	if (first_line(game->map[i]) == false)
 		return (ft_fprintf(2,"Error : map must be surrounded by walls."),free_texture(game), free2d(game->map), exit(1));
-} // free map and textures
+}
 
 //#######################//#######################//#######################//#######################
 
@@ -71,7 +71,4 @@ void	parser(t_data   *game, char **file)
 	valid_map(game);
 	map_padding(game);
 	boundary_check(game);
-	
-	printf(GREEN "DDONE \n");
-	while(1);
 }

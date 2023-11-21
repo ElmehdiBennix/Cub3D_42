@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 00:42:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 08:55:06 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@
 // }
 
 // static void	my_drawing(t_data *game)
+
+
 // {
 // 	mlx_delete_image(game->mlx, game->img);
 // 	game->img = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
@@ -186,13 +188,20 @@
 // }
 
 
+// void f()
+// {
+// 	system("leaks cub3d");
+// }
+
 int	main(int ac, char **av)
 {
     t_data	game;
 	
     if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
+	// atexit(f);
 	parser(&game, read_file(*(++av)));
+	
     // init_images(game);
     // open_window(game);
 

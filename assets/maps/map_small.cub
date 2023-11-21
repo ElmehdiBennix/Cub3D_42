@@ -3,9 +3,9 @@ NO ./assets/textures/wall1.png
 
 SO ./assets/textures/wall1.png
 WE ./assets/textures/wall1.png
-EA ./assets/textures/wall1.pngx
+EA ./assets/textures/wall1.png
 
-F 124,142,12
+F 124,142,122
 C 12,220,125
 
 111111111111111111111

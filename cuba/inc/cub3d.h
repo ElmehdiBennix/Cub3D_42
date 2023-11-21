@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:38:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 04:28:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void 	boundary_check(t_data *game);
 int     drawing(void);
 
 
-bool    init_textures(char *content ,void   *texture);
+bool    init_textures(char *content ,mlx_texture_t   **texture);
 
 
 
