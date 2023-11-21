@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 02:10:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:13:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static bool fill_colors(char *RGB ,t_RGB *color)
 	{
 		deco[i] = ft_atoi(splited[i]);
 		if (deco[i] < 0 || deco[i] > 255)
-			return (false);
+			return (free2d(splited),false);
 		i++;
 	}
 	color->R = deco[0];
 	color->G = deco[1];
 	color->B = deco[2];
+	free2d(splited);
 	return (true);
 }
 
@@ -71,7 +72,7 @@ static bool	check_fields(t_data *game)  // only top 6 values are readed else smt
 		return (ft_fprintf(2,"Error : Failed to parse Floor color.\n"), false);
 	if (game->C_Ceiling.content_Nullable == NULL || parse_colors(game->C_Ceiling.content_Nullable) == false)
 		return (ft_fprintf(2,"Error : Failed to parse ceiling color.\n"), false);
-	if (fill_colors(game->C_Floor.content_Nullable, &game->C_Ceiling) == false || fill_colors(game->C_Ceiling.content_Nullable, &game->C_Floor) == flase )
+	if (fill_colors(game->C_Floor.content_Nullable, &game->C_Ceiling) == false || fill_colors(game->C_Ceiling.content_Nullable, &game->C_Floor) == false)
 		return (ft_fprintf(2,"Error : RGB values between 0 && 255.\n"), false);
 	return (true);
 }
@@ -101,21 +102,7 @@ static bool	collect_fields(char *line, int  *fields, t_data *game)
 	return (true);
 }
 
-void	free_fields(t_data *game)
-{
-	free(game->North.content_Nullable);
-	game->North.content_Nullable = NULL;
-	free(game->South.content_Nullable);
-	game->South.content_Nullable = NULL;
-	free(game->West.content_Nullable);
-	game->West.content_Nullable = NULL;
-	free(game->East.content_Nullable);
-	game->East.content_Nullable = NULL;
-	free(game->C_Floor.content_Nullable);
-	game->C_Floor.content_Nullable = NULL;
-	free(game->C_Ceiling.content_Nullable);
-	game->C_Ceiling.content_Nullable = NULL;
-}
+
 
 char	**world_fields(char **file, t_data  *game) // leaks free
 {
@@ -129,7 +116,7 @@ char	**world_fields(char **file, t_data  *game) // leaks free
 		i++;
 	}
 	if (check_fields(game) == false)
-		return (free2d(&file[i]) ,free_fields(game), exit(1), NULL);
+		return (free2d(&file[i]) ,free_fields(game),free_texture(game), exit(1), NULL);
 	free_fields(game);
 	return (&file[i]);
-}
+} // free textures

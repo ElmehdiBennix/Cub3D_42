@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 02:24:02 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:10:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ static bool		allowed_units(t_data *game, int i, int j, int *player)
 	return (false);
 }
 
+
 void	valid_map(t_data *game) // leaks left
 {
 	int i = 0;
 	int j = 0;
 	int longest = 0;
-	unsigned int player = 0;
+	int player = 0;
 
 	while (game->map[i])
 	{
@@ -76,7 +77,7 @@ void	valid_map(t_data *game) // leaks left
 		while (game->map[i][j])
 		{
 			if (allowed_units(game, i, j, &player) == false)
-				return (ft_fprintf(2,"Error : Wrong symbole '%c' .\n -> Map symboles :'1' '0' 'W','S','N','E'\n",game->map[i][j]), free2d(game->map), exit(1));
+				return (ft_fprintf(2,"Error : Wrong symbole '%c' .\n -> Map symboles :'1' '0' 'W','S','N','E'\n",game->map[i][j]),free_texture(game), free2d(game->map), exit(1));
 			j++;
 		}
 		if (longest < j)
@@ -85,7 +86,7 @@ void	valid_map(t_data *game) // leaks left
 		i++;
 	}
 	if (player != 1)
-		return (ft_fprintf(2,"Error : One player is allowed .\n -> Player symboles : 'W','S','N','E'\n"), free2d(game->map), exit(1));
+		return (ft_fprintf(2,"Error : One player is allowed .\n -> Player symboles : 'W','S','N','E'\n"),free_texture(game), free2d(game->map), exit(1));
 	game->map_width = longest;
 	game->map_height = i;
 }
