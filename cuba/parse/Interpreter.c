@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 01:22:56 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:31:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 static bool	plus_check(t_data *game, int i, int j)
 {
-	if (game->map[i][j] == '1' || game->map[i][j] == '0' ||
-			game->map[i][j] == game->player_info.direction)
+	if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
 		return (true);
 	printf("i = %d j = %d, char %c , player = %c\n", i, j,game->map[i][j],game->player_info.direction);
 	return (false);
 }
 
-bool adbdoul_lewel(char *line)
+static bool adbdoul_lewel(char *line)
 {
 	int i;
 	
@@ -29,10 +28,7 @@ bool adbdoul_lewel(char *line)
 	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != ' ')
-		{
-			printf("|%d|\n", line[i]);
 			return (false);
-		}
 		i++;
 	}
 	return (true);
@@ -54,7 +50,7 @@ void 	boundary_check(t_data *game)
 			if (game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
 			{
 				if (plus_check(game, i + 1, j) == false || plus_check(game, i - 1, j) == false ||
-					plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
+						plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
 					return (ft_fprintf(2,"map not closed at line %d = |%s|\n",i ,game->map[i]), exit(1));
 			}
 			j++;
@@ -67,16 +63,17 @@ void 	boundary_check(t_data *game)
 
 //#######################//#######################//#######################//#######################
 
-// ft_strlen(file[i]) > padding ? padding = ft_strlen(file[i]) : 0;
-
 void	parser(t_data   *game, char **file)
 {
     ft_bzero(game, sizeof(t_data));
 	game->map = world_fields(file, game); // ef eny fail free bool expressions
 	printf(GREEN "DDONE \n");
 	while(1);
-	valid_map(game); // i expect /n or map elements  // and get map
+	valid_map(game);
 	map_padding(game);
 	boundary_check(game);
+
+
+
 	printf(GREEN"DONE\n");
 }

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 01:22:37 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:46:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ static char	**file_data(int fd)
 		if (map_flag == false && spaces(row, true) == false && map_head(row) == true)
 			map_flag = true;
 		else if (row[0] == '\n' && map_flag == true)
-			return (ft_fprintf(2 ,"new line in map\n"), free(str),exit(1),NULL);
+			return (ft_fprintf(2 ,"Error : new line in map\n"), free(str),exit(1),NULL);
 		str = join_em(str, row, 3);
 	}
 	close(fd);
 	char **res = ft_split(str, '\n');
 	free (str);
 	if (!res)
-		return (ft_fprintf(2 ,"failed to load map\n"),exit(1),NULL);
+		return (ft_fprintf(2 ,"Error : failed to load map\n"),exit(1),NULL);
 	return (res);
 }
 
@@ -76,3 +76,5 @@ char	**read_file(char *map_name)
 		return (ft_fprintf(2, RED "Error : Failed to open map file." DEFAULT), exit(2) , NULL);
 	return (file_data(fd));
 }
+ 
+// leaks free file

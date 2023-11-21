@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/20 03:45:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:29:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*repeat_char(char c, int count)
     return repeater;
 }
 
-void map_padding(t_data *game)
+void	map_padding(t_data *game)
 {
 	int i;
 
@@ -41,13 +41,6 @@ void map_padding(t_data *game)
 
 //#######################//#######################//#######################//#######################
 
-static bool	player_directions(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (true);
-	return (false);
-}
-
 //static bool	white_spaces(char c)
 // {
 // 	if ()
@@ -60,7 +53,7 @@ static int		allowed_units(t_data *game, int i, int j, int *player)
 	char c = game->map[i][j];
 	if (c == '1' || c == '0' || c == ' ')
 		return (0);
-	else if (player_directions(c) == true)
+	else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		game->player_info.direction = c;
 		game->player_info.x = j;
@@ -77,7 +70,6 @@ void	valid_map(t_data *game) // leaks left
 	int longest = 0;
 	int player = 0;
 
-	 // force new map after fields
 	while (game->map[i])
 	{
 		// printf("game->map[%d] = |%s|\n",i,game->map[i]);

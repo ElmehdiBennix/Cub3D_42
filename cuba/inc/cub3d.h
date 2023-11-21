@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 00:39:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:39:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	**world_fields(char **file, t_data  *game); // gets fields alone and retuns
 void	valid_map(t_data *game);
 void    map_padding(t_data *game);
 void 	boundary_check(t_data *game);
+
+bool    init_textures(char *content ,void   *texture);
 
 // void	open_window(t_data *game);
 int     drawing(void);
