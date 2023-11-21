@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/19 20:52:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:22:37 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-bool map_head(char *line)
+bool	map_head(char *line)
 {
 	int i = 0;
 
@@ -22,11 +22,10 @@ bool map_head(char *line)
 			return(false);
 		i++;
 	}
-	// printf("line = %s char = %c\n", line ,line[i]);
 	return(true);
 }
 
-bool spaces(char *line , bool new_line)
+bool	spaces(char *line , bool new_line)
 {
 	int i = 0;
 
@@ -39,7 +38,7 @@ bool spaces(char *line , bool new_line)
 	return (false);
 }
 
-static char	**file_data(int fd) //,t_data *game)
+static char	**file_data(int fd)
 {
 	char	*str = NULL; /// loooooollllllllll C never fails to take me sanity away 0_0
 	char	*row = NULL;
@@ -50,16 +49,13 @@ static char	**file_data(int fd) //,t_data *game)
 		row = get_next_line(fd);
 		if (row == NULL)
 			break ;
-		if (map_flag == false && spaces(row,true) == false && map_head(row) == true) // there is problem if trigged flasely
+		if (map_flag == false && spaces(row, true) == false && map_head(row) == true)
 			map_flag = true;
-		else if (row[0] == '\n' && map_flag == true) // not logical
-			return (ft_fprintf(2 ,"new line in map\n"),exit(1),NULL); // or spaces problem field
-		str = ft_strjoin(str, row);
-		free(row);
-		
+		else if (row[0] == '\n' && map_flag == true)
+			return (ft_fprintf(2 ,"new line in map\n"), free(str),exit(1),NULL);
+		str = join_em(str, row, 3);
 	}
 	close(fd);
-	printf("str = %s\n", str);
 	char **res = ft_split(str, '\n');
 	free (str);
 	if (!res)
@@ -67,7 +63,7 @@ static char	**file_data(int fd) //,t_data *game)
 	return (res);
 }
 
-char	**read_file(char *map_name)//, t_data *game)
+char	**read_file(char *map_name)
 {
 	int		fd;
 	char	*str;
@@ -79,10 +75,4 @@ char	**read_file(char *map_name)//, t_data *game)
 	if (fd < 0)
 		return (ft_fprintf(2, RED "Error : Failed to open map file." DEFAULT), exit(2) , NULL);
 	return (file_data(fd));
-	
-	// (void) game;
-	// printf(GREEN "DONNNEEEEEEE");
 }
-
-// allowed in map 0 1 N S E W 
-// map should be closed with 1s empty spaces are allowed it can be eny shape

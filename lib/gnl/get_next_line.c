@@ -6,11 +6,40 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 21:08:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 02:54:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:20:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/lib_42.h"
+
+static char	*gnl_join(char *s1, char *s2)
+{
+	char			*str;
+	unsigned int	i;
+	unsigned int	j;
+
+	i = -1;
+	j = -1;
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (NULL);
+	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
+	if (!str)
+		return (NULL);
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[++j])
+		str[i + j] = s2[j];
+	str[i + j] = '\0';
+	free (s1);
+	return (str);
+}
 
 static char	*ft_restbuffer(char *buffer)
 {
@@ -89,7 +118,7 @@ static char	*ft_readit(int fd, char *buffer)
 			return (NULL);
 		}
 		row[i] = '\0';
-		buffer = ft_strjoin(buffer, row); // leaking hard
+		buffer = gnl_join(buffer, row);
 	}
 	free (row);
 	return (buffer);

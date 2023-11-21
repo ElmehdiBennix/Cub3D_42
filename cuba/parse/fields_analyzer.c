@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 21:32:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:24:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static bool	parse_colors(char *RGB)
 
 	while (RGB[i])
 	{
-		// if (ft_isdigit(RGB[i]) == 0 && RGB[i] != ',')
-		// 	return (false);
 		if (ft_isdigit(RGB[i]) == 1)
 			color_field = true;
 		else if (RGB[i] == ',' && color_field == true)
@@ -93,7 +91,7 @@ static bool	elements_collect(char *line, int  *fields, t_data *game)
 {
 	// printf("line = |%s|\n", line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
-		game->North.content_Nullable = func(line); // increment field
+		game->North.content_Nullable = func(line);
 	else if (line && ft_strncmp(line, "SO ", 3) == 0)
 		game->South.content_Nullable = func(line);
 	else if (line && ft_strncmp(line, "WE ", 3) == 0)
@@ -113,7 +111,7 @@ static bool	elements_collect(char *line, int  *fields, t_data *game)
 	return (true);
 }
 
-char	**world_fields(char **file, t_data  *game) // gets fields alone and retuns the map
+char	**world_fields(char **file, t_data  *game) // gets fields alone and retuns head of map
 {
 	int fields = 0;
 	unsigned int i = 0;
@@ -126,7 +124,7 @@ char	**world_fields(char **file, t_data  *game) // gets fields alone and retuns 
 			return (ft_fprintf(2," %d wrong fields",fields), exit(1), NULL);
 		i++;
 	}
-	printf("total fields = %d\n",fields);
+	// printf("total fields = %d\n",fields);
 	if (check_fields(game) == false)
 		return (ft_fprintf(2,"too many fields"), exit(1), NULL);
 	return (&file[i]);

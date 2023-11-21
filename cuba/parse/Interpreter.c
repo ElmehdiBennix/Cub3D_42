@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 02:40:57 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:22:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	parser(t_data   *game, char **file)
 {
     ft_bzero(game, sizeof(t_data));
 	game->map = world_fields(file, game); // ef eny fail free bool expressions
+	printf(GREEN "DDONE \n");
+	while(1);
 	valid_map(game); // i expect /n or map elements  // and get map
 	map_padding(game);
 	boundary_check(game);

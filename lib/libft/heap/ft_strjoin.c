@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 22:11:13 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 21:24:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 01:13:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ void free_flags(char *s1, char *s2, int flag[])
 {
 	if(flag[0] == 1)
 	{
-		free(s1);
+		if (s1)
+			free(s1);
 		s1 = NULL;
 	}
 	if(flag[1] == 1)
 	{
-		free(s2);
+		if (s1)
+			free(s1);
 		s2 = NULL;
 	}
 }
@@ -67,12 +69,14 @@ char *join_em(char *s1, char *s2, int _free) // free 1 for s1 and 2 for s2 and 0
 	char *str = ft_strjoin(s1,s2);
 	if (_free == 1 || _free == 3)
 	{
-		free(s1);
+		if (s1)
+			free(s1);
 		s1 = NULL;
 	}
 	if (_free == 2 || _free == 3)
 	{
-		free(s2);
+		if (s2)
+			free(s2);
 		s2 = NULL;
 	}
 	return (str);
