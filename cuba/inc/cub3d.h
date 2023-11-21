@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:13:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:38:20 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,28 @@
 // # include <time.h>
 
 char	**read_file(char *str);
-void    parser(t_data   *game, char **file);
+void    parser(t_data   *game, char **file); // might delete it and make it static 
 
-bool    spaces(char *line ,bool new_line);
-
-char	**world_fields(char **file, t_data  *game); // gets fields alone and retuns the map
+char	**world_fields(char **file, t_data  *game);
 void	valid_map(t_data *game);
 void    map_padding(t_data *game);
 void 	boundary_check(t_data *game);
 
-bool    init_textures(char *content ,void   *texture);
-
-void	free_fields(t_data *game);
-void	free_texture(t_data *game);
 
 // void	open_window(t_data *game);
 int     drawing(void);
 
+
+bool    init_textures(char *content ,void   *texture);
+
+
+
+bool    spaces(char *line ,bool new_line);
 void    ft_error(void);
 
+
+
+void	free_fields(t_data *game);
+void	free_texture(t_data *game);
 
 #endif

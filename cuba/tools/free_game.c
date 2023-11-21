@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:25:00 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:37:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@
 // 	return (0);
 // }
 
-void ft_error(void)
-{
-	perror(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
-
 void	free_fields(t_data *game)
 {
 	if (game->North.content_Nullable)
@@ -104,4 +98,10 @@ void	free_texture(t_data *game)
 		mlx_delete_texture(game->West.texture);
 	if (game->East.texture)
 		mlx_delete_texture(game->East.texture);
+}
+
+void ft_error(void)
+{
+	perror(mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
 }

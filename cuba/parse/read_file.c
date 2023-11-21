@@ -6,24 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 01:46:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:34:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-bool	map_head(char *line)
-{
-	int i = 0;
-
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '1' && line[i] != '0' && line[i] != '\n')
-			return(false);
-		i++;
-	}
-	return(true);
-}
 
 bool	spaces(char *line , bool new_line)
 {
@@ -36,6 +23,19 @@ bool	spaces(char *line , bool new_line)
 	else if (new_line == false && line[i] == '\0')
 		return (true);
 	return (false);
+}
+
+static bool	map_head(char *line)
+{
+	int i = 0;
+
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '1' && line[i] != '0' && line[i] != '\n')
+			return(false);
+		i++;
+	}
+	return(true);
 }
 
 static char	**file_data(int fd)

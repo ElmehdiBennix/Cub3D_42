@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 00:37:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:38:42 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,11 @@ typedef struct Player
 	t_Ray rays;
 }	t_Player;
 
-
-
-typedef struct s_list
-{
-    void			*content;
-    struct s_list	*next;
-}					t_list;
-
-// typedef struct s_walls
+// typedef struct s_list
 // {
-// 	void			*TEX_NORTH;
-// 	void			*TEX_;
-// 	void			*TEX_WEST;
-// 	void			*TEX_SOUTH;
-
-// 	int				img_width;
-// 	int				img_height;
-// }					t_walls;
-
+//     void			*content;
+//     struct s_list	*next;
+// }					t_list;
 
 typedef struct 	s_RGB
 {

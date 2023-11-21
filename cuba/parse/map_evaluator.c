@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:10:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:33:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static bool		allowed_units(t_data *game, int i, int j, int *player)
 	}
 	return (false);
 }
-
 
 void	valid_map(t_data *game) // leaks left
 {

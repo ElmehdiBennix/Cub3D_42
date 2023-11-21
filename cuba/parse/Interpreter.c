@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:04:59 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:32:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	plus_check(t_data *game, int i, int j)
 	return (false);
 }
 
-static bool adbdoul_lewel(char *line)
+static bool first_line(char *line)
 {
 	int i;
 	
@@ -40,7 +40,7 @@ void 	boundary_check(t_data *game)
 	int i = 0;
 	int j = 0;
 
-	if (adbdoul_lewel(game->map[i]) == false)
+	if (first_line(game->map[i]) == false)
 		return (ft_fprintf(2,"Error : map must be surrounded by walls."),free_texture(game), free2d(game->map), exit(1));
 	while (game->map[++i] && (unsigned int)i < game->map_height - 1)
 	{
@@ -58,7 +58,7 @@ void 	boundary_check(t_data *game)
 		}
 		j = 1;
 	}
-	if (adbdoul_lewel(game->map[i]) == false)
+	if (first_line(game->map[i]) == false)
 		return (ft_fprintf(2,"Error : map must be surrounded by walls."),free_texture(game), free2d(game->map), exit(1));
 } // free map and textures
 
