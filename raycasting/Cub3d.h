@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:23 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/19 00:37:10 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:02:26 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct Player
 	float height;
 	int turnD; // -1 for left, +1 for right
 	int walkD; // -1 for back, +1 for front
+	int sideW;
 	float rotationA; // for retation angle
 	float walkS; // for walk speed
 	float turnS; // for turn speed

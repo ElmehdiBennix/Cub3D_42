@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/19 00:38:59 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/21 18:13:17 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,30 @@ void	renderRays(t_Player *player)
 	}
 }
 
+int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int ft_get_color(int x, int y, t_Player *player)
+{
+	int r;
+	int g;
+	int b;
+	int a;
+	// uint8_t *color;
+
+	a = 255;
+	r = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
+	g = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4) + 1];
+	b = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4) + 2];
+	// color = &player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
+	// printf("%d\n",player);
+	// exit(0);
+	// return (get_rgba(color[0], color[1], color[2], color[3]));
+	return get_rgba(r, g, b, a);
+}
+
 void	generate3DMap(t_Player *player)
 {
 	int i;
@@ -148,21 +172,27 @@ void	generate3DMap(t_Player *player)
 		}
 
 		if (player->rays[i].wasHitVertical)
-			textOffsetX = (int)player->rays[i].wallHitY % TILE_S;
+			textOffsetX = fmodf(player->rays[i].wallHitY, TILE_S) * ((float)player->text1->width / TILE_S);
 		else
-			textOffsetX = (int)player->rays[i].wallHitX % TILE_S;
-
+			textOffsetX = fmodf(player->rays[i].wallHitX, TILE_S) * ((float)player->text1->width / TILE_S) ;
+		
+		// if (player->rays[i].wasHitVertical)
+		// 	textOffsetX = ((int)(player->rays[i].wallHitY * ((float)player->text1->width / TILE_S)) % player->text1->width) ;
+		// else
+		// 	textOffsetX = ((int)(player->rays[i].wallHitX * ((float)player->text1->width / TILE_S)) % player->text1->width) ;
+		// printf("%d\n", textOffsetX);
+		// exit(0);
 		y = wallTopPixel;
 		 //int txtnum = player->rays[i].wallHitContent - 1;
 		while (y < wallBottomPixel)
 		{
 			//int color = 0x0000FFFF;
 			int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
-			int textOffsetY = distanceFromTop * ((float)TEX_HEIGHT / wallStripHeight);
+			int textOffsetY = distanceFromTop * ((float)player->text1->height / wallStripHeight);
 			// printf("%s\n", player->text1->pixels);
 			//int color = player->text1[(TEX_WIDTH * textOffsetY) + textOffsetX];
-  			uint32_t color = player->text1->pixels[(TEX_WIDTH * textOffsetY) + textOffsetX];
-			//color = player->rays[i].wasHitVertical ? 0x0000FFFF : 0x0000CCCC;
+  			uint32_t color = ft_get_color(textOffsetX, textOffsetY, player);
+			// color = player->rays[i].wasHitVertical ? 0x0000FFFF : 0x0000CCCC;
 			mlx_put_pixel(player->img, i, y, color);
 			y++;
 		}
@@ -289,11 +319,23 @@ void ft_update(t_Player *player)
 		player->x = px;
 		player->y = py;
 	}
+	float tmp = player->rotationA + player->sideW * player->turnS;
+	movestep = player->sideW * player->walkS;
+	newplayerX = cos(tmp + (90 * (M_PI / 180))) * movestep;
+	newplayerY = sin(tmp + (90 * (M_PI / 180))) * movestep;
+	px = player->x + newplayerX;
+	py = player->y + newplayerY;
+	if (!check_walls(player, px, py))
+	{
+		player->x = px;
+		player->y = py;
+	}
+
 }
 
 float	normalizeAngle(float angle)
 {
-	angle = remainder(angle, (2 * M_PI));
+	angle = fmod(angle, (2 * M_PI));
 	if (angle < 0)
 		angle = (2 * M_PI) + angle;
 	return angle;
@@ -491,13 +533,13 @@ void ft_key(mlx_key_data_t keycode, void *param)
 {
 	t_Player *player = param;
 
-	if (keycode.key == MLX_KEY_UP && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->walkD = 1;
-	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
 		player->walkD = 0;
-	if (keycode.key == MLX_KEY_DOWN && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_S && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->walkD = -1;
-	if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
 		player->walkD = 0;
 	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->turnD = 1;
@@ -507,6 +549,14 @@ void ft_key(mlx_key_data_t keycode, void *param)
 		player->turnD = -1;
 	if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
+	if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		player->sideW = 1;
+	if (keycode.key == MLX_KEY_D && keycode.action == MLX_RELEASE)
+		player->sideW = 0;
+	if (keycode.key == MLX_KEY_A && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		player->sideW = -1;
+	if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
+		player->sideW = 0;
 }
 
 void setup(t_Player *player)
@@ -517,6 +567,7 @@ void setup(t_Player *player)
 	player->height = 5;
 	player->turnD = 0;
 	player->walkD = 0;
+	player->sideW = 0;
 	player->rotationA = M_PI / 2;
 	player->walkS = 1;
 	player->turnS = 2 * (M_PI / 180);
@@ -549,7 +600,7 @@ int	main()
 	if (!player.mlx)
 		ft_error();
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
-	player.text1 = mlx_load_png("wall3.png");
+	player.text1 = mlx_load_png("wall2.png");
 	if (!player.text1)
 		ft_error();
 	// player.text2 = mlx_load_png("./Downloads/jpg2png/wall2.png");
