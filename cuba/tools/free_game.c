@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:10:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:25:00 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,28 @@ void ft_error(void)
 
 void	free_fields(t_data *game)
 {
-	free(game->North.content_Nullable);
-	game->North.content_Nullable = NULL;
-	free(game->South.content_Nullable);
-	game->South.content_Nullable = NULL;
-	free(game->West.content_Nullable);
-	game->West.content_Nullable = NULL;
-	free(game->East.content_Nullable);
-	game->East.content_Nullable = NULL;
-	free(game->C_Floor.content_Nullable);
-	game->C_Floor.content_Nullable = NULL;
-	free(game->C_Ceiling.content_Nullable);
-	game->C_Ceiling.content_Nullable = NULL;
+	if (game->North.content_Nullable)
+		free(game->North.content_Nullable);
+	if (game->South.content_Nullable)
+		free(game->South.content_Nullable);
+	if (game->West.content_Nullable)
+		free(game->West.content_Nullable);
+	if (game->East.content_Nullable)
+		free(game->East.content_Nullable);
+	if (game->C_Floor.content_Nullable)
+		free(game->C_Floor.content_Nullable);
+	if (game->C_Ceiling.content_Nullable)
+		free(game->C_Ceiling.content_Nullable);
 }
 
 void	free_texture(t_data *game)
 {
-	mlx_delete_texture(game->North.texture);
-	mlx_delete_texture(game->South.texture);
-	mlx_delete_texture(game->West.texture);
-	mlx_delete_texture(game->West.texture);
+	if (game->North.texture)
+		mlx_delete_texture(game->North.texture);
+	if (game->South.texture)
+		mlx_delete_texture(game->South.texture);
+	if (game->West.texture)
+		mlx_delete_texture(game->West.texture);
+	if (game->East.texture)
+		mlx_delete_texture(game->East.texture);
 }

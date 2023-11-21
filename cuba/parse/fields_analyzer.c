@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:13:01 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 03:27:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ static bool	collect_fields(char *line, int  *fields, t_data *game)
 	return (true);
 }
 
-
-
 char	**world_fields(char **file, t_data  *game) // leaks free
 {
 	int fields = 0;
@@ -116,7 +114,7 @@ char	**world_fields(char **file, t_data  *game) // leaks free
 		i++;
 	}
 	if (check_fields(game) == false)
-		return (free2d(&file[i]) ,free_fields(game),free_texture(game), exit(1), NULL);
+		return (free2d(&file[i]), free_fields(game),free_texture(game), exit(1), NULL);
 	free_fields(game);
 	return (&file[i]);
 } // free textures
