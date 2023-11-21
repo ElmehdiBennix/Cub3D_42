@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 02:09:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 02:10:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	free_fields(t_data *game)
 	game->C_Ceiling.content_Nullable = NULL;
 }
 
-char	**world_fields(char **file, t_data  *game)
+char	**world_fields(char **file, t_data  *game) // leaks free
 {
 	int fields = 0;
 	unsigned int i = 0;
@@ -133,5 +133,3 @@ char	**world_fields(char **file, t_data  *game)
 	free_fields(game);
 	return (&file[i]);
 }
-
-// leak free need error msgs

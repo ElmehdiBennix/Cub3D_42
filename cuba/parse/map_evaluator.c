@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 01:29:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/21 02:24:02 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	map_padding(t_data *game)
 		// printf("padding %d \n",padding);
 		if (padding > 0)
 			game->map[i] = join_em(game->map[i], repeat_char(' ', padding),3);
-		printf("line = %d = |%s|\n", i, game->map[i]);
+		// printf("line = %d = |%s|\n", i, game->map[i]);
 		i++;
 	}
 }
@@ -48,19 +48,19 @@ void	map_padding(t_data *game)
 // 	return (false);
 // }
 
-static int		allowed_units(t_data *game, int i, int j, int *player)
+static bool		allowed_units(t_data *game, int i, int j, int *player)
 {
 	char c = game->map[i][j];
 	if (c == '1' || c == '0' || c == ' ')
-		return (0);
+		return (true);
 	else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		game->player_info.direction = c;
 		game->player_info.x = j;
 		game->player_info.y = i;
-		return ((*player)++ ,1);
+		return ((*player)++ ,true);
 	}
-	return (-1);
+	return (false);
 }
 
 void	valid_map(t_data *game) // leaks left
@@ -68,15 +68,15 @@ void	valid_map(t_data *game) // leaks left
 	int i = 0;
 	int j = 0;
 	int longest = 0;
-	int player = 0;
+	unsigned int player = 0;
 
 	while (game->map[i])
 	{
 		// printf("game->map[%d] = |%s|\n",i,game->map[i]);
 		while (game->map[i][j])
 		{
-			if (allowed_units(game, i, j, &player) == -1)
-				return (ft_fprintf(2,"wrong simbols map or one or more players %s\n",game->map[i]), exit(1));
+			if (allowed_units(game, i, j, &player) == false)
+				return (ft_fprintf(2,"Error : Wrong symbole '%c' .\n -> Map symboles :'1' '0' 'W','S','N','E'\n",game->map[i][j]), free2d(game->map), exit(1));
 			j++;
 		}
 		if (longest < j)
@@ -85,7 +85,9 @@ void	valid_map(t_data *game) // leaks left
 		i++;
 	}
 	if (player != 1)
-		return (ft_fprintf(2,"wrong player"), exit(1));
+		return (ft_fprintf(2,"Error : One player is allowed .\n -> Player symboles : 'W','S','N','E'\n"), free2d(game->map), exit(1));
 	game->map_width = longest;
 	game->map_height = i;
 }
+
+ // destroy the map textures
