@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:23 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/21 12:02:26 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:33:35 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct Player
 {
 	float x;
 	float y;
+	int	mouseX;
+	int	mouseY;
 	float width;
 	float height;
 	int turnD; // -1 for left, +1 for right
@@ -76,5 +78,21 @@ typedef struct Player
 	t_Ray rays;
 }	t_Player;
 
+typedef struct n_map
+{
+	double	x;
+	double	min_in;
+	double	max_in;
+	double	min_out;
+	double	max_out;
+}	t_map;
+
+typedef struct n_hook
+{
+	double	oldx;
+	double	oldy;
+	double	newx;
+	double	newy;
+}	t_hook;
 
 #endif

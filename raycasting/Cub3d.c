@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/21 18:13:17 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/23 19:09:18 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <sys/wait.h>
 
 void ft_helper(t_Player *player);
 
@@ -196,7 +197,6 @@ void	generate3DMap(t_Player *player)
 			mlx_put_pixel(player->img, i, y, color);
 			y++;
 		}
-
 		y = wallBottomPixel;
 		while (y < HEIGHT)
 		{
@@ -234,87 +234,37 @@ void renderPlayer(t_Player *player)
 	// }
 }
 
-int is_left_up(t_Player *player)
-{
-	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
-	int isRayFacingUp = !isRayFacingDown;
-	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
-	int isRayFacingLeft = !isRayFacingRight;
-	if (isRayFacingUp && isRayFacingLeft)
-		return 1;
-	return 0;
-}
-int is_right_up(t_Player *player)
-{
-	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
-	int isRayFacingUp = !isRayFacingDown;
-	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
-	if (isRayFacingUp && isRayFacingRight)
-		return 1;
-	return 0;
-}
-int is_left_down(t_Player *player)
-{
-	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
-	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
-	int isRayFacingLeft = !isRayFacingRight;
-	if (isRayFacingDown && isRayFacingLeft)
-		return 1;
-	return 0;
-}
-int is_right_down(t_Player *player)
-{
-	int isRayFacingDown = player->rotationA > 0  && player->rotationA < M_PI;
-	int isRayFacingRight = player->rotationA < 0.5 * M_PI || player->rotationA > 1.5 * M_PI;
-	if (isRayFacingDown && isRayFacingRight)
-		return 1;
-	return 0;
-}
-int check_walls(t_Player *player, float px, float py)
+int check_walls1(t_Player *player, float px, float py)
 {
 	(void)player;
-	if (px < 0 || px > WINDOW_WIDTH || py < 0 || py > WINDOW_HEIGHT)
+	if (px < 0 || px > WIDTH || py < 0 || py > HEIGHT)
 		return 0;
-	int mapgridX = floor(px / TILE_S);
-	int mapgridY = floor(py / TILE_S);
-	// if (is_right_up(player))
-	// {
-	// 	if ((map[mapgridY][mapgridX- 1] == 1 && map[mapgridY + 1][mapgridX] == 1))
-	// 		return 0;
-	// }
-	// if (is_right_down(player))
-	// {
-	// 	if ((map[mapgridY][mapgridX- 1] == 1 && map[mapgridY - 1][mapgridX] == 1))
-	// 		return 0;
-	// }
-	// if (is_left_up(player))
-	// {
-	// 	if ((map[mapgridY][mapgridX+ 1] == 1 && map[mapgridY + 1][mapgridX] == 1))
-	// 		return 0;
-	// }
-	// if (is_left_down(player))
-	// {
-	// 	if ((map[mapgridY][mapgridX + 1] == 1 && map[mapgridY - 1][mapgridX] == 1))
-	// 		return 0;
-	// }
-	// if ((map[mapgridY][mapgridX] == 1 && map[mapgridY][mapgridX] == 1))
-	// 	return 0;
-	// int oldX = floor(player->x / TILE_S);
-	// int oldY = floor(player->y / TILE_S);
-	// if ((map[mapgridY][oldX] == 1 && map[oldY][mapgridX] == 1))
-	// 	return 0;
-	return map[mapgridY][mapgridX] != 0;
+	float mapgridX = floor(px / TILE_S);
+	float mapgridY = floor(py / TILE_S);
+	if (map[(int)mapgridY][(int)mapgridX] != 0 || (map[(int)mapgridY][(int)(player->x / TILE_S)] && map[(int)(player->y / TILE_S)][(int)mapgridX]))
+		return (1);
+	return (0);
+}
+int check_walls2(t_Player *player, float px, float py)
+{
+	(void)player;
+	if (px < 0 || px > WIDTH || py < 0 || py > HEIGHT)
+		return 0;
+	float mapgridX = floor(px / TILE_S);
+	float mapgridY = floor(py / TILE_S);
+	return (map[(int)mapgridY][(int)mapgridX] != 0);
 }
 
 void ft_update(t_Player *player)
 {
 	player->rotationA += player->turnD * player->turnS;
+	// mlx_set_mouse_pos(player->mlx, player->x, 0);
 	float movestep = player->walkD * player->walkS;
 	float newplayerX = cos(player->rotationA) * movestep;
 	float newplayerY = sin(player->rotationA) * movestep;
 	float px = player->x + newplayerX;
 	float py = player->y + newplayerY;
-	if (!check_walls(player, px, py))
+	if (!check_walls1(player, px, py))
 	{
 		player->x = px;
 		player->y = py;
@@ -325,12 +275,11 @@ void ft_update(t_Player *player)
 	newplayerY = sin(tmp + (90 * (M_PI / 180))) * movestep;
 	px = player->x + newplayerX;
 	py = player->y + newplayerY;
-	if (!check_walls(player, px, py))
+	if (!check_walls1(player, px, py))
 	{
 		player->x = px;
 		player->y = py;
 	}
-
 }
 
 float	normalizeAngle(float angle)
@@ -395,7 +344,7 @@ void	castRay(float rayA, int sId, t_Player *player)
 		float xToCheck = nextHorzTouchX;
 		float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
 
-		if (check_walls(player, xToCheck, yToCheck))
+		if (check_walls2(player, xToCheck, yToCheck))
 		{
 			// found a wall hit
 			horzWallHitX = nextHorzTouchX;
@@ -445,7 +394,7 @@ void	castRay(float rayA, int sId, t_Player *player)
 		float xToCheck = nextVertTouchX + (isRayFacingLeft ? -1 : 0);
 		float yToCheck = nextVertTouchY;
 
-		if (check_walls(player, xToCheck, yToCheck))
+		if (check_walls2(player, xToCheck, yToCheck))
 		{
 			// found a wall hit
 			vertWallHitX = nextVertTouchX;
@@ -533,6 +482,8 @@ void ft_key(mlx_key_data_t keycode, void *param)
 {
 	t_Player *player = param;
 
+	if(keycode.key == MLX_KEY_ESCAPE)
+		exit(1);
 	if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->walkD = 1;
 	if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
@@ -541,12 +492,15 @@ void ft_key(mlx_key_data_t keycode, void *param)
 		player->walkD = -1;
 	if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
 		player->walkD = 0;
-	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT)){
 		player->turnD = 1;
+	}
 	if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
 	if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	{
 		player->turnD = -1;
+	}
 	if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
 	if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
@@ -559,6 +513,16 @@ void ft_key(mlx_key_data_t keycode, void *param)
 		player->sideW = 0;
 }
 
+void ft_mouse(void* param)
+{
+	t_Player *player = param;
+	//mlx_set_mouse_pos(player->mlx, player->x, 0);
+	// printf("%f\n",x);
+	mlx_get_mouse_pos(player->mlx, &player->mouseX, &player->mouseY);
+	player->rotationA += (float)(player->mouseX - 500) / 500;
+	mlx_set_mouse_pos(player->mlx, 500, 500);
+}
+
 void setup(t_Player *player)
 {
 	player->x = 200;
@@ -566,6 +530,7 @@ void setup(t_Player *player)
 	player->width = 5;
 	player->height = 5;
 	player->turnD = 0;
+	player->mouseX = 0;
 	player->walkD = 0;
 	player->sideW = 0;
 	player->rotationA = M_PI / 2;
@@ -579,13 +544,16 @@ void ft_helper(t_Player *player)
 	// generate3DMap(player);
 	//renderMap(player);
 	// renderRays(player);
-	//renderPlayer(player);
+	// renderPlayer(player);
 	// end   1
 	// start 2
 	// if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
 	// 	ft_error();
 	mlx_key_hook(player->mlx, ft_key, player);
+	// mlx_scroll_hook(player->mlx, ft_scroll, player);
+	// mlx_mouse_hook(player->mlx, ft_mouse, player);
 	mlx_loop_hook(player->mlx, ft_loop, player);
+	mlx_cursor_hook(player->mlx,(void *)ft_mouse, player);
 	mlx_loop(player->mlx);
 	mlx_terminate(player->mlx);
 	// end   2
@@ -599,6 +567,8 @@ int	main()
 	player.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!player.mlx)
 		ft_error();
+	mlx_set_cursor_mode(player.mlx, MLX_MOUSE_DISABLED);
+	mlx_set_mouse_pos(player.mlx, player.x, 0);
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
 	player.text1 = mlx_load_png("wall2.png");
 	if (!player.text1)
