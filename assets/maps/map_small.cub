@@ -3,10 +3,10 @@ NO ./assets/textures/wall1.png
 
 SO ./assets/textures/wall1.png
 WE ./assets/textures/wall1.png
-EA ./assets/textures/wall1.png
+EA ./assets/textures/wall.png
 
 F 124,142,122
-C 12,220,125
+C 12,220,252
 
 111111111111111111111
 100000000000000000001

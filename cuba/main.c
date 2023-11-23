@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 14:09:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 00:44:37 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,88 +26,87 @@
 // 	}
 // }
 
-static void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
-{
-	int x = 0;
-	int y = 0;
+// static void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
+// {
+// 	int x = 0;
+// 	int y = 0;
 	
-	while (y < size)
-	{
-		while (x < size)
-		{
-			mlx_put_pixel(game->HUD_Frame, _x + x , _y + y, color);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
+// 	while (y < size)
+// 	{
+// 		while (x < size)
+// 		{
+// 			mlx_put_pixel(game->HUD_Frame, _x + x , _y + y, color);
+// 			x++;
+// 		}
+// 		x = 0;
+// 		y++;
+// 	}
+// }
 
-static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
-{
-	int x_distance = x_vis * 2 + 1;
-	int y_distance = y_vis * 2 + 1;
+// static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
+// {
+// 	int x_distance = x_vis * 2 + 1;
+// 	int y_distance = y_vis * 2 + 1;
 
-	int x = game->player_info.x - x_vis;
-	int y = game->player_info.y - y_vis;
+// 	int x = game->player_info.x - x_vis;
+// 	int y = game->player_info.y - y_vis;
 
-	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
-	printf("X = %d Y = %d\n", x ,y);
-	printf("h = %d w = %d\n", game->map_height ,game->map_width);
-	printf("##############################\n");
+// 	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
+// 	printf("X = %d Y = %d\n", x ,y);
+// 	printf("h = %d w = %d\n", game->map_height ,game->map_width);
+// 	printf("##############################\n");
 
-	const int size = 10;
+// 	const int size = 10;
 
-	int draw_x = 0;
-	int draw_y = 0;
+// 	int draw_x = 0;
+// 	int draw_y = 0;
 	
-	int count = 0;
+// 	int count = 0;
 	
-	while (y_distance)
-	{
-		printf("line %d = ", count);
-		while (x_distance)
-		{
-			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
-			{
-				printf("*");
-				draw_cub(game,size,draw_x,draw_y,0x000000FF);
-				// printf("red");
-			}
-			else if (game->map[y][x] == '1')
-			{
-				printf("1");
-				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
-				// printf("green");
-			}
-			else if (game->map[y][x] == '0')
-			{
-				printf("0");
-				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
-				// printf("blue");
-			}
-			else if (game->map[y][x] == game->player_info.direction)
-			{
-				printf("P");
-				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
-				// printf("black");
-			}
-			x++;
-			draw_x += size;
-			x_distance--;
-		}
-		printf(" || x = %d y = %d", x, y);
-		printf("\n");
-		count++;
-		x = game->player_info.x - x_vis;
-		y++;
-		draw_x = 0;
-		draw_y += size;
-		x_distance = x_vis * 2 + 1;
-		y_distance--;
-	}
-
-}
+// 	while (y_distance)
+// 	{
+// 		printf("line %d = ", count);
+// 		while (x_distance)
+// 		{
+// 			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
+// 			{
+// 				printf("*");
+// 				draw_cub(game,size,draw_x,draw_y,0x000000FF);
+// 				// printf("red");
+// 			}
+// 			else if (game->map[y][x] == '1')
+// 			{
+// 				printf("1");
+// 				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
+// 				// printf("green");
+// 			}
+// 			else if (game->map[y][x] == '0')
+// 			{
+// 				printf("0");
+// 				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
+// 				// printf("blue");
+// 			}
+// 			else if (game->map[y][x] == game->player_info.direction)
+// 			{
+// 				printf("P");
+// 				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
+// 				// printf("black");
+// 			}
+// 			x++;
+// 			draw_x += size;
+// 			x_distance--;
+// 		}
+// 		printf(" || x = %d y = %d", x, y);
+// 		printf("\n");
+// 		count++;
+// 		x = game->player_info.x - x_vis;
+// 		y++;
+// 		draw_x = 0;
+// 		draw_y += size;
+// 		x_distance = x_vis * 2 + 1;
+// 		y_distance--;
+// 	}
+// }
 
 static void	my_drawing(t_data *game)
 {
@@ -157,7 +156,7 @@ static void setup(t_data	*game)
 
 	game->player.turnD = 0;
 	game->player.walkD = 0;
-	game->player.rotationA = M_PI / 2;
+	game->player.rotationA = M_PI / 2; // setup this to be the direction of the player
 	game->player.walkS = 1.0f;
 	game->player.turnS = 2 * (M_PI / 180);
 }
@@ -178,23 +177,17 @@ int	main(int ac, char **av)
 	parser(&game, read_file(*(++av)));
     // init_images(game); // if we added some textures
     // open_window(game);
-	game.map[game.player_info.y][game.player_info.x] = '0';
+	// game.map[game.player_info.y][game.player_info.x] = '0';
 	setup(&game);
 	game.mlx = mlx_init(HEIGHT, WIDTH, "Cub3D", false);
 	if (!game.mlx)
 		ft_error();
-
 	mlx_key_hook(game.mlx, (void *)key_hooks, &game);
 	mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 
-
-	// setup(&game);
 	// ft_helper(&game);
-
-	// merged 
-	// drawing(&game);
 
 	return (EXIT_SUCCESS);
 }
