@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 23:48:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 00:17:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,12 @@ void draw_lines(t_draw *draw)
 static void update(t_data *game)
 {
 	game->player.rotationA += game->player.turnS * game->player.turnD;
+
+	float move = game->player.walkD * game->player.walkS;
+	printf("move = %f\n", move);
+	game->player.x += cos(game->player.rotationA) * move;
+	game->player.y += sin(game->player.rotationA) * move;
+	printf("x = %f y = %f\n", game->player.x, game->player.y);
 }
 
 static void	my_drawing(t_data *game)
