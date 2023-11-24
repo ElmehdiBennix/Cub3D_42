@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 01:23:57 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 23:39:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ typedef struct s_draw
 {
 	mlx_image_t *canva;
 // from
-	uint32_t 	x1;
-	uint32_t 	y1;
+	float 	x1;
+	float 	y1;
 // to
-	uint32_t 	x2;
-	uint32_t 	y2;
+	float 	x2;
+	float 	y2;
 	uint32_t 	color;
 }				t_draw;
 

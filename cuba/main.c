@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 23:09:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 23:48:20 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void 	draw(t_draw	*draw)
 
 void draw_lines(t_draw *draw)
 {
-	printf("x1 = %u y1 = %u x2 = %u y2 = %u\n", draw->x1, draw->y1, draw->x2, draw->y2);
+	printf("x1 = %f y1 = %f x2 = %f y2 = %f\n", draw->x1, draw->y1, draw->x2, draw->y2);
 	double deltaX = draw->x2 - draw->x1;
 	double deltaY = draw->y2 - draw->y1;
 
@@ -42,7 +42,7 @@ void draw_lines(t_draw *draw)
 	
 	while (pixels)
 	{
-	    mlx_put_pixel(draw->canva, pixelX , pixelY, draw->color);
+	    mlx_put_pixel(draw->canva, pixelX , pixelY, draw->color); // skip first pixel becouse of the player visual diffect
 	    pixelX += deltaX;
 	    pixelY += deltaY;
 	    --pixels;
@@ -114,12 +114,15 @@ void draw_lines(t_draw *draw)
 // 	}
 // }
 
-
-
 // static void render_player()
 // {
 	
 // }
+
+static void update(t_data *game)
+{
+	game->player.rotationA += game->player.turnS * game->player.turnD;
+}
 
 static void	my_drawing(t_data *game)
 {
@@ -127,8 +130,13 @@ static void	my_drawing(t_data *game)
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
 	// mini_map(game, 5, 5); // segs becouse of window size
-	t_draw draw = {game->HUD_Frame, 50, 50, 100, 0, 0x00FF00FF};
-	// draw_lines(&draw);
+	t_draw draw = { game->HUD_Frame, game->HUD_Frame->width/2,
+					game->HUD_Frame->height/2,
+					game->HUD_Frame->width/2 + (cos(game->player.rotationA) * 50),
+					game->HUD_Frame->height/2 + (sin(game->player.rotationA) * 50),
+					0x00FF00FF };
+	draw_lines(&draw);
+	update(game);
 	
 	if (!game->HUD_Frame || (mlx_image_to_window(game->mlx, game->HUD_Frame, 0, 0)) < 0)
 		ft_error();
@@ -160,13 +168,14 @@ static void setup(t_data	*game)
 {
 	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
 	game->player.y = game->player_info.y * TILE_S + (TILE_S / 2);
-	printf("player location -> x = %f y = %f\n/n", game->player.x, game->player.y);
+	printf("player location -> x = %f y = %f\n", game->player.x, game->player.y);
 
 	game->player.turnD = 0;
 	game->player.walkD = 0;
 	game->player.rotationA = M_PI / 2; // setup this to be the direction of the player
+	printf("rotation angle = %f\n\n", game->player.rotationA);
 	game->player.walkS = 1.0f;
-	game->player.turnS = 2 * (M_PI / 180);
+	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
 
 // void f()
@@ -180,7 +189,7 @@ int	main(int ac, char **av)
 	
     if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
-	// atexit(f);
+
 	parser(&game, read_file(*(++av)));
     // init_images(game); // if we added some textures
     // open_window(game);
@@ -196,6 +205,7 @@ int	main(int ac, char **av)
 
 	// ft_helper(&game);
 
+	// atexit(f);
 	return (EXIT_SUCCESS);
 }
 
