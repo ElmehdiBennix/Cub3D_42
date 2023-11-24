@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 12:03:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 01:21:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,25 @@ typedef struct Player
 	t_Ray rays;
 }	t_Player;
 
+
+
+
+
+
+
+
+
 // typedef struct s_list
 // {
 //     void			*content;
 //     struct s_list	*next;
 // }					t_list;
+
+
+
+
+
+
 
 typedef struct 	s_RGB
 {
@@ -70,7 +84,7 @@ typedef struct s_elements
 typedef struct s_position
 {
 	char			direction;
-	
+
 	int				x;
 	int				y;
 }					t_position;
@@ -91,17 +105,18 @@ typedef struct s_state
 
 typedef struct s_data
 {
+// -> mlx Data
 	mlx_t			*mlx;
 	int				win_width;
 	int				win_height;
-
+// -> file_pase_Data
 	char			**map;
 	unsigned int	map_height;
 	unsigned int	map_width;
 	t_position		player_info;
-
+// -> player location Data
 	t_state			player;
-
+// -> textures and rgb colors Data
 	t_elements		North;
 	t_elements		South;
 	t_elements		West;
@@ -109,12 +124,12 @@ typedef struct s_data
 
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
-	
+// -> HUD_elemnts canvas
 	mlx_image_t		*HUD_Frame;
-	// mlx_image_t		*img1;
-	// mlx_image_t		*img2;
-	// mlx_image_t		*img3;
-
+			// mlx_image_t		*img1;
+			// mlx_image_t		*img2;
+			// mlx_image_t		*img3;
+// -> rays Data
 	t_Ray rays;
 }					t_data;
 

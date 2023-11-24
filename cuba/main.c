@@ -6,25 +6,31 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 00:44:37 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 01:17:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-// static void 	draw_cub(t_data *game,int x1, int y1, int x2, int y2, uint32_t color)
-// {
-// 	while (y1 < y2)
-// 	{
-// 		while (x1 < x2)
-// 		{
-// 			mlx_put_pixel(game->HUD_Frame, x1 , y1, color);
-// 			x1++;
-// 		}
-// 		x1 = 0;
-// 		y2++;
-// 	}
-// }
+static void 	draw_cub(t_data *game ,int x1, int y1, int x2, int y2, uint32_t color)
+{
+	while (y1 < y2)
+	{
+		while (x1 < x2)
+		{
+			mlx_put_pixel(game->HUD_Frame, x1 , y1, color);
+			x1++;
+		}
+		x1 = 0;
+		y2++;
+	}
+}
+
+static void	draw_line(t_data *game,int x1, int y1, int x2, int y2)
+{
+	
+
+}
 
 // static void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
 // {
@@ -108,43 +114,44 @@
 // 	}
 // }
 
+
+
+static void render_player()
+{
+	
+}
+
 static void	my_drawing(t_data *game)
 {
 	mlx_delete_image(game->mlx, game->HUD_Frame);
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
-	mini_map(game, 5, 5); // segs becouse of window size
-
+	// mini_map(game, 5, 5); // segs becouse of window size
+	
+	draw_line(game, game->player.x, game->player.y, game->player.x + cos(game->player.rotationA) * 40, game->player.y + sin(game->player.rotationA) * 40);
+	
 	if (!game->HUD_Frame || (mlx_image_to_window(game->mlx, game->HUD_Frame, 0, 0)) < 0)
 		ft_error();
 }
 
-static void key_hooks(mlx_key_data_t keycode, t_data *game)
+void key_events(mlx_key_data_t keycode, t_data *game)
 {
-	if (keycode.key == MLX_KEY_UP && keycode.action == MLX_PRESS && game->map[game->player_info.y - 1][game->player_info.x] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.y += -1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_PRESS && game->map[game->player_info.y + 1][game->player_info.x] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.y += +1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x + 1] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.x += 1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
-	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_PRESS && game->map[game->player_info.y][game->player_info.x - 1] == '0')
-	{
-		game->map[game->player_info.y][game->player_info.x] = '0';
-		game->player_info.x += -1;
-		game->map[game->player_info.y][game->player_info.x] = game->player_info.direction;
-	}
+	if (keycode.key == MLX_KEY_UP && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		game->player.walkD = 1;
+	else if (keycode.key == MLX_KEY_UP && keycode.action == MLX_RELEASE)
+		game->player.walkD = 0;
+	else if (keycode.key == MLX_KEY_DOWN && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		game->player.walkD = -1;
+	else if (keycode.key == MLX_KEY_DOWN && keycode.action == MLX_RELEASE)
+		game->player.walkD = 0;
+	else if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		game->player.turnD = 1;
+	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
+		game->player.turnD = 0;
+	else if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		game->player.turnD = -1;
+	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
+		game->player.turnD = 0;
 	else if (keycode.key == MLX_KEY_ESCAPE)
 		exit(EXIT_SUCCESS);
 }
@@ -160,7 +167,6 @@ static void setup(t_data	*game)
 	game->player.walkS = 1.0f;
 	game->player.turnS = 2 * (M_PI / 180);
 }
-
 
 // void f()
 // {
@@ -182,7 +188,7 @@ int	main(int ac, char **av)
 	game.mlx = mlx_init(HEIGHT, WIDTH, "Cub3D", false);
 	if (!game.mlx)
 		ft_error();
-	mlx_key_hook(game.mlx, (void *)key_hooks, &game);
+	mlx_key_hook(game.mlx, (void *)key_events, &game);
 	mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);

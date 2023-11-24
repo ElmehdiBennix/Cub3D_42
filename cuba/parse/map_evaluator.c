@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 03:33:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 01:14:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	valid_map(t_data *game) // leaks left
 		i++;
 	}
 	if (player != 1)
-		return (ft_fprintf(2,"Error : One player is allowed .\n -> Player symboles : 'W','S','N','E'\n"),free_texture(game), free2d(game->map), exit(1));
+		return (ft_fprintf(2,"Error : One player is allowed .\n  -> Player spawn direction symboles : 'W','S','N','E' .\n"),free_texture(game), free2d(game->map), exit(1));
 	game->map_width = longest;
 	game->map_height = i;
 }

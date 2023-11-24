@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/22 21:04:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 01:10:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static bool	collect_fields(char *line, int  *fields, t_data *game)
 	else if (spaces(line , false) == true)
 		return (free(line), true);
 	else
-		return (false);
+		return (ft_fprintf(2,"Error : Fields must start with 'NO' , 'SO' , 'WE' , 'EA' , 'F' or 'C'."), close(2), false);
 	// printf("\n");
 	free(line);
 	(*fields)++;
