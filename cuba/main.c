@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 03:22:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 23:09:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ static void 	draw(t_draw	*draw)
 
 void draw_lines(t_draw *draw)
 {
-
-	printf("x1 = %d y1 = %d x2 = %d y2 = %d\n", draw->x1, draw->y1, draw->x2, draw->y2);
+	printf("x1 = %u y1 = %u x2 = %u y2 = %u\n", draw->x1, draw->y1, draw->x2, draw->y2);
 	double deltaX = draw->x2 - draw->x1;
 	double deltaY = draw->y2 - draw->y1;
 
-	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	int pixels = fabs(deltaX) > fabs(deltaY) ? fabs(deltaX) : fabs(deltaY);
 
 	deltaX /= pixels;
 	deltaY /= pixels;
 
 	double pixelX = draw->x1;
 	double pixelY = draw->y1;
+	
 	while (pixels)
 	{
 	    mlx_put_pixel(draw->canva, pixelX , pixelY, draw->color);
@@ -127,8 +127,8 @@ static void	my_drawing(t_data *game)
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
 	// mini_map(game, 5, 5); // segs becouse of window size
-	t_draw draw = {game->HUD_Frame, 200, 200, 0, 0, 0x00FF00FF};
-	draw_lines(&draw);
+	t_draw draw = {game->HUD_Frame, 50, 50, 100, 0, 0x00FF00FF};
+	// draw_lines(&draw);
 	
 	if (!game->HUD_Frame || (mlx_image_to_window(game->mlx, game->HUD_Frame, 0, 0)) < 0)
 		ft_error();
@@ -160,6 +160,7 @@ static void setup(t_data	*game)
 {
 	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
 	game->player.y = game->player_info.y * TILE_S + (TILE_S / 2);
+	printf("player location -> x = %f y = %f\n/n", game->player.x, game->player.y);
 
 	game->player.turnD = 0;
 	game->player.walkD = 0;
@@ -185,7 +186,7 @@ int	main(int ac, char **av)
     // open_window(game);
 	// game.map[game.player_info.y][game.player_info.x] = '0';
 	setup(&game);
-	game.mlx = mlx_init(HEIGHT, WIDTH, "Cub3D", false);
+	game.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!game.mlx)
 		ft_error();
 	mlx_key_hook(game.mlx, (void *)key_events, &game);

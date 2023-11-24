@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/21 16:54:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 03:36:04 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1)
 	float y;
 	int i ;
 
-	i = 0;
-
 	dx = (x1 - x0);
 	dy = (y1 - y0);
 
@@ -33,12 +31,12 @@ void draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1)
 
 	x = x0;
 	y = y0;
-	while (i < step)
+	while (step)
 	{
 		mlx_put_pixel(img, x, y, 0xFF00B3FF);
 		x += dx;
 		y += dy;
-		i++;
+		step--;
 	}
 }
 
