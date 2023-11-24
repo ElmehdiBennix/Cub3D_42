@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 01:25:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 03:22:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-static void 	draw_cub(t_draw	*draw)
+static void 	draw(t_draw	*draw)
 {
 	while (draw->y1 < draw->y2)
 	{
@@ -26,10 +26,27 @@ static void 	draw_cub(t_draw	*draw)
 	}
 }
 
-static void	draw_line(t_draw	*draw)
+void draw_lines(t_draw *draw)
 {
-	
 
+	printf("x1 = %d y1 = %d x2 = %d y2 = %d\n", draw->x1, draw->y1, draw->x2, draw->y2);
+	double deltaX = draw->x2 - draw->x1;
+	double deltaY = draw->y2 - draw->y1;
+
+	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+
+	deltaX /= pixels;
+	deltaY /= pixels;
+
+	double pixelX = draw->x1;
+	double pixelY = draw->y1;
+	while (pixels)
+	{
+	    mlx_put_pixel(draw->canva, pixelX , pixelY, draw->color);
+	    pixelX += deltaX;
+	    pixelY += deltaY;
+	    --pixels;
+	}
 }
 
 // static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
@@ -99,10 +116,10 @@ static void	draw_line(t_draw	*draw)
 
 
 
-static void render_player()
-{
+// static void render_player()
+// {
 	
-}
+// }
 
 static void	my_drawing(t_data *game)
 {
@@ -110,8 +127,8 @@ static void	my_drawing(t_data *game)
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
 	// mini_map(game, 5, 5); // segs becouse of window size
-	
-	draw_line(game, game->player.x, game->player.y, game->player.x + cos(game->player.rotationA) * 40, game->player.y + sin(game->player.rotationA) * 40);
+	t_draw draw = {game->HUD_Frame, 200, 200, 0, 0, 0x00FF00FF};
+	draw_lines(&draw);
 	
 	if (!game->HUD_Frame || (mlx_image_to_window(game->mlx, game->HUD_Frame, 0, 0)) < 0)
 		ft_error();
