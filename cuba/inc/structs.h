@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 01:21:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 01:23:57 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,17 @@ typedef struct Player
 
 
 
-
+typedef struct s_draw
+{
+	mlx_image_t *canva;
+// from
+	uint32_t 	x1;
+	uint32_t 	y1;
+// to
+	uint32_t 	x2;
+	uint32_t 	y2;
+	uint32_t 	color;
+}				t_draw;
 
 
 typedef struct 	s_RGB

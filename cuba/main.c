@@ -6,48 +6,31 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 01:17:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/24 01:25:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-static void 	draw_cub(t_data *game ,int x1, int y1, int x2, int y2, uint32_t color)
+static void 	draw_cub(t_draw	*draw)
 {
-	while (y1 < y2)
+	while (draw->y1 < draw->y2)
 	{
-		while (x1 < x2)
+		while (draw->x1 < draw->x2)
 		{
-			mlx_put_pixel(game->HUD_Frame, x1 , y1, color);
-			x1++;
+			mlx_put_pixel(draw->canva, draw->x1 , draw->y1, draw->color);
+			draw->x1++;
 		}
-		x1 = 0;
-		y2++;
+		draw->x1 = 0;
+		draw->y2++;
 	}
 }
 
-static void	draw_line(t_data *game,int x1, int y1, int x2, int y2)
+static void	draw_line(t_draw	*draw)
 {
 	
 
 }
-
-// static void 	draw_cub(t_data *game, int size , int _x, int _y, uint32_t color)
-// {
-// 	int x = 0;
-// 	int y = 0;
-	
-// 	while (y < size)
-// 	{
-// 		while (x < size)
-// 		{
-// 			mlx_put_pixel(game->HUD_Frame, _x + x , _y + y, color);
-// 			x++;
-// 		}
-// 		x = 0;
-// 		y++;
-// 	}
-// }
 
 // static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
 // {
