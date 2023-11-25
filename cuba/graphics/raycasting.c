@@ -1,172 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/25 01:28:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:47:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1)
-{
-	float dx;
-	float dy;
-	float step;
-	float x;
-	float y;
-	int i ;
-
-	i = 0;
-
-	dx = (x1 - x0);
-	dy = (y1 - y0);
-
-	step = fabsf(dx) > fabsf(dy) ? fabsf(dx) : fabsf(dy);
-
-	dx = dx / step;
-	dy = dy / step;
-
-	x = x0;
-	y = y0;
-	while (i < step)
-	{
-		mlx_put_pixel(img, x, y, 0xFF00B3FF);
-		x += dx;
-		y += dy;
-		i++;
-	}
-}
-
-void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile)
-{
-	int i = h;
-	while (i < h + tile)
-	{
-		int j = w;
-		while (j < w + tile)
-		{
-			mlx_put_pixel(img, j * MINIMAP, i * MINIMAP, color);
-			j++;
-		}
-		i++;
-	}
-}
-void renderMap(t_Player *player)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while(i < MAP_NUM_ROWS)
-	{
-		j = 0;
-		while(j < MAP_NUM_COLS)
-		{
-			if(map[i][j] == 1)
-				draw_rectangle(player->img, i * TILE_S, j * TILE_S, 0xFFFFFFFF, 32);
-			else if(map[i][j] == 0)
-				draw_rectangle(player->img, i * TILE_S, j * TILE_S, 0x000000FF, 32);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	renderRays(t_Player *player)
-{
-	int	i;
-
-	i = 0;
-	while (i < NUM_RAYS)
-	{
-		draw_line(player->img, player->x * MINIMAP, player->y * MINIMAP, player->rays[i].wallHitX * MINIMAP, player->rays[i].wallHitY * MINIMAP);
-		i++;
-	}
-}
-
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-int ft_get_color(int x, int y, t_Player *player)
-{
-	int r;
-	int g;
-	int b;
-	int a;
-
-	a = 255;
-	r = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
-	g = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4) + 1];
-	b = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4) + 2];
-	// color = &player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
-	// printf("%d\n",player);
-	// exit(0);
-	// return (get_rgba(color[0], color[1], color[2], color[3]));
-	return get_rgba(r, g, b, a);
-}
-
-void	generate3DMap(t_Player *player)
-{
-	int i;
-	
-	i = 0;
-	while (i < NUM_RAYS)
-	{
-		float corrDistance = player->rays[i].distance * cos(player->rays[i].rayAngle - player->rotationA);
-		float distanceProj = ((float)WIDTH / 2) / tan(FOV_ANGLE / 2);
-		float projectedWAllHeight = (TILE_S / corrDistance) * distanceProj;
-
-		int wallStripHeight = (int)projectedWAllHeight;
-		int wallTopPixel = (HEIGHT / 2) - (wallStripHeight / 2);
-		wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
-		
-		int wallBottomPixel = (HEIGHT / 2) + (wallStripHeight / 2);
-		wallBottomPixel = wallBottomPixel > HEIGHT ? HEIGHT : wallBottomPixel;
-
-		int y = 0;
-		int textOffsetX;
-		while (y < wallTopPixel)
-		{
-			mlx_put_pixel(player->img, i, y, 0x66FFFFFF);
-			y++;
-		}
-
-		if (player->rays[i].wasHitVertical)
-			textOffsetX = fmodf(player->rays[i].wallHitY, TILE_S) * ((float)player->text1->width / TILE_S);
-		else
-			textOffsetX = fmodf(player->rays[i].wallHitX, TILE_S) * ((float)player->text1->width / TILE_S) ;
-		y = wallTopPixel;
-		while (y < wallBottomPixel)
-		{
-			int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
-			int textOffsetY = distanceFromTop * ((float)player->text1->height / wallStripHeight);
-  			uint32_t color = ft_get_color(textOffsetX, textOffsetY, player);
-			mlx_put_pixel(player->img, i, y, color);
-			y++;
-		}
-		y = wallBottomPixel;
-		while (y < HEIGHT)
-		{
-			mlx_put_pixel(player->img, i, y, 0xCC6600FF);
-			y++;
-		}
-		i++;
-
-	}
-}
-
-// void renderPlayer(t_Player *player)
-// {
-// 	mlx_put_pixel(player->img, player->x, player->y, 0xFF3333FF);
-// 	draw_line(player->img, player->x , player->y , player->x + cos(player->rotationA) * 30, player->y + sin(player->rotationA) * 30);
-// }
 
 int check_walls1(t_Player *player, float px, float py)
 {
@@ -187,32 +31,6 @@ int check_walls2(t_Player *player, float px, float py)
 	float mapgridX = floor(px / TILE_S);
 	float mapgridY = floor(py / TILE_S);
 	return (map[(int)mapgridY][(int)mapgridX] != 0);
-}
-
-void ft_update(t_Player *player)
-{
-	player->rotationA += player->turnD * player->turnS;
-	float movestep = player->walkD * player->walkS;
-	float newplayerX = cos(player->rotationA) * movestep;
-	float newplayerY = sin(player->rotationA) * movestep;
-	float px = player->x + newplayerX;
-	float py = player->y + newplayerY;
-	if (!check_walls1(player, px, py))
-	{
-		player->x = px;
-		player->y = py;
-	}
-	float tmp = player->rotationA + player->sideW * player->turnS;
-	movestep = player->sideW * player->walkS;
-	newplayerX = cos(tmp + (90 * (M_PI / 180))) * movestep;
-	newplayerY = sin(tmp + (90 * (M_PI / 180))) * movestep;
-	px = player->x + newplayerX;
-	py = player->y + newplayerY;
-	if (!check_walls1(player, px, py))
-	{
-		player->x = px;
-		player->y = py;
-	}
 }
 
 float	normalizeAngle(float angle)
@@ -393,53 +211,12 @@ void	ft_loop(void* param)
 	castAllRays(player);
 	ft_update(player);
 	generate3DMap(player);
-	renderMap(player);
-	renderRays(player);
+	// renderMap(player);
+	// renderRays(player);
 	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
 		ft_error();
 }
-void ft_key(mlx_key_data_t keycode, void *param)
-{
-	t_Player *player = param;
 
-	if(keycode.key == MLX_KEY_ESCAPE)
-		exit(1);
-	if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		player->walkD = 1;
-	if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
-		player->walkD = 0;
-	if (keycode.key == MLX_KEY_S && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		player->walkD = -1;
-	if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
-		player->walkD = 0;
-	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		player->turnD = 1;
-	if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
-		player->turnD = 0;
-	if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		player->turnD = -1;
-	if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
-		player->turnD = 0;
-	if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		player->sideW = 1;
-	if (keycode.key == MLX_KEY_D && keycode.action == MLX_RELEASE)
-		player->sideW = 0;
-	if (keycode.key == MLX_KEY_A && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		player->sideW = -1;
-	if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
-		player->sideW = 0;
-}
-
-void ft_mouse(void* param)
-{
-	t_Player *player = param;
-	static int i;
-	mlx_get_mouse_pos(player->mlx, &player->mouseX, &player->mouseY);
-	if (i++ == 0)
-		player->mouseX = 500;
-	player->rotationA += (float)(player->mouseX - 500) / 500;
-	mlx_set_mouse_pos(player->mlx, 500, 500);
-}
 
 void setup(t_Player *player)
 {
@@ -473,9 +250,9 @@ int	main()
 		ft_error();
 	
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
-	player.text1 = mlx_load_png("wall2.png");
-	if (!player.text1)
-		ft_error();
+	// player.text1 = mlx_load_png("wall2.png");
+	// if (!player.text1)
+	// 	ft_error();
 	ft_helper(&player);
 	return (EXIT_SUCCESS);
 }

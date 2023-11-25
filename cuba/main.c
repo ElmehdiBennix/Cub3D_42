@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 01:17:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:32:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void 	draw(t_draw	*draw)
 	}
 }
 
-void draw_lines(t_draw *draw)
+static void draw_lines(t_draw *draw)
 {
 	printf("x1 = %f y1 = %f x2 = %f y2 = %f\n", draw->x1, draw->y1, draw->x2, draw->y2);
 	double deltaX = draw->x2 - draw->x1;
@@ -148,7 +148,7 @@ static void	my_drawing(t_data *game)
 		ft_error();
 }
 
-void key_events(mlx_key_data_t keycode, t_data *game) // maybe better controls
+static void key_events(mlx_key_data_t keycode, t_data *game) // maybe better controls
 {
 	if (keycode.key == MLX_KEY_UP && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.walkD = 1;
@@ -189,7 +189,7 @@ static void setup(t_data	*game)
 // 	system("leaks cub3d");
 // }
 
-void	gerphec(t_data *game)
+static void	gerphec(t_data *game)
 {
 	setup(&game);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
