@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 20:44:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 23:15:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void 	draw(t_draw	*draw)
 
 static void draw_lines(t_draw *draw)
 {
-	printf("x1 = %f y1 = %f x2 = %f y2 = %f\n", draw->x1, draw->y1, draw->x2, draw->y2);
+	// printf("x1 = %f y1 = %f x2 = %f y2 = %f\n", draw->x1, draw->y1, draw->x2, draw->y2);
 	double deltaX = draw->x2 - draw->x1;
 	double deltaY = draw->y2 - draw->y1;
 
@@ -49,81 +49,67 @@ static void draw_lines(t_draw *draw)
 	}
 }
 
-// static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
-// {
-// 	int x_distance = x_vis * 2 + 1;
-// 	int y_distance = y_vis * 2 + 1;
+static void	mini_map(t_data *game ,double x_vis, double y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
+{
+	double x_distance = x_vis * 2;
+	double y_distance = y_vis * 2;
 
-// 	int x = game->player_info.x - x_vis;
-// 	int y = game->player_info.y - y_vis;
+	float camera_x = game->player.x - x_vis;
+	float camera_y = game->player.y - y_vis;
 
-// 	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
-// 	printf("X = %d Y = %d\n", x ,y);
-// 	printf("h = %d w = %d\n", game->map_height ,game->map_width);
-// 	printf("##############################\n");
+	printf(RED"#####################################\n"DEFAULT);
+	printf("PLAYER X = %f PLAYER Y = %f\n", game->player.x, game->player.y);
 
-// 	const int size = 10;
+	printf("X = %f Y = %f\n", camera_x ,camera_y);
 
-// 	int draw_x = 0;
-// 	int draw_y = 0;
+	printf("##############################\n");
+
+	// const int size = 10;
+
+	// double draw_x = 0;
+	// double draw_y = 0;
 	
-// 	int count = 0;
-	
-// 	while (y_distance)
-// 	{
-// 		printf("line %d = ", count);
-// 		while (x_distance)
-// 		{
-// 			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
-// 			{
-// 				printf("*");
-// 				draw_cub(game,size,draw_x,draw_y,0x000000FF);
-// 				// printf("red");
-// 			}
-// 			else if (game->map[y][x] == '1')
-// 			{
-// 				printf("1");
-// 				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
-// 				// printf("green");
-// 			}
-// 			else if (game->map[y][x] == '0')
-// 			{
-// 				printf("0");
-// 				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
-// 				// printf("blue");
-// 			}
-// 			else if (game->map[y][x] == game->player_info.direction)
-// 			{
-// 				printf("P");
-// 				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
-// 				// printf("black");
-// 			}
-// 			x++;
-// 			draw_x += size;
-// 			x_distance--;
-// 		}
-// 		printf(" || x = %d y = %d", x, y);
-// 		printf("\n");
-// 		count++;
-// 		x = game->player_info.x - x_vis;
-// 		y++;
-// 		draw_x = 0;
-// 		draw_y += size;
-// 		x_distance = x_vis * 2 + 1;
-// 		y_distance--;
-// 	}
-// }
+	// while (y_distance)
+	// {
+	// 	while (x_distance)
+	// 	{
+	// 		if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
+	// 			draw_cub(game,size,draw_x,draw_y,0x000000FF);
+	// 		else if (game->map[y][x] == '1')
+	// 			draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
+	// 		else if (game->map[y][x] == '0')
+	// 			draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
+	// 		else if (game->map[y][x] == game->player_info.direction)
+	// 			draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
+	// 		x++;
+	// 		draw_x += size;
+	// 		x_distance--;
+	// 	}
+	// 	x = game->player_info.x - x_vis;
+	// 	y++;
+	// 	draw_x = 0;
+	// 	draw_y += size;
+	// 	x_distance = x_vis * 2;
+	// 	y_distance--;
+	// }
+}
 
 // static void render_player()
 // {
 	
 // }
 
-static bool collision(t_data *game, float x, float y) // niceee
+static bool collision(t_data *game, float x, float y) // working in the dark
 {
 	int mapX = floor(x / TILE_S);
-	int mapY = floor(y / TILE_S); // will floor the x and y to give us the int value to check for the collisions
-	printf("mapX = %d mapY = %d\n", mapX, mapY);
+	int mapY = floor(y / TILE_S);
+	printf("mapX = %d mapY = %d\n", mapX, mapY); // add calculation for out of bounds of the map
+	if (mapX <= 0 || mapY <= 0 || mapX >= (int)game->map_width || mapY >= (int)game->map_height || game->map[mapY][mapX] == '1')
+	{
+		printf("---------------> collision\n");
+		return (true);
+	}
+	return (false);
 }
 
 
@@ -135,11 +121,12 @@ static void update(t_data *game)
 	printf("move = %f\n", move);
 
 	// check for collisions before updating the player position
-	
-	collision(game, game->player.x + cos(game->player.rotationA) * move, game->player.y + sin(game->player.rotationA) * move);
-	
-	game->player.x += cos(game->player.rotationA) * move;
-	game->player.y += sin(game->player.rotationA) * move;
+
+	if (collision(game, game->player.x + cos(game->player.rotationA) * move, game->player.y + sin(game->player.rotationA) * move) == false)
+	{
+		game->player.x += cos(game->player.rotationA) * move;
+		game->player.y += sin(game->player.rotationA) * move;
+	}
 	printf("x = %f y = %f\n", game->player.x, game->player.y);
 }
 
@@ -148,14 +135,14 @@ static void	my_drawing(t_data *game)
 	mlx_delete_image(game->mlx, game->HUD_Frame);
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
-	// mini_map(game, 5, 5); // segs becouse of window size
+	update(game);
+	mini_map(game, 5, 5); // segs becouse of window size
 	t_draw draw = { game->HUD_Frame, game->player.x,
 					game->player.y,
-					game->player.x + (cos(game->player.rotationA) * 50),
-					game->player.y + (sin(game->player.rotationA) * 50),
+					game->player.x + (cos(game->player.rotationA) * 30),
+					game->player.y + (sin(game->player.rotationA) * 30),
 					0x00FF00FF };
 	draw_lines(&draw);
-	update(game);
 	
 	if (!game->HUD_Frame || (mlx_image_to_window(game->mlx, game->HUD_Frame, 0, 0)) < 0)
 		ft_error();
@@ -234,3 +221,91 @@ int	main(int ac, char **av)
 	// atexit(f);
 	return (EXIT_SUCCESS);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// static void	mini_map(t_data *game ,int x_vis, int y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
+// {
+// 	int x_distance = x_vis * 2 + 1;
+// 	int y_distance = y_vis * 2 + 1;
+
+// 	int x = game->player_info.x - x_vis;
+// 	int y = game->player_info.y - y_vis;
+
+// 	printf("PLAYER X = %d PLAYER Y = %d\n", game->player_info.x, game->player_info.y);
+// 	printf("X = %d Y = %d\n", x ,y);
+// 	printf("h = %d w = %d\n", game->map_height ,game->map_width);
+// 	printf("##############################\n");
+
+// 	const int size = 10;
+
+// 	int draw_x = 0;
+// 	int draw_y = 0;
+	
+// 	int count = 0;
+	
+// 	while (y_distance)
+// 	{
+// 		printf("line %d = ", count);
+// 		while (x_distance)
+// 		{
+// 			if (x < 0 || y < 0 || (unsigned int) x >= game->map_width || (unsigned int) y >= game->map_height)
+// 			{
+// 				printf("*");
+// 				draw_cub(game,size,draw_x,draw_y,0x000000FF);
+// 				// printf("red");
+// 			}
+// 			else if (game->map[y][x] == '1')
+// 			{
+// 				printf("1");
+// 				draw_cub(game,size,draw_x,draw_y,0xFFFFFFFF);
+// 				// printf("green");
+// 			}
+// 			else if (game->map[y][x] == '0')
+// 			{
+// 				printf("0");
+// 				draw_cub(game,size,draw_x,draw_y,0x66FFFFFF);
+// 				// printf("blue");
+// 			}
+// 			else if (game->map[y][x] == game->player_info.direction)
+// 			{
+// 				printf("P");
+// 				draw_cub(game,size,draw_x,draw_y,0xCC6600FF);
+// 				// printf("black");
+// 			}
+// 			x++;
+// 			draw_x += size;
+// 			x_distance--;
+// 		}
+// 		printf(" || x = %d y = %d", x, y);
+// 		printf("\n");
+// 		count++;
+// 		x = game->player_info.x - x_vis;
+// 		y++;
+// 		draw_x = 0;
+// 		draw_y += size;
+// 		x_distance = x_vis * 2 + 1;
+// 		y_distance--;
+// 	}
+// }
