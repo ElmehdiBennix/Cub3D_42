@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/23 19:09:18 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:10:41 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile)
 		int j = w;
 		while (j < w + tile)
 		{
-			
 			mlx_put_pixel(img, j * MINIMAP, i * MINIMAP, color);
 			j++;
 		}
@@ -106,8 +105,6 @@ void renderMap(t_Player *player)
 		}
 		i++;
 	}
-	// if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
-	// 	ft_error();
 }
 
 void	renderRays(t_Player *player)
@@ -133,7 +130,6 @@ int ft_get_color(int x, int y, t_Player *player)
 	int g;
 	int b;
 	int a;
-	// uint8_t *color;
 
 	a = 255;
 	r = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
@@ -176,24 +172,12 @@ void	generate3DMap(t_Player *player)
 			textOffsetX = fmodf(player->rays[i].wallHitY, TILE_S) * ((float)player->text1->width / TILE_S);
 		else
 			textOffsetX = fmodf(player->rays[i].wallHitX, TILE_S) * ((float)player->text1->width / TILE_S) ;
-		
-		// if (player->rays[i].wasHitVertical)
-		// 	textOffsetX = ((int)(player->rays[i].wallHitY * ((float)player->text1->width / TILE_S)) % player->text1->width) ;
-		// else
-		// 	textOffsetX = ((int)(player->rays[i].wallHitX * ((float)player->text1->width / TILE_S)) % player->text1->width) ;
-		// printf("%d\n", textOffsetX);
-		// exit(0);
 		y = wallTopPixel;
-		 //int txtnum = player->rays[i].wallHitContent - 1;
 		while (y < wallBottomPixel)
 		{
-			//int color = 0x0000FFFF;
 			int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
 			int textOffsetY = distanceFromTop * ((float)player->text1->height / wallStripHeight);
-			// printf("%s\n", player->text1->pixels);
-			//int color = player->text1[(TEX_WIDTH * textOffsetY) + textOffsetX];
   			uint32_t color = ft_get_color(textOffsetX, textOffsetY, player);
-			// color = player->rays[i].wasHitVertical ? 0x0000FFFF : 0x0000CCCC;
 			mlx_put_pixel(player->img, i, y, color);
 			y++;
 		}
@@ -208,31 +192,11 @@ void	generate3DMap(t_Player *player)
 	}
 }
 
-void renderPlayer(t_Player *player)
-{
-	// int i;
-	// int j;
-	
-	mlx_put_pixel(player->img, player->x, player->y, 0xFF3333FF);
-	draw_line(player->img, player->x , player->y , player->x + cos(player->rotationA) * 30, player->y + sin(player->rotationA) * 30);
-	// draw_line(player->img, player->x , player->y , player->x + cos(player->rotationA) * 40, player->y + sin(player->rotationA) * 40);
-	// i = 0;
-	// while(i < MAP_NUM_ROWS)
-	// {
-	// 	j = 0;
-	// 	while(j < MAP_NUM_COLS)
-	// 	{
-	// 		if(map[i][j] == 2)
-	// 		{
-	// 			// player->x = i;
-	// 			// player->y = j;
-	// 			draw_rectangle(player->img, (player->x * TILE_S), (player->y * TILE_S), 0xFF3333FF, 10);
-	// 		}
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-}
+// void renderPlayer(t_Player *player)
+// {
+// 	mlx_put_pixel(player->img, player->x, player->y, 0xFF3333FF);
+// 	draw_line(player->img, player->x , player->y , player->x + cos(player->rotationA) * 30, player->y + sin(player->rotationA) * 30);
+// }
 
 int check_walls1(t_Player *player, float px, float py)
 {
@@ -258,7 +222,6 @@ int check_walls2(t_Player *player, float px, float py)
 void ft_update(t_Player *player)
 {
 	player->rotationA += player->turnD * player->turnS;
-	// mlx_set_mouse_pos(player->mlx, player->x, 0);
 	float movestep = player->walkD * player->walkS;
 	float newplayerX = cos(player->rotationA) * movestep;
 	float newplayerY = sin(player->rotationA) * movestep;
@@ -462,19 +425,6 @@ void	ft_loop(void* param)
 	generate3DMap(player);
 	renderMap(player);
 	renderRays(player);
-	// renderPlayer(player);
-	//draw_line(player->img, player->x , player->y , player->x + cos(player->rotationA) * 30, player->y + sin(player->rotationA) * 30);
-	// player->img = mlx_new_image(player->mlx, WIDTH, HEIGHT);
-
-	// player->rotationA += player->turnD * player->turnS;
-
-	// float movestep = player->walkD * player->walkS;
-	// float newplayerX = player->x + cos(player->rotationA) * movestep;
-	// float newplayerY = player->y + sin(player->rotationA) * movestep;
-
-	// player->x = newplayerX;
-	// player->y = newplayerY;	
-	 
 	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
 		ft_error();
 }
@@ -492,15 +442,12 @@ void ft_key(mlx_key_data_t keycode, void *param)
 		player->walkD = -1;
 	if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
 		player->walkD = 0;
-	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT)){
+	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		player->turnD = 1;
-	}
 	if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
 	if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-	{
 		player->turnD = -1;
-	}
 	if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
 		player->turnD = 0;
 	if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
@@ -516,9 +463,10 @@ void ft_key(mlx_key_data_t keycode, void *param)
 void ft_mouse(void* param)
 {
 	t_Player *player = param;
-	//mlx_set_mouse_pos(player->mlx, player->x, 0);
-	// printf("%f\n",x);
+	static int i;
 	mlx_get_mouse_pos(player->mlx, &player->mouseX, &player->mouseY);
+	if (i++ == 0)
+		player->mouseX = 500;
 	player->rotationA += (float)(player->mouseX - 500) / 500;
 	mlx_set_mouse_pos(player->mlx, 500, 500);
 }
@@ -527,8 +475,6 @@ void setup(t_Player *player)
 {
 	player->x = 200;
 	player->y = 170;
-	player->width = 5;
-	player->height = 5;
 	player->turnD = 0;
 	player->mouseX = 0;
 	player->walkD = 0;
@@ -540,56 +486,26 @@ void setup(t_Player *player)
 
 void ft_helper(t_Player *player)
 {
-	// start 1
-	// generate3DMap(player);
-	//renderMap(player);
-	// renderRays(player);
-	// renderPlayer(player);
-	// end   1
-	// start 2
-	// if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
-	// 	ft_error();
 	mlx_key_hook(player->mlx, ft_key, player);
-	// mlx_scroll_hook(player->mlx, ft_scroll, player);
-	// mlx_mouse_hook(player->mlx, ft_mouse, player);
 	mlx_loop_hook(player->mlx, ft_loop, player);
+	mlx_set_cursor_mode(player->mlx, MLX_MOUSE_DISABLED);
 	mlx_cursor_hook(player->mlx,(void *)ft_mouse, player);
 	mlx_loop(player->mlx);
 	mlx_terminate(player->mlx);
-	// end   2
 }
 
 int	main()
 { 
 	t_Player player;
-	// start 0
 	setup(&player);
 	player.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!player.mlx)
 		ft_error();
-	mlx_set_cursor_mode(player.mlx, MLX_MOUSE_DISABLED);
-	mlx_set_mouse_pos(player.mlx, player.x, 0);
+	
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
 	player.text1 = mlx_load_png("wall2.png");
 	if (!player.text1)
 		ft_error();
-	// player.text2 = mlx_load_png("./Downloads/jpg2png/wall2.png");
-	// if (!player.text2)
-	// 	ft_error();
 	ft_helper(&player);
-	// end   0
-	// // start 1
-	// renderMap(player.img);
-	// renderPlayer(player.img, &player);
-	// 	//renderRays();
-	// // end   1
-	// // start 2
-	// if (!player.img || (mlx_image_to_window(player.mlx, player.img, 0, 0) < 0))
-	// 	ft_error();
-	// mlx_key_hook(player.mlx, ft_key, &player);
-	// mlx_loop_hook(player.mlx, ft_loop, &player);
-	// mlx_loop(player.mlx);
-	// mlx_terminate(player.mlx);
-	// // end   2
 	return (EXIT_SUCCESS);
 }
