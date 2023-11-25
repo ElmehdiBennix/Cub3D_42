@@ -18,7 +18,11 @@
         "math.h": "c",
         "structs.h": "c",
         "defin.h": "c",
-        "mlx42.h": "c"
+        "mlx42.h": "c",
+        "__bit_reference": "c",
+        "__string": "c",
+        "algorithm": "c",
+        "ios": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#1a1a1a",
