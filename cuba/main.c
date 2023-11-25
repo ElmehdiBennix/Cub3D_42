@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 01:32:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 20:41:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,25 @@ static void draw_lines(t_draw *draw)
 	
 // }
 
+static bool collision(t_data *game, float x, float y) // niceee
+{
+	int mapX = floor(x / TILE_S);
+	int mapY = floor(y / TILE_S);
+	printf("mapX = %d mapY = %d\n", mapX, mapY);
+}
+
+
 static void update(t_data *game)
 {
 	game->player.rotationA += game->player.turnS * game->player.turnD;
 
 	float move = game->player.walkD * game->player.walkS;
 	printf("move = %f\n", move);
+
+	// check for collisions before updating the player position
+	
+	collision(game, game->player.x + cos(game->player.rotationA) * move, game->player.y + sin(game->player.rotationA) * move);
+	
 	game->player.x += cos(game->player.rotationA) * move;
 	game->player.y += sin(game->player.rotationA) * move;
 	printf("x = %f y = %f\n", game->player.x, game->player.y);
@@ -191,12 +204,12 @@ static void setup(t_data	*game)
 
 static void	gerphec(t_data *game)
 {
-	setup(&game);
+	setup(game);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		ft_error();
-	mlx_key_hook(game->mlx, (void *)key_events, &game);
-	mlx_loop_hook(game->mlx, (void *)my_drawing, &game);
+	mlx_key_hook(game->mlx, (void *)key_events, game);
+	mlx_loop_hook(game->mlx, (void *)my_drawing, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }
@@ -210,7 +223,7 @@ int	main(int ac, char **av)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
 
 	parser(&game, read_file(*(++av)));
-	// gerphec(&game);
+	gerphec(&game);
 	
     // init_images(game); // if we added some textures
     // open_window(game);

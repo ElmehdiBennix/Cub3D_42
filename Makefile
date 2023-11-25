@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/24 23:48:45 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/25 20:06:47 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ FILES := cuba/main \
 		 cuba/parse/fields_analyzer \
 		 cuba/parse/map_evaluator \
 		 cuba/loader/init_textures \
-		 cuba/graphics/draw \
 		 cuba/tools/free_game \
+		#  cuba/graphics/draw \
 
 SRC := $(FILES:=.c)
 
