@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 01:44:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:51:46 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_texture(t_data *game)
 		mlx_delete_texture(game->East.texture);
 }
 
-void ft_error(void)
+void	ft_error(void)
 {
 	perror(mlx_strerror(mlx_errno));
 	exit(EXIT_FAILURE);

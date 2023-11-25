@@ -6,45 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/25 01:47:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:54:02 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-int check_walls1(t_Player *player, float px, float py)
-{
-	(void)player;
-	if (px < 0 || px > WIDTH || py < 0 || py > HEIGHT)
-		return 0;
-	float mapgridX = floor(px / TILE_S);
-	float mapgridY = floor(py / TILE_S);
-	if (map[(int)mapgridY][(int)mapgridX] != 0 || (map[(int)mapgridY][(int)(player->x / TILE_S)] && map[(int)(player->y / TILE_S)][(int)mapgridX]))
-		return (1);
-	return (0);
-}
-int check_walls2(t_Player *player, float px, float py)
-{
-	(void)player;
-	if (px < 0 || px > WIDTH || py < 0 || py > HEIGHT)
-		return 0;
-	float mapgridX = floor(px / TILE_S);
-	float mapgridY = floor(py / TILE_S);
-	return (map[(int)mapgridY][(int)mapgridX] != 0);
-}
-
-float	normalizeAngle(float angle)
-{
-	angle = fmod(angle, (2 * M_PI));
-	if (angle < 0)
-		angle = (2 * M_PI) + angle;
-	return angle;
-}
-
-float	distancebetweenPoints(float x1, float y1, float x2, float y2)
-{
-	return sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-}
 
 void	castRay(float rayA, int sId, t_Player *player)
 {
@@ -217,7 +183,6 @@ void	ft_loop(void* param)
 		ft_error();
 }
 
-
 void setup(t_Player *player)
 {
 	player->x = 200;
@@ -231,28 +196,21 @@ void setup(t_Player *player)
 	player->turnS = 2 * (M_PI / 180);
 }
 
-void ft_helper(t_Player *player)
+void ft_helper()
 {
-	mlx_key_hook(player->mlx, ft_key, player);
-	mlx_loop_hook(player->mlx, ft_loop, player);
-	mlx_set_cursor_mode(player->mlx, MLX_MOUSE_DISABLED);
-	mlx_cursor_hook(player->mlx,(void *)ft_mouse, player);
-	mlx_loop(player->mlx);
-	mlx_terminate(player->mlx);
-}
-
-int	main()
-{ 
 	t_Player player;
 	setup(&player);
 	player.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!player.mlx)
 		ft_error();
-	
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
 	// player.text1 = mlx_load_png("wall2.png");
 	// if (!player.text1)
 	// 	ft_error();
-	ft_helper(&player);
-	return (EXIT_SUCCESS);
+	mlx_set_cursor_mode(player->mlx, MLX_MOUSE_DISABLED);
+	mlx_cursor_hook(player->mlx,(void *)ft_mouse, player);
+	mlx_key_hook(player->mlx, ft_key, player);
+	mlx_loop_hook(player->mlx, ft_loop, player);
+	mlx_loop(player->mlx);
+	mlx_terminate(player->mlx);
 }
