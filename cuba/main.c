@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 00:45:22 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 00:45:59 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis) // impaire   /// 
 	int x_distance = 258; // maybe smarter
 	int y_distance = 258;
 
-
 	float camera_x = game->player.x - (x_vis * TILE_S);
 	float camera_y = game->player.y - (y_vis * TILE_S); // needs to keep updating
 
@@ -76,7 +75,7 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis) // impaire   /// 
 		{
 			int x = floor(camera_x / TILE_S);
 			int y = floor(camera_y / TILE_S);
-			// printf("floor : x =  %d , y = %d\n",x,y);
+			printf("floor : x =  %d , y = %d\n",x,y);
 			if (x < 0 || y < 0 || x > (float)game->map_width || y > (float)game->map_height)
 				mlx_put_pixel(game->HUD_Frame, draw_x , draw_y, 0x000000FF);
 			else if (game->map[y][x] == '1')
