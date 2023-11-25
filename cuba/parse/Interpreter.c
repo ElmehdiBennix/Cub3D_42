@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 08:54:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:15:33 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,6 @@ void	parser(t_data   *game, char **file)
 	valid_map(game);
 	map_padding(game);
 	boundary_check(game);
+	game->map[game->player_info.y][game->player_info.x] = '0';
+	// setup_player(game);
 }

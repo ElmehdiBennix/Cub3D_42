@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 00:17:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:17:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ static void	my_drawing(t_data *game)
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
 	// mini_map(game, 5, 5); // segs becouse of window size
-	t_draw draw = { game->HUD_Frame, game->HUD_Frame->width/2,
-					game->HUD_Frame->height/2,
-					game->HUD_Frame->width/2 + (cos(game->player.rotationA) * 50),
-					game->HUD_Frame->height/2 + (sin(game->player.rotationA) * 50),
+	t_draw draw = { game->HUD_Frame, game->player.x,
+					game->player.y,
+					game->player.x + (cos(game->player.rotationA) * 50),
+					game->player.y + (sin(game->player.rotationA) * 50),
 					0x00FF00FF };
 	draw_lines(&draw);
 	update(game);
@@ -148,7 +148,7 @@ static void	my_drawing(t_data *game)
 		ft_error();
 }
 
-void key_events(mlx_key_data_t keycode, t_data *game)
+void key_events(mlx_key_data_t keycode, t_data *game) // maybe better controls
 {
 	if (keycode.key == MLX_KEY_UP && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.walkD = 1;
@@ -189,6 +189,19 @@ static void setup(t_data	*game)
 // 	system("leaks cub3d");
 // }
 
+void	gerphec(t_data *game)
+{
+	setup(&game);
+	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	if (!game->mlx)
+		ft_error();
+	mlx_key_hook(game->mlx, (void *)key_events, &game);
+	mlx_loop_hook(game->mlx, (void *)my_drawing, &game);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
+}
+
+
 int	main(int ac, char **av)
 {
     t_data	game;
@@ -197,123 +210,14 @@ int	main(int ac, char **av)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
 
 	parser(&game, read_file(*(++av)));
+	// gerphec(&game);
+	
     // init_images(game); // if we added some textures
     // open_window(game);
-	// game.map[game.player_info.y][game.player_info.x] = '0';
-	setup(&game);
-	game.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
-	if (!game.mlx)
-		ft_error();
-	mlx_key_hook(game.mlx, (void *)key_events, &game);
-	mlx_loop_hook(game.mlx, (void *)my_drawing, &game);
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
+
 
 	// ft_helper(&game);
 
 	// atexit(f);
 	return (EXIT_SUCCESS);
 }
-
-
-// empty texture file but the file exist
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #define WIDTH 512
-// #define HEIGHT 512
-
-// static mlx_image_t* image;
-
-// // -----------------------------------------------------------------------------
-
-// int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-// {
-//     return (r << 24 | g << 16 | b << 8 | a);
-// }
-
-// void ft_randomize(void* param)
-// {
-// 	for (int32_t i = 0; i < image->width; ++i)
-// 	{
-// 		for (int32_t y = 0; y < image->height; ++y)
-// 		{
-// 			uint32_t color = ft_pixel(
-// 				rand() % 0xFF, // R
-// 				rand() % 0xFF, // G
-// 				rand() % 0xFF, // B
-// 				rand() % 0xFF  // A
-// 			);
-// 			mlx_put_pixel(image, i, y, color);
-// 		}
-// 	}
-// }
-
-// void ft_hook(void* param)
-// {
-// 	mlx_t* mlx = param;
-
-// 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-// 		mlx_close_window(mlx);
-// 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-// 		image->instances[0].y -= 5;
-// 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-// 		image->instances[0].y += 5;
-// 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-// 		image->instances[0].x -= 5;
-// 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-// 		image->instances[0].x += 5;
-// }
-
-// // -----------------------------------------------------------------------------
-
-// int32_t main(int32_t argc, const char* argv[])
-// {
-// 	mlx_t* mlx;
-
-// 	// Gotta error check this stuff
-// 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-// 	{
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-// 	if (!(image = mlx_new_image(mlx, 128, 128)))
-// 	{
-// 		mlx_close_window(mlx);
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-// 	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-// 	{
-// 		mlx_close_window(mlx);
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-	
-// 	mlx_loop_hook(mlx, ft_randomize, mlx);
-// 	mlx_loop_hook(mlx, ft_hook, mlx);
-
-// 	mlx_loop(mlx);
-// 	mlx_terminate(mlx);
-// 	return (EXIT_SUCCESS);
-// }

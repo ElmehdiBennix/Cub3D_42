@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 23:39:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:10:37 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,11 @@ typedef struct Ray
 	int wallHitContent;
 }	t_Ray[NUM_RAYS];
 
-typedef struct Player
-{
-	float x;
-	float y;
-	float width;
-	float height;
-	int turnD; // -1 for left, +1 for right
-	int walkD; // -1 for back, +1 for front
-	float rotationA; // for retation angle
-	float walkS; // for walk speed
-	float turnS; // for turn speed
-	mlx_t* mlx;
-	mlx_image_t* img;
-	mlx_texture_t* text1;
-	mlx_texture_t* text2;
-	t_Ray rays;
-}	t_Player;
-
-
-
-
-
-
-
-
-
 // typedef struct s_list
 // {
 //     void			*content;
 //     struct s_list	*next;
 // }					t_list;
-
-
-
 
 typedef struct s_draw
 {
@@ -103,8 +74,7 @@ typedef struct s_state
 {
 	float x;
 	float y;
-	float width;
-	float height;
+
 	int turnD; // -1 for left, +1 for right
 	int walkD; // -1 for back, +1 for front
 	float rotationA; // for retation angle
@@ -117,8 +87,6 @@ typedef struct s_data
 {
 // -> mlx Data
 	mlx_t			*mlx;
-	int				win_width;
-	int				win_height;
 // -> file_pase_Data
 	char			**map;
 	unsigned int	map_height;
