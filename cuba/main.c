@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 20:41:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/25 20:44:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static void draw_lines(t_draw *draw)
 static bool collision(t_data *game, float x, float y) // niceee
 {
 	int mapX = floor(x / TILE_S);
-	int mapY = floor(y / TILE_S);
+	int mapY = floor(y / TILE_S); // will floor the x and y to give us the int value to check for the collisions
 	printf("mapX = %d mapY = %d\n", mapX, mapY);
 }
 
