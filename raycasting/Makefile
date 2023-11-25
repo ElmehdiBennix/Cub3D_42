@@ -6,7 +6,7 @@
 #    By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 11:26:19 by hasalam           #+#    #+#              #
-#    Updated: 2023/11/02 15:59:24 by hasalam          ###   ########.fr        #
+#    Updated: 2023/11/22 20:07:13 by hasalam          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = Cub3d.c
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 MLXF = -framework Cocoa -framework OpenGL -framework IOKit -lglfw
 LIBMLX = MLX42/build/libmlx42.a
 

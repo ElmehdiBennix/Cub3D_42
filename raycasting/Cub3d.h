@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:23 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/17 16:55:12 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/25 01:00:49 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ typedef struct Player
 {
 	float x;
 	float y;
-	float width;
-	float height;
+	int	mouseX;
+	int	mouseY;
 	int turnD; // -1 for left, +1 for right
 	int walkD; // -1 for back, +1 for front
+	int sideW;
 	float rotationA; // for retation angle
 	float walkS; // for walk speed
 	float turnS; // for turn speed
@@ -74,6 +75,5 @@ typedef struct Player
 	mlx_texture_t* text2;
 	t_Ray rays;
 }	t_Player;
-
 
 #endif
