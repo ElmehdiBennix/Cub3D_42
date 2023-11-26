@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 01:29:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 01:30:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis) // ok working as 
 		draw_y++;
 	}
 	mlx_put_pixel(game->HUD_Frame,x_distance/2,y_distance/2,0x000000FF); // render player
-
 }
 
 // static void render_player()
@@ -105,10 +104,10 @@ static bool collision(t_data *game, float x, float y) // working in the dark
 	// printf("mapX = %d mapY = %d\n", mapX, mapY); // add calculation for out of bounds of the map
 	if (mapX <= 0 || mapY <= 0 || mapX >= (int)game->map_width || mapY >= (int)game->map_height || game->map[mapY][mapX] == '1')
 	{
-		printf("---------------> collision\n");
+		// printf("---------------> collision\n");
 		return (true);
 	}
-	printf("---------------> false collision \n");
+	// printf("---------------> false collision \n");
 	return (false);
 }
 
