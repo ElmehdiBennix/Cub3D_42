@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 01:32:48 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 01:38:37 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,8 @@ static void setup(t_data	*game)
 // 	system("leaks cub3d");
 // }
 
+
+//split up canvas as a hudcanva and a gamecanva and render the gamecanva first then the hudcanva
 static void	gerphec(t_data *game)
 {
 	setup(game);
