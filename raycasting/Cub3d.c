@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:12 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/25 01:10:41 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/26 20:56:14 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int get_rgba(int r, int g, int b, int a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int ft_get_color(int x, int y, t_Player *player)
+int ft_get_color(int i ,int x, int y, t_Player *player)
 {
 	int r;
 	int g;
@@ -132,9 +132,9 @@ int ft_get_color(int x, int y, t_Player *player)
 	int a;
 
 	a = 255;
-	r = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
-	g = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4) + 1];
-	b = player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4) + 2];
+	r = player->rays[i].text->pixels[(y * (player->rays[i].text->width * 4)) + (x * 4)];
+	g = player->rays[i].text->pixels[(y * (player->rays[i].text->width * 4)) + (x * 4) + 1];
+	b = player->rays[i].text->pixels[(y * (player->rays[i].text->width * 4)) + (x * 4) + 2];
 	// color = &player->text1->pixels[(y * (player->text1->width * 4)) + (x * 4)];
 	// printf("%d\n",player);
 	// exit(0);
@@ -169,15 +169,15 @@ void	generate3DMap(t_Player *player)
 		}
 
 		if (player->rays[i].wasHitVertical)
-			textOffsetX = fmodf(player->rays[i].wallHitY, TILE_S) * ((float)player->text1->width / TILE_S);
+			textOffsetX = fmodf(player->rays[i].wallHitY, TILE_S) * ((float)player->rays[i].text->width / TILE_S);
 		else
-			textOffsetX = fmodf(player->rays[i].wallHitX, TILE_S) * ((float)player->text1->width / TILE_S) ;
+			textOffsetX = fmodf(player->rays[i].wallHitX, TILE_S) * ((float)player->rays[i].text->width / TILE_S) ;
 		y = wallTopPixel;
 		while (y < wallBottomPixel)
 		{
 			int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
-			int textOffsetY = distanceFromTop * ((float)player->text1->height / wallStripHeight);
-  			uint32_t color = ft_get_color(textOffsetX, textOffsetY, player);
+			int textOffsetY = distanceFromTop * ((float)player->rays[i].text->height / wallStripHeight);
+  			uint32_t color = ft_get_color(i,textOffsetX, textOffsetY, player);
 			mlx_put_pixel(player->img, i, y, color);
 			y++;
 		}
@@ -216,11 +216,14 @@ int check_walls2(t_Player *player, float px, float py)
 		return 0;
 	float mapgridX = floor(px / TILE_S);
 	float mapgridY = floor(py / TILE_S);
-	return (map[(int)mapgridY][(int)mapgridX] != 0);
+	if (map[(int)mapgridY][(int)mapgridX] != 0)
+		return (1);
+	return (0);
 }
 
 void ft_update(t_Player *player)
 {
+	// printf ("%f\n", player->rotationA);
 	player->rotationA += player->turnD * player->turnS;
 	float movestep = player->walkD * player->walkS;
 	float newplayerX = cos(player->rotationA) * movestep;
@@ -373,10 +376,9 @@ void	castRay(float rayA, int sId, t_Player *player)
 	}
 
 	// Calculate both horizontal and vertical hit distances and choose the smallest one
-	//t_Ray rays;
 	float horzHitDistance = foundHorzWallHit ? distancebetweenPoints(player->x, player->y, horzWallHitX, horzWallHitY) : (float)INT_MAX;
 	float vertHitDistance = foundVertWallHit ? distancebetweenPoints(player->x, player->y, vertWallHitX, vertWallHitY) : (float)INT_MAX;
-
+	//player->rays[sId].text = player->text4;
 	if (vertHitDistance < horzHitDistance)
 	{
 		player->rays[sId].distance = vertHitDistance;
@@ -384,6 +386,10 @@ void	castRay(float rayA, int sId, t_Player *player)
 		player->rays[sId].wallHitY = vertWallHitY;
 		player->rays[sId].wallHitContent = vertWallcontent;
 		player->rays[sId].wasHitVertical = true;
+		if (player->rays[sId].isRayfacingRight)
+			player->rays[sId].text = player->text1;
+		else
+			player->rays[sId].text = player->text2;
 	}
 	else
 	{
@@ -392,6 +398,10 @@ void	castRay(float rayA, int sId, t_Player *player)
 		player->rays[sId].wallHitY = horzWallHitY;
 		player->rays[sId].wallHitContent = horzWallcontent;
 		player->rays[sId].wasHitVertical = false;
+		if (player->rays[sId].isRayfacingUp)
+			player->rays[sId].text = player->text3;
+		else
+			player->rays[sId].text = player->text4;
 	}
 	player->rays[sId].rayAngle = rayA;
 	player->rays[sId].isRayfacingDown = isRayFacingDown;
@@ -411,6 +421,7 @@ void	castAllRays(t_Player *player)
 		castRay(rayA, i, player);
 		rayA += FOV_ANGLE / NUM_RAYS;
 	}
+	//exit(1);
 }
 
 void	ft_loop(void* param)
@@ -427,6 +438,9 @@ void	ft_loop(void* param)
 	renderRays(player);
 	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
 		ft_error();
+	//player->gun= mlx_load_png("ok.png");
+	// mlx_image_t *ok = mlx_texture_to_image(player->mlx, player->gun);
+	// mlx_image_to_window(player->mlx, ok, WIDTH / 2, HEIGHT / 2);
 }
 void ft_key(mlx_key_data_t keycode, void *param)
 {
@@ -458,6 +472,7 @@ void ft_key(mlx_key_data_t keycode, void *param)
 		player->sideW = -1;
 	if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
 		player->sideW = 0;
+	//ft_loop(param);
 }
 
 void ft_mouse(void* param)
@@ -487,6 +502,7 @@ void setup(t_Player *player)
 void ft_helper(t_Player *player)
 {
 	mlx_key_hook(player->mlx, ft_key, player);
+	//ft_loop(player);
 	mlx_loop_hook(player->mlx, ft_loop, player);
 	mlx_set_cursor_mode(player->mlx, MLX_MOUSE_DISABLED);
 	mlx_cursor_hook(player->mlx,(void *)ft_mouse, player);
@@ -501,10 +517,21 @@ int	main()
 	player.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!player.mlx)
 		ft_error();
-	
 	player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
-	player.text1 = mlx_load_png("wall2.png");
-	if (!player.text1)
+	player.text1 = mlx_load_png("wall1.png");
+		if (!player.text1)
+			ft_error();
+	player.text2 = mlx_load_png("wall2.png");
+		if (!player.text2)
+			ft_error();
+	player.text3 = mlx_load_png("wall3.png");
+		if (!player.text3)
+			ft_error();
+	player.text4 = mlx_load_png("wall4.png");
+		if (!player.text4)
+			ft_error();
+	player.gun = mlx_load_png("ok.png");
+	if (!player.gun)
 		ft_error();
 	ft_helper(&player);
 	return (EXIT_SUCCESS);

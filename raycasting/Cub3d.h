@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:23 by hasalam           #+#    #+#             */
-/*   Updated: 2023/11/25 01:00:49 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/11/26 16:45:17 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct Ray
 	int isRayfacingleft;
 	int isRayfacingRight;
 	int wallHitContent;
+	mlx_texture_t* text;
 }	t_Ray[NUM_RAYS];
 
 typedef struct Player
@@ -73,6 +74,9 @@ typedef struct Player
 	mlx_image_t* img;
 	mlx_texture_t* text1;
 	mlx_texture_t* text2;
+	mlx_texture_t* text3;
+	mlx_texture_t* text4;
+	mlx_texture_t* gun;
 	t_Ray rays;
 }	t_Player;
 
