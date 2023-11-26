@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 01:30:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 01:32:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void draw_lines(t_draw *draw)
 	}
 }
 
-static void	mini_map(t_data *game ,double x_vis, double y_vis) // ok working as intended
+static void	mini_map(t_data *game ,double x_vis, double y_vis) // ok working as intended i could make it smaller but i need to calculate my own collision which will take performace
 {
 	int x_distance = (x_vis * 2) * TILE_S;
 	int y_distance = (y_vis * 2) * TILE_S;
@@ -135,7 +135,7 @@ static void	my_drawing(t_data *game)
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
 	update(game);
-	mini_map(game, 2, 2); // segs becouse of window size
+	mini_map(game, 4, 4); // segs becouse of window size
 	// t_draw draw = { game->HUD_Frame, game->player.x,
 	// 				game->player.y,
 	// 				game->player.x + (cos(game->player.rotationA) * 30),
