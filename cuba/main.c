@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 01:46:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:39:35 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,15 +133,18 @@ static void	my_drawing(t_data *game)
 {
 	mlx_delete_image(game->mlx, game->HUD_Frame);
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
-
+	// game->HUD_Frame =  mlx_texture_to_image(game->mlx, game->East.texture);
+	// mlx_image_to_window(game->mlx,game->HUD_Frame,0,0);
+	
 	update(game);
-	// mini_map(game, 4, 4); // segs becouse of window size
-	t_draw draw = { game->HUD_Frame, game->player.x,
-					game->player.y,
-					game->player.x + (cos(game->player.rotationA) * 30),
-					game->player.y + (sin(game->player.rotationA) * 30),
-					0x00FF00FF };
-	draw_lines(&draw);
+	mini_map(game, 4, 4); // segs becouse of window size
+	
+	// t_draw draw = { game->HUD_Frame, game->player.x,
+	// 				game->player.y,
+	// 				game->player.x + (cos(game->player.rotationA) * 30),
+	// 				game->player.y + (sin(game->player.rotationA) * 30),
+	// 				0x00FF00FF };
+	// draw_lines(&draw);
 	
 	if (!game->HUD_Frame || (mlx_image_to_window(game->mlx, game->HUD_Frame, 0, 0)) < 0)
 		ft_error();

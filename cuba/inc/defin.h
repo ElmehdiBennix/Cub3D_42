@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:16:42 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 00:30:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 04:39:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define true 1
 # define false 0
 
-# define WIDTH 1500
-# define HEIGHT 1000
+# define WIDTH 1600 // 1500
+# define HEIGHT 800 // 1000
 
 # define TILE_S 32
 
