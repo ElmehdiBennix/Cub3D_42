@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 01:41:47 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 01:43:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,15 @@ static void setup(t_data	*game)
 
 	game->player.turnD = 0;
 	game->player.walkD = 0;
-	game->player.rotationA = M_PI / 2; // setup this to be the direction of the player
+	if (game->player_info.direction == 'N')
+		game->player.rotationA = 0;
+	else if (game->player_info.direction == 'S')
+		game->player.rotationA = M_PI;
+	else if (game->player_info.direction == 'E')
+		game->player.rotationA = M_PI / 2;
+	else if (game->player_info.direction == 'W')
+		game->player.rotationA = 3 * (M_PI / 2);
+	// game->player.rotationA = M_PI / 2; // setup this to be the direction of the player
 	printf("rotation angle = %f\n\n", game->player.rotationA);
 	game->player.walkS = 3.0f;
 	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
