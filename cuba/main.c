@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 00:45:59 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 01:29:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ static void draw_lines(t_draw *draw)
 	}
 }
 
-static void	mini_map(t_data *game ,double x_vis, double y_vis) // impaire   /// 5 // 5  // drawing is all fucked up
+static void	mini_map(t_data *game ,double x_vis, double y_vis) // ok working as intended
 {
-	int x_distance = 258; // maybe smarter
-	int y_distance = 258;
+	int x_distance = (x_vis * 2) * TILE_S;
+	int y_distance = (y_vis * 2) * TILE_S;
 
-	float camera_x = game->player.x - (x_vis * TILE_S);
-	float camera_y = game->player.y - (y_vis * TILE_S); // needs to keep updating
+	float camera_x;
 
 	// printf(RED"#####################################\n"DEFAULT);
 	// printf(GREEN"PLAYER X = %f PLAYER Y = %f\n", game->player.x, game->player.y);
@@ -65,18 +64,19 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis) // impaire   /// 
 	// printf("CAMERA X = %f CAMERA Y = %f\n", camera_x ,camera_y);
 	// printf("floor X = %f distance Y = %f\n", floor(camera_x / TILE_S), floor(camera_y / TILE_S)); // draw a range with a size for a block
 	// printf(RED"#####################################\n"DEFAULT);
-
 	int draw_x = 0;
 	int draw_y = 0;
+
 	
+	float camera_y = game->player.y - (y_vis * TILE_S);
 	while (draw_y <= y_distance)
 	{
+		camera_x = game->player.x - (x_vis * TILE_S);
 		while (draw_x <= x_distance)
 		{
 			int x = floor(camera_x / TILE_S);
 			int y = floor(camera_y / TILE_S);
-			printf("floor : x =  %d , y = %d\n",x,y);
-			if (x < 0 || y < 0 || x > (float)game->map_width || y > (float)game->map_height)
+			if (x < 0 || y < 0 || x >= (float)game->map_width || y >= (float)game->map_height)
 				mlx_put_pixel(game->HUD_Frame, draw_x , draw_y, 0x000000FF);
 			else if (game->map[y][x] == '1')
 				mlx_put_pixel(game->HUD_Frame, draw_x , draw_y, 0xFFFFFFFF);
@@ -85,12 +85,11 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis) // impaire   /// 
 			draw_x++;
 			camera_x++;
 		}
-		camera_x = game->player.x - (x_vis * TILE_S);
 		camera_y++;
 		draw_x = 0;
 		draw_y++;
 	}
-	mlx_put_pixel(game->HUD_Frame,x_distance/2,y_distance/2,0x000000FF);
+	mlx_put_pixel(game->HUD_Frame,x_distance/2,y_distance/2,0x000000FF); // render player
 
 }
 
@@ -109,6 +108,7 @@ static bool collision(t_data *game, float x, float y) // working in the dark
 		printf("---------------> collision\n");
 		return (true);
 	}
+	printf("---------------> false collision \n");
 	return (false);
 }
 
@@ -136,7 +136,7 @@ static void	my_drawing(t_data *game)
 	game->HUD_Frame = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 
 	update(game);
-	mini_map(game, 4, 4); // segs becouse of window size
+	mini_map(game, 2, 2); // segs becouse of window size
 	// t_draw draw = { game->HUD_Frame, game->player.x,
 	// 				game->player.y,
 	// 				game->player.x + (cos(game->player.rotationA) * 30),
@@ -180,7 +180,7 @@ static void setup(t_data	*game)
 	game->player.walkD = 0;
 	game->player.rotationA = M_PI / 2; // setup this to be the direction of the player
 	printf("rotation angle = %f\n\n", game->player.rotationA);
-	game->player.walkS = 1.0f;
+	game->player.walkS = 3.0f;
 	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
 
