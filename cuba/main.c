@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 14:41:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 15:27:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,20 @@
 
 static void draw_faces(t_data *game)
 {
-	// int min_range[2] = {600, 300};
-	int MAX_range[2] = {700, 550};
-
-	if (game->player.walkD == 1 || game->player.walkD == -1) // or side walking // move the gun left and right
+	game->frames++;
+	if (game->frames % 80 == 0)
+		game->face_idle = !game->face_idle;
+	if (game->player.walkD == 1 || game->player.walkD == -1)
 	{
-		if (game->gun_running == false && game->gun->instances->x < 700 && game->gun->instances->y > 200)
-		{
+		if (game->gun_running == false && game->gun->instances->x < 680)
 			game->gun->instances->x += 4;
-			game->gun->instances->y -= 2;
-		}
 		else
 		{
 			game->gun_running = true;
 			game->gun->instances->x -= 4;
-			game->gun->instances->x += 2;
-			if (game->gun->instances->x < 550 && game->gun->instances->y > 340)
+			if (game->gun->instances->x < 580)
 				game->gun_running = false;
-
 		}
-
-		printf("game instance x = %d and y = %d\n", game->gun->instances->x, game->gun->instances->y);
 		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[2]);
 		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
 	}
@@ -56,7 +49,10 @@ static void draw_faces(t_data *game)
 	}
 	else
 	{
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[0]);
+		if (game->face_idle == false)
+			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[0]);
+		else
+			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[1]);
 		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
 	}
 	game->Faces->enabled = false;
@@ -73,7 +69,6 @@ static void	drawing(t_data *game)
 
 /// #############################################
 	mlx_delete_image(game->mlx, game->Faces);
-
 
 	draw_faces(game);
 	update_state(game);
