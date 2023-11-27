@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 10:12:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 11:16:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,20 +125,21 @@ static void	drawing(t_data *game)
 	// draw_lines(&draw);
 
 /// #############################################
-
 	mlx_delete_image(game->mlx, game->world_3D);
+	mlx_delete_image(game->mlx, game->HUD);
+
+	update_state(game);
 	game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+
 	// update_state(game);
 	castAllRays(game);
 	generate3DMap(game);
+	game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
 
-
+	mlx_image_to_window(game->mlx, game->world_3D, 0, 0);
+	mlx_image_to_window(game->mlx, game->HUD, 0, 0);
 	// renderMap(game);
 	// renderRays(game);
-
-	if (!game->world_3D || (mlx_image_to_window(game->mlx, game->world_3D, 0, 0) < 0))
-		ft_error();
-
 }
 
 static void setup(t_data	*game)
@@ -158,7 +159,7 @@ static void setup(t_data	*game)
 	else if (game->player_info.direction == 'W')
 		game->player.rotationA = M_PI;
 	game->player.walkS = 3.0f;
-	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
+	game->player.turnS = 4 * (M_PI / 180); // 2 degrees per frame
 }
 
 void huddy(t_data *game)
@@ -179,7 +180,6 @@ static void	gerphec(t_data *game)
 	if (!game->mlx)
 		ft_error();
 	mlx_key_hook(game->mlx, (void *)key_events, game);
-	mlx_loop_hook(game->mlx, (void *)update_state, game);
 	mlx_loop_hook(game->mlx, (void *)drawing, game);
 	// mlx_loop_hook(game->mlx, (void *)huddy, game);
 
