@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 11:18:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 11:18:29 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ static void	drawing(t_data *game)
 	// mlx_delete_image(game->mlx, game->HUD);
 
 	update_state(game);
+	mlx_delete_image(game->mlx, game->world_3D);
 	game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 
 	// update_state(game);
@@ -137,7 +138,6 @@ static void	drawing(t_data *game)
 	// game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
 
 	mlx_image_to_window(game->mlx, game->world_3D, 0, 0);
-	mlx_delete_image(game->mlx, game->world_3D);
 	// mlx_image_to_window(game->mlx, game->HUD, 0, 0);
 	// renderMap(game);
 	// renderRays(game);
