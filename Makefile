@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/27 11:54:05 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/27 12:23:33 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ARCH := lib/lib_42.a
 
 MLX_ARCH = MLX42/build/libmlx42.a
 
-CC := cc -Ofast
+CC := cc 
 
 CFLAGS := -g -Wall -Wextra -fsanitize=address 
 # -Werror 

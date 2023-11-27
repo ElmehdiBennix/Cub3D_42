@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:22:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 12:23:16 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static void	drawing(t_data *game)
 	// draw_lines(&draw);
 
 /// #############################################
-	// mlx_delete_image(game->mlx, game->HUD);
 
 	update_state(game);
 	castAllRays(game);
@@ -124,17 +123,6 @@ static void setup(t_data	*game)
 	game->player.walkS = 3.0f;
 	game->player.turnS = 1 * (M_PI / 180); // 2 degrees per frame
 }
-
-// void huddy(t_data *game)
-// {
-// 	mlx_delete_image(game->mlx, game->HUD);
-
-// 	game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
-// 	mini_map(game, 3, 3);
-
-// 	if (!game->HUD || (mlx_image_to_window(game->mlx, game->HUD, 0, 0) < 0))
-// 		ft_error();
-// }
 
 static void	gerphec(t_data *game)
 {
