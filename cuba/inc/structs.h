@@ -6,68 +6,18 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 01:32:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 04:40:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H_
 # define STRUCTS_H_
 
-// typedef struct Ray
-// {
-// 	float rayAngle;
-// 	float wallHitX;
-// 	float wallHitY;
-// 	float distance;
-// 	int wasHitVertical;
-// 	int isRayfacingUp;
-// 	int isRayfacingDown;
-// 	int isRayfacingleft;
-// 	int isRayfacingRight;
-// 	int wallHitContent;
-// }	t_Ray[NUM_RAYS];
-
-// typedef struct Player
-// {
-// 	float x;
-// 	float y;
-// 	int	mouseX;
-// 	int	mouseY;
-	
-// 	int turnD; // -1 for left, +1 for right
-// 	int walkD; // -1 for back, +1 for front
-	
-// 	int sideW;
-// 	float rotationA; // for retation angle
-// 	float walkS; // for walk speed
-// 	float turnS; // for turn speed
-// 	// mlx_t* mlx;
-// 	// mlx_image_t* img;
-// 	// mlx_texture_t* text1;
-// 	// mlx_texture_t* text2;
-// 	// t_Ray rays;
-// }	t_Player;
-
-
-typedef struct Ray
+typedef struct s_list
 {
-	float rayAngle;
-	float wallHitX;
-	float wallHitY;
-	float distance;
-	int wasHitVertical;
-	int isRayfacingUp;
-	int isRayfacingDown;
-	int isRayfacingleft;
-	int isRayfacingRight;
-	int wallHitContent;
-}	t_Ray[NUM_RAYS];
-
-// typedef struct s_list
-// {
-//     void			*content;
-//     struct s_list	*next;
-// }					t_list;
+    mlx_texture_t	*content;
+    struct s_list	*next;
+}					t_list;
 
 typedef struct s_draw
 {
@@ -120,6 +70,15 @@ typedef struct s_state
 	
 } t_state;
 
+
+typedef struct s_textures
+{
+	mlx_texture_t	*HUD_template;
+	t_list			*Faces;
+	t_list			*Gun_animation;
+	// add all textures hir
+}				t_textures;
+
 typedef struct s_data
 {
 // -> mlx Data
@@ -140,12 +99,14 @@ typedef struct s_data
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
 // -> HUD_elemnts canvas
-	mlx_image_t		*HUD_Frame;
-			// mlx_image_t		*img1;
-			// mlx_image_t		*img2;
-			// mlx_image_t		*img3;
+	t_textures		texs;
+
+	// mlx_image_t		*ray_casting;
+	mlx_image_t		*gun;
+	mlx_image_t		*HUD;
+	mlx_image_t		*Faces;
 // -> rays Data
-	t_Ray rays;
+	// t_Ray rays;
 }					t_data;
 
 #endif

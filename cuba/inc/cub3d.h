@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 14:29:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 23:10:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void	valid_map(t_data *game);
 void    map_padding(t_data *game);
 void 	boundary_check(t_data *game);
 
-
 // void	open_window(t_data *game);
 // int     drawing(void);
-void ft_helper(t_data *player);
+// void ft_helper(t_data *player);
 
 
 bool    init_textures(char *content ,mlx_texture_t   **texture);

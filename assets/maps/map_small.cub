@@ -1,17 +1,22 @@
+NO ./assets/textures/walls/wall1.png     
 
-NO ./assets/textures/wall1.png
+       
+SO ./assets/textures/walls/wall2.png
+WE ./assets/textures/walls/wall3.png
+                   
+        
+EA ./assets/textures/walls/wall4.png
 
-SO ./assets/textures/wall1.png
-WE ./assets/textures/wall1.png
-EA ./assets/textures/hud3.png
 
-F 124,142,122
+F 255,142,122
 C 12,220,252
 
-111111111111111111111
-1E0000000000000000001
-100000000000000000001
-100000000000000000001
+
+11111111111111111111111       
+101111111111111111111         
+1E0000000000000000001        
+100000000000000000001        
+10000000000000000000111111111
 100000000000000000001
 100000000000000000001
 100000000000000000001

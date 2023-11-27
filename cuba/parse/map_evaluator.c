@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 01:14:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/26 22:31:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	valid_map(t_data *game) // leaks left
 		while (game->map[i][j])
 		{
 			if (allowed_units(game, i, j, &player) == false)
-				return (ft_fprintf(2,"Error : Wrong symbole '%c' .\n -> Map symboles :'1' '0' 'W','S','N','E'\n",game->map[i][j]),free_texture(game), free2d(game->map), exit(1));
+				return (ft_fprintf(2,"Error : Wrong symbole '%c' .\n -> Map symboles :'1','0',' ','W','S','N','E'\n",game->map[i][j]),free_texture(game), free2d(game->map), exit(1));
 			j++;
 		}
 		if (longest < j)
