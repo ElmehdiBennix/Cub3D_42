@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 04:40:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:14:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_state
 	float turnS; // for turn speed
 	
 } t_state;
-
 
 typedef struct s_textures
 {

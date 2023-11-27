@@ -6,34 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 04:52:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:08:06 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
-
-static void draw_lines(t_draw *draw)
-{
-	// printf("x1 = %f y1 = %f x2 = %f y2 = %f\n", draw->x1, draw->y1, draw->x2, draw->y2);
-	double deltaX = draw->x2 - draw->x1;
-	double deltaY = draw->y2 - draw->y1;
-
-	int pixels = fabs(deltaX) > fabs(deltaY) ? fabs(deltaX) : fabs(deltaY);
-
-	deltaX /= pixels;
-	deltaY /= pixels;
-
-	double pixelX = draw->x1;
-	double pixelY = draw->y1;
-	
-	while (pixels)
-	{
-	    mlx_put_pixel(draw->canva, pixelX , pixelY, draw->color); // skip first pixel becouse of the player visual diffect
-	    pixelX += deltaX;
-	    pixelY += deltaY;
-	    --pixels;
-	}
-}
 
 static void	mini_map(t_data *game ,double x_vis, double y_vis)
 {
@@ -73,18 +50,18 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis)
 	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
 }
 
-static bool collision(t_data *game, float x, float y) // working in the dark
-{
-	int mapX = floor(x / TILE_S);
-	int mapY = floor(y / TILE_S);
-	if (mapX <= 0 || mapY <= 0 || mapX >= (int)game->map_width || mapY >= (int)game->map_height || game->map[mapY][mapX] == '1')
-	{
-		printf("---------------> collision\n");
-		return (true);
-	}
-	printf("---------------> false collision \n");
-	return (false);
-}
+// static bool collision(t_data *game, float x, float y) // working in the dark
+// {
+// 	int mapX = floor(x / TILE_S);
+// 	int mapY = floor(y / TILE_S);
+// 	if (mapX <= 0 || mapY <= 0 || mapX >= (int)game->map_width || mapY >= (int)game->map_height || game->map[mapY][mapX] == '1')
+// 	{
+// 		printf("---------------> collision\n");
+// 		return (true);
+// 	}
+// 	printf("---------------> false collision \n");
+// 	return (false);
+// }
 
 
 static void update(t_data *game)
@@ -157,36 +134,6 @@ static void	my_drawing(t_data *game)
 	// draw_lines(&draw);
 }
 
-static void key_events(mlx_key_data_t keycode, t_data *game)
-{
-	if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		game->player.walkD = 1;
-	else if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
-		game->player.walkD = 0;
-	else if (keycode.key == MLX_KEY_S && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		game->player.walkD = -1;
-	else if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
-		game->player.walkD = 0;
-	else if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		game->player.turnD = 1;
-	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
-		game->player.turnD = 0;
-	else if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		game->player.turnD = -1;
-	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
-		game->player.turnD = 0;
-	else if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		game->player.sideW = 1;
-	else if (keycode.key == MLX_KEY_D && keycode.action == MLX_RELEASE)
-		game->player.sideW = 0;
-	else if (keycode.key == MLX_KEY_A && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		game->player.sideW = -1;
-	else if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
-		game->player.sideW = 0;
-	else if (keycode.key == MLX_KEY_ESCAPE)
-		exit(1);
-}
-
 static void setup(t_data	*game)
 {
 	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
@@ -195,6 +142,9 @@ static void setup(t_data	*game)
 
 	game->player.turnD = 0;
 	game->player.walkD = 0;
+	game->player.mouseX = 0;
+	game->player.sideW = 0;
+
 	if (game->player_info.direction == 'N')
 		game->player.rotationA = M_PI + M_PI_2;
 	else if (game->player_info.direction == 'S')
@@ -209,26 +159,27 @@ static void setup(t_data	*game)
 	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
 
-// void f()
-// {
-// 	system("leaks cub3d");
-// }
 
-
-//split up canvas as a hudcanva and a gamecanva and render the gamecanva first then the hudcanva
 static void	gerphec(t_data *game)
 {
-	setup(game);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		ft_error();
-	mlx_key_hook(game->mlx, (void *)key_events, game);
+
 	mlx_loop_hook(game->mlx, (void *)my_drawing, game);
-	// my_drawing(game);
+	mlx_key_hook(game->mlx, (void *)key_events, game);
+
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
+	mlx_cursor_hook(game->mlx,(void *)ft_mouse, game);
+
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }
 
+// void f()
+// {
+// 	system("leaks cub3d");
+// }
 
 int	main(int ac, char **av)
 {
@@ -238,24 +189,65 @@ int	main(int ac, char **av)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
 
 	parser(&game, read_file(*(++av)));
-
-
-	init_textures("./assets/textures/hud.png", &game.texs.HUD_template);
-	
-	gerphec(&game);
-
     // init_images(game); // if we added some textures
-    // open_window(game);
-
-
-	// ft_helper(&game);
+	init_textures("./assets/textures/hud.png", &game.texs.HUD_template);
+	setup(&game);
+	gerphec(&game);
 
 	// atexit(f);
 	return (EXIT_SUCCESS);
 }
 
 
+void	ft_loop(void* param)
+{
+	t_Player *player = param;
 
+	mlx_delete_image(player->mlx, player->img);
+	player->img = mlx_new_image(player->mlx, WIDTH, HEIGHT);
+	castAllRays(player);
+	ft_update(player);
+	generate3DMap(player);
+	renderMap(player);
+	renderRays(player);
+	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
+		ft_error();
+	//player->gun= mlx_load_png("ok.png");
+	// mlx_image_t *ok = mlx_texture_to_image(player->mlx, player->gun);
+	// mlx_image_to_window(player->mlx, ok, WIDTH / 2, HEIGHT / 2);
+}
+
+// void ft_helper(t_Player *player)
+// {
+// 	// mlx_key_hook(player->mlx, ft_key, player);
+// 	//ft_loop(player);
+// 	mlx_loop_hook(player->mlx, ft_loop, player);
+
+// 	// mlx_loop(player->mlx);
+// 	// mlx_terminate(player->mlx);
+// }
+
+// int	xxxx()
+// { 
+// 	// player.img = mlx_new_image(player.mlx, WIDTH, HEIGHT);
+// 	// player.text1 = mlx_load_png("./assets/textures/wall1.png");
+// 	// 	if (!player.text1)
+// 	// 		ft_error();
+// 	// player.text2 = mlx_load_png("./assets/textures/wall2.png");
+// 	// 	if (!player.text2)
+// 	// 		ft_error();
+// 	// player.text3 = mlx_load_png("./assets/textures/wall3.png");
+// 	// 	if (!player.text3)
+// 	// 		ft_error();
+// 	// player.text4 = mlx_load_png("./assets/textures/wall4.png");
+// 	// 	if (!player.text4)
+// 	// 		ft_error();
+// 	// player.gun = mlx_load_png("/assets/textures/ok.png");
+// 	// if (!player.gun)
+// 	// 	ft_error();
+// 	ft_helper(&player);
+// 	return (EXIT_SUCCESS);
+// }
 
 
 
