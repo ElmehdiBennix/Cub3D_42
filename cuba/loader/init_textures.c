@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:41:22 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:23:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void init_images(t_data *game)
 {
     bool   check = true;
     
+    game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+    mlx_image_to_window(game->mlx, game->world_3D, 0, 0); // only need to loop over the drawing
+
     check = init_textures("./assets/textures/hud.png", &game->texs.HUD_template);
 
     check = init_textures("./assets/textures/faces/face_idle1.png", &game->texs.Faces[0]);
@@ -41,5 +44,15 @@ void init_images(t_data *game)
     check = init_textures("./assets/textures/gun/gun6.png", &game->texs.Gun_animation[5]);
 
     if (check == false)
-        return(ft_error(),exit(1)); // freee all 
+        return(ft_error(),exit(1)); // freee all
+
+    game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+    mlx_image_to_window(game->mlx, game->world_3D, 0, 0); // only need to loop over the drawing
+
+    game->gun = mlx_texture_to_image(game->mlx, game->texs.Gun_animation[0]);
+	mlx_image_to_window(game->mlx, game->gun, game->mlx->width / 2 - game->gun->width / 2, 270); // hard codeeee goes brrreee
+
+	game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
+	mlx_image_to_window(game->mlx, game->HUD, -2, 0); // hard codeeee goes brrreee
+
 }

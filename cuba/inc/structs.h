@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:32:19 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:28:22 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,21 @@ typedef struct s_data
 	t_position		player_info; // take off and setup player using it
 // -> player location Data
 	t_state			player;
-// -> textures and rgb colors Data
+// -> fields data
 	t_elements		North;
 	t_elements		South;
 	t_elements		West;
 	t_elements		East;
-
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
 // -> HUD_elemnts canvas
 	t_textures		texs;
 
-	mlx_image_t		*Faces;
-	mlx_image_t		*HUD;
-	mlx_image_t		*gun;
 	mlx_image_t		*world_3D;
+	mlx_image_t		*gun;
+	bool			gun_running;
+	mlx_image_t		*HUD;
+	mlx_image_t		*Faces;
 // -> rays Data
 	t_Ray rays;
 }					t_data;

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 11:21:04 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:26:09 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void 	update_state(t_data *game)
 	float newplayerY = sin(game->player.rotationA) * movestep;
 	float px = game->player.x + newplayerX;
 	float py = game->player.y + newplayerY;
-	printf("px = %f, py = %f\n", px, py);
+	// printf("px = %f, py = %f\n", px, py);
 	if (!check_walls1(game, px, py))
 	{
 		game->player.x = px;

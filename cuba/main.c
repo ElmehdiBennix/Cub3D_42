@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 13:00:10 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:41:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,49 @@
 // 	mlx_image_to_window(game->mlx, game->texs.Gun_animation->content, 0, 0);
 // }
 
-// static void draw_faces(t_data *game)
-// {
-// 	if (game->player.walkD == 1 || game->player.walkD == -1) // or side walking // move the gun left and right
-// 	{
-// 		mlx_texture_to_image(game->mlx, game->texs.Faces->content);
-// 		mlx_image_to_window(game->mlx, game->texs.Faces->content, 0, 0);
-// 	}
-// 	else if (game->player.turnD == 1)
-// 	{
-// 		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->content);
-// 		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->content, 0, 0);
-// 	}
-// 	else if (game->player.turnD == -1)
-// 	{
-// 		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->next->content);
-// 		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->next->content, 0, 0);
-// 	}
-// 	else
-// 	{
-// 		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->next->next->content);
-// 		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->next->next->content, 0, 0);
-// 	}
-// }
+static void draw_faces(t_data *game)
+{
+	// int min_range[2] = {600, 300};
+	int MAX_range[2] = {700, 550};
 
-//ray casted map first
-// gun
-//hud and all its elemets
+	if (game->player.walkD == 1 || game->player.walkD == -1) // or side walking // move the gun left and right
+	{
+		if (game->gun_running == false && game->gun->instances->x < 700 && game->gun->instances->y > 200)
+		{
+			game->gun->instances->x += 4;
+			game->gun->instances->y -= 2;
+		}
+		else
+		{
+			game->gun_running = true;
+			game->gun->instances->x -= 4;
+			game->gun->instances->x += 2;
+			if (game->gun->instances->x < 550 && game->gun->instances->y > 340)
+				game->gun_running = false;
+
+		}
+
+		printf("game instance x = %d and y = %d\n", game->gun->instances->x, game->gun->instances->y);
+		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[2]);
+		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
+	}
+	else if (game->player.turnD == 1)
+	{
+		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[4]);
+		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
+	}
+	else if (game->player.turnD == -1)
+	{
+		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[3]);
+		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
+	}
+	else
+	{
+		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[0]);
+		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
+	}
+	game->Faces->enabled = false;
+}
 
 static void	drawing(t_data *game)
 {
@@ -56,13 +72,19 @@ static void	drawing(t_data *game)
 	// draw_lines(&draw);
 
 /// #############################################
+	mlx_delete_image(game->mlx, game->Faces);
 
+
+	draw_faces(game);
 	update_state(game);
-	castAllRays(game);
+	game->gun->enabled = false;
 	game->HUD->enabled = false;
+	castAllRays(game);
 	generate3DMap(game);
+	game->gun->enabled = true;
 	mini_map(game, 3, 3);
 	game->HUD->enabled = true;
+	game->Faces->enabled = true;
 
 }
 
@@ -94,12 +116,6 @@ static void	gerphec(t_data *game)
 
     init_images(game);
 
-	game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(game->mlx, game->world_3D, 0, 0); // only need to loop over the drawing 
-	game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
-	mlx_image_to_window(game->mlx, game->HUD, -2, 0); // hard codeeee goes brrreee
-
-
 	mlx_key_hook(game->mlx, (void *)key_events, game);
 	mlx_loop_hook(game->mlx, (void *)drawing, game);
 
@@ -129,3 +145,4 @@ int	main(int ac, char **av)
 	// atexit(f);
 	return (EXIT_SUCCESS);
 }
+// flip colors of c and floor
