@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 06:05:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 12:35:59 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void    mouse_event(t_data *game);
 void    update_state(t_data *game);
 void    key_events(mlx_key_data_t keycode, t_data *game);
 
+void	mini_map(t_data *game ,double x_vis, double y_vis);
+
 
 void	castRay(float rayA, int sId, t_data *game);
 void	castAllRays(t_data *game);
@@ -53,6 +55,7 @@ void    ft_error(void);
 void	free_fields(t_data *game);
 void	free_texture(t_data *game);
 
+void init_images(t_data *game);
 
 
 float	normalizeAngle(float angle);

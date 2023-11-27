@@ -6,13 +6,12 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:27:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 12:32:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H_
 # define STRUCTS_H_
-
 
 typedef struct s_Ray
 {
@@ -29,47 +28,17 @@ typedef struct s_Ray
 	mlx_texture_t	*text;
 }	t_Ray[NUM_RAYS];
 
-// typedef struct Player
+// typedef struct s_draw
 // {
-// 	float x;
-// 	float y;
-// 	int	mouseX;
-// 	int	mouseY;
-// 	int turnD; // -1 for left, +1 for right
-// 	int walkD; // -1 for back, +1 for front
-// 	int sideW;
-// 	float rotationA; // for retation angle
-// 	float walkS; // for walk speed
-// 	float turnS; // for turn speed
-// 	mlx_t* mlx;
-// 	mlx_image_t* img;
-// 	mlx_texture_t* text1;
-// 	mlx_texture_t* text2;
-// 	mlx_texture_t* text3;
-// 	mlx_texture_t* text4;
-// 	t_Ray rays;
-// }	t_Player;
-
-
-
-
-typedef struct s_list
-{
-    mlx_texture_t	*content;
-    struct s_list	*next;
-}					t_list;
-
-typedef struct s_draw
-{
-	mlx_image_t *canva;
-// from
-	float 	x1;
-	float 	y1;
-// to
-	float 	x2;
-	float 	y2;
-	uint32_t 	color;
-}				t_draw;
+// 	mlx_image_t *canva;
+// // from
+// 	float 	x1;
+// 	float 	y1;
+// // to
+// 	float 	x2;
+// 	float 	y2;
+// 	uint32_t 	color;
+// }				t_draw;
 
 typedef struct 	s_RGB
 {
@@ -98,8 +67,8 @@ typedef struct s_position
 typedef struct s_textures
 {
 	mlx_texture_t	*HUD_template;
-	t_list			*Faces;
-	t_list			*Gun_animation;
+	mlx_texture_t	*Faces[6];
+	mlx_texture_t	*Gun_animation[6];
 	// add all textures hir
 }				t_textures;
 
@@ -126,7 +95,7 @@ typedef struct s_data
 	char			**map;
 	unsigned int	map_height;
 	unsigned int	map_width;
-	t_position		player_info;
+	t_position		player_info; // take off and setup player using it
 // -> player location Data
 	t_state			player;
 // -> textures and rgb colors Data
@@ -140,7 +109,6 @@ typedef struct s_data
 // -> HUD_elemnts canvas
 	t_textures		texs;
 
-	// mlx_image_t		*ray_casting;
 	mlx_image_t		*Faces;
 	mlx_image_t		*HUD;
 	mlx_image_t		*gun;

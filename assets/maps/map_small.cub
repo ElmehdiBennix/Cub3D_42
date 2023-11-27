@@ -8,8 +8,8 @@ WE ./assets/textures/walls/wall3.png
 EA ./assets/textures/walls/wall4.png
 
 
-F 255,142,122
-C 12,220,252
+F 0,0,0
+C 0,255,0
 
 
 11111111111111111111111       
