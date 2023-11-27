@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:50:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:32:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 10:09:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int check_walls1(t_data *game, float px, float py)
 	if (px < 0 || px > WIDTH || py < 0 || py > HEIGHT)
 		return 0;
 	float mapgridX = floor(px / TILE_S);
-	float mapgridY = floor(py / TILE_S);
-	if (game->map[(int)mapgridY][(int)mapgridX] != '0' || (game->map[(int)mapgridY][(int)(game->player.x / TILE_S)] && game->map[(int)(game->player.y / TILE_S)][(int)mapgridX]))
-		return (1);
+	float mapgridY = floor(py / TILE_S); // not working as intended 
+	// if (game->map[(int)mapgridY][(int)mapgridX] != '0' || (game->map[(int)mapgridY][(int)(game->player.x / TILE_S)] && game->map[(int)(game->player.y / TILE_S)][(int)mapgridX]))
+	// 	return (1);
 	return (0);
 }
 int check_walls2(t_data *game, float px, float py)
@@ -36,7 +36,7 @@ int check_walls2(t_data *game, float px, float py)
 		return 0;
 	float mapgridX = floor(px / TILE_S);
 	float mapgridY = floor(py / TILE_S);
-	if (game->map[(int)mapgridY][(int)mapgridX] != '0')
+	if (game->map[(int)mapgridY][(int)mapgridX] != '0') // sigf here
 		return (1);
 	return (0);
 }

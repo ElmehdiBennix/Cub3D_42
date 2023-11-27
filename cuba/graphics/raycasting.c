@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:47:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 06:02:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 09:56:37 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	castRay(float rayA, int sId, t_data *game)
 
 	// Icrement xstep and ystep until we find a wall
 
-	while (nextHorzTouchX >= 0 && nextHorzTouchX <= game->map_width * TILE_S && nextHorzTouchY >= 0 && nextHorzTouchY <= game->map_height * TILE_S)
+	while (nextHorzTouchX >= 0 && nextHorzTouchX <= game->map_width * TILE_S && nextHorzTouchY >= 0 && nextHorzTouchY < game->map_height * TILE_S)
 	{
 		float xToCheck = nextHorzTouchX;
 		float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
@@ -123,7 +123,7 @@ void	castRay(float rayA, int sId, t_data *game)
 
 	// Icrement xstep and ystep until we find a wall
 
-	while (nextVertTouchX >= 0 && nextVertTouchX <= game->map_width * TILE_S && nextVertTouchY >= 0 && nextVertTouchY <= game->map_height * TILE_S)
+	while (nextVertTouchX >= 0 && nextVertTouchX <= game->map_width * TILE_S && nextVertTouchY >= 0 && nextVertTouchY < game->map_height * TILE_S)
 	{
 		float xToCheck = nextVertTouchX + (isRayFacingLeft ? -1 : 0);
 		float yToCheck = nextVertTouchY;

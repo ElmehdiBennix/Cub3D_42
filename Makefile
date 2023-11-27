@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/11/27 05:38:13 by ebennix          ###   ########.fr        #
+#    Updated: 2023/11/27 09:42:45 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX_ARCH = MLX42/build/libmlx42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra 
+CFLAGS := -g -Wall -Wextra -fsanitize=address
 # -Werror 
 
 MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -lglfw

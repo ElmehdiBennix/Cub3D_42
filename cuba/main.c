@@ -6,49 +6,49 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 06:06:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 10:12:29 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-// static void	mini_map(t_data *game ,double x_vis, double y_vis)
-// {
-// 	int draw_x = 1408;
-// 	int draw_y = 122;
+static void	mini_map(t_data *game ,double x_vis, double y_vis)
+{
+	int draw_x = 1408;
+	int draw_y = 122;
 
-// 	int x_distance = (x_vis * 2) * TILE_S + 1407;
-// 	int y_distance = (y_vis * 2) * TILE_S + 122;
+	int x_distance = (x_vis * 2) * TILE_S + 1407;
+	int y_distance = (y_vis * 2) * TILE_S + 122;
 
 	
-// 	float camera_x;
-// 	float camera_y = game->player.y - (y_vis * TILE_S);
-// 	while (draw_y <= y_distance)
-// 	{
-// 		camera_x = game->player.x - (x_vis * TILE_S);
-// 		while (draw_x <= x_distance)
-// 		{
-// 			int x = floor(camera_x / TILE_S);
-// 			int y = floor(camera_y / TILE_S);
-// 			if (x < 0 || y < 0 || x >= (float)game->map_width || y >= (float)game->map_height)
-// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
-// 			else if (game->map[y][x] == '1')
-// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0xFFFFFFFF);
-// 			else if (game->map[y][x] == '0')
-// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x66FFFFFF);
-// 			else
-// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
-// 			draw_x++;
-// 			camera_x++;
-// 		}
-// 		camera_y++;
-// 		draw_x = 1407;
-// 		if (draw_y == y_distance - 1)
-// 			draw_x = 1408;
-// 		draw_y++;
-// 	}
-// 	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
-// }
+	float camera_x;
+	float camera_y = game->player.y - (y_vis * TILE_S);
+	while (draw_y <= y_distance)
+	{
+		camera_x = game->player.x - (x_vis * TILE_S);
+		while (draw_x <= x_distance)
+		{
+			int x = floor(camera_x / TILE_S);
+			int y = floor(camera_y / TILE_S);
+			if (x < 0 || y < 0 || x >= (float)game->map_width || y >= (float)game->map_height)
+				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
+			else if (game->map[y][x] == '1')
+				mlx_put_pixel(game->HUD, draw_x , draw_y, 0xFFFFFFFF);
+			else if (game->map[y][x] == '0')
+				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x66FFFFFF);
+			else
+				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
+			draw_x++;
+			camera_x++;
+		}
+		camera_y++;
+		draw_x = 1407;
+		if (draw_y == y_distance - 1)
+			draw_x = 1408;
+		draw_y++;
+	}
+ 	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
+}
 
 // static bool collision(t_data *game, float x, float y) // working in the dark
 // {
@@ -115,17 +115,8 @@
 // gun
 //hud and all its elemets
 
-static void	my_drawing(t_data *game)
+static void	drawing(t_data *game)
 {
-	// mlx_delete_image(game->mlx, game->HUD);
-	// game->HUD =  mlx_texture_to_image(game->mlx, game->texs.HUD_template);
-	// update(game);
-	// mini_map(game, 3, 3);
-	
-	
-
-	// if (!game->HUD || (mlx_image_to_window(game->mlx, game->HUD, 0, 0)) < 0)
-	// 	ft_error();
 	// t_draw draw = { game->MINI_Map, game->player.x,
 	// 				game->player.y,
 	// 				game->player.x + (cos(game->player.rotationA) * 30),
@@ -133,18 +124,21 @@ static void	my_drawing(t_data *game)
 	// 				0x00FF00FF };
 	// draw_lines(&draw);
 
-
-/// #############################################	t_Player *player = param;
+/// #############################################
 
 	mlx_delete_image(game->mlx, game->world_3D);
 	game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	// update_state(game);
 	castAllRays(game);
-	update_state(game);
 	generate3DMap(game);
+
+
 	// renderMap(game);
 	// renderRays(game);
+
 	if (!game->world_3D || (mlx_image_to_window(game->mlx, game->world_3D, 0, 0) < 0))
 		ft_error();
+
 }
 
 static void setup(t_data	*game)
@@ -167,15 +161,27 @@ static void setup(t_data	*game)
 	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
 
+void huddy(t_data *game)
+{
+	mlx_delete_image(game->mlx, game->HUD);
+
+	game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
+	mini_map(game, 3, 3);
+
+	if (!game->HUD || (mlx_image_to_window(game->mlx, game->HUD, 0, 0) < 0))
+		ft_error();
+}
+
 
 static void	gerphec(t_data *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		ft_error();
-
-	mlx_loop_hook(game->mlx, (void *)my_drawing, game);
 	mlx_key_hook(game->mlx, (void *)key_events, game);
+	mlx_loop_hook(game->mlx, (void *)update_state, game);
+	mlx_loop_hook(game->mlx, (void *)drawing, game);
+	// mlx_loop_hook(game->mlx, (void *)huddy, game);
 
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	mlx_cursor_hook(game->mlx,(void *)mouse_event, game);
@@ -205,7 +211,7 @@ int	main(int ac, char **av)
 	// atexit(f);
 	return (EXIT_SUCCESS);
 }
-
+// seg when i turn without moving a key
 
 // void	ft_loop(void* param)
 // {
