@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 10:10:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 11:21:04 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void 	update_state(t_data *game)
 	float px = game->player.x + newplayerX;
 	float py = game->player.y + newplayerY;
 	printf("px = %f, py = %f\n", px, py);
-	if (!check_walls1(game, px, py)) // not working cant move disabled for now
+	if (!check_walls1(game, px, py))
 	{
 		game->player.x = px;
 		game->player.y = py;
@@ -43,7 +43,7 @@ void 	update_state(t_data *game)
 	newplayerY = sin(tmp + (90 * (M_PI / 180))) * movestep;
 	px = game->player.x + newplayerX;
 	py = game->player.y + newplayerY;
-	if (!check_walls1(game, px, py)) // not working cant move disabled for now
+	if (!check_walls1(game, px, py))
 	{
 		game->player.x = px;
 		game->player.y = py;
