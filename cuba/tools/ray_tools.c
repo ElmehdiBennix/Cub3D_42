@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:50:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:11:10 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:32:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,5 @@ float	distancebetweenPoints(float x1, float y1, float x2, float y2)
 {
 	return sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
 }
+
+

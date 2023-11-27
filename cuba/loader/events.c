@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:13:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:34:59 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void ft_mouse(t_data *game)
+void mouse_event(t_data *game)
 {
 	static int i;
 
@@ -23,7 +23,7 @@ void ft_mouse(t_data *game)
 	mlx_set_mouse_pos(game->mlx, 500, 500);
 }
 
-void ft_update(t_data *game)
+void 	update_state(t_data *game)
 {
 	// printf ("%f\n", player->rotationA);
 	game->player.rotationA += game->player.turnD * game->player.turnS;
@@ -50,7 +50,7 @@ void ft_update(t_data *game)
 	}
 }
 
-void ft_key(mlx_key_data_t keycode, t_data *game)
+void key_events(mlx_key_data_t keycode, t_data *game)
 {
 	if(keycode.key == MLX_KEY_ESCAPE)
 		exit(1);

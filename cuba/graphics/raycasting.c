@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:47:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:00:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:29:00 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // };
 
 
-void	castRay(float rayA, int sId, t_Player *player)
+void	castRay(float rayA, int sId, t_data *game)
 {
 	rayA = normalizeAngle(rayA);
 	
@@ -52,12 +52,12 @@ void	castRay(float rayA, int sId, t_Player *player)
 
 	// Find the y coordinate of the closest horizontal
 	
-	yintercept = floor(player->y / TILE_S) * TILE_S;
+	yintercept = floor(game->player.y / TILE_S) * TILE_S;
 	yintercept += isRayFacingDown ? TILE_S : 0;
 	
 	// Find the x coordinate of the closest horizontal
 
-	xintercept = player->x + (yintercept - player->y) / tan(rayA);
+	xintercept = game->player.x + (yintercept - game->player.y) / tan(rayA);
 
 	// Calculate the increment xstep and ystep
 
@@ -78,12 +78,12 @@ void	castRay(float rayA, int sId, t_Player *player)
 		float xToCheck = nextHorzTouchX;
 		float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
 
-		if (check_walls2(player, xToCheck, yToCheck))
+		if (check_walls2(game, xToCheck, yToCheck))
 		{
 			// found a wall hit
 			horzWallHitX = nextHorzTouchX;
 			horzWallHitY = nextHorzTouchY;
-			horzWallcontent = map[(int)floor(yToCheck / TILE_S)][(int)floor(xToCheck / TILE_S)];
+			horzWallcontent = game->map[(int)floor(yToCheck / TILE_S)][(int)floor(xToCheck / TILE_S)];
 			foundHorzWallHit = true;
 			break;
 		}
@@ -102,12 +102,12 @@ void	castRay(float rayA, int sId, t_Player *player)
 
 	// Find the x coordinate of the closest horizontal
 	
-	xintercept = floor(player->x / TILE_S) * TILE_S;
+	xintercept = floor(game->player.x / TILE_S) * TILE_S;
 	xintercept += isRayFacingRight ? TILE_S : 0;
 	
 	// Find the y coordinate of the closest horizontal
 
-	yintercept = player->y + (xintercept - player->x) * tan(rayA);
+	yintercept = game->player.y + (xintercept - game->player.x) * tan(rayA);
 
 	// Calculate the increment xstep and ystep
 
@@ -128,12 +128,12 @@ void	castRay(float rayA, int sId, t_Player *player)
 		float xToCheck = nextVertTouchX + (isRayFacingLeft ? -1 : 0);
 		float yToCheck = nextVertTouchY;
 
-		if (check_walls2(player, xToCheck, yToCheck))
+		if (check_walls2(game, xToCheck, yToCheck))
 		{
 			// found a wall hit
 			vertWallHitX = nextVertTouchX;
 			vertWallHitY = nextVertTouchY;
-			vertWallcontent = map[(int)floor(yToCheck / TILE_S)][(int)floor(xToCheck / TILE_S)];
+			vertWallcontent = game->map[(int)floor(yToCheck / TILE_S)][(int)floor(xToCheck / TILE_S)];
 			foundVertWallHit = true;
 			break;
 		}
@@ -144,49 +144,48 @@ void	castRay(float rayA, int sId, t_Player *player)
 	}
 
 	// Calculate both horizontal and vertical hit distances and choose the smallest one
-	float horzHitDistance = foundHorzWallHit ? distancebetweenPoints(player->x, player->y, horzWallHitX, horzWallHitY) : (float)INT_MAX;
-	float vertHitDistance = foundVertWallHit ? distancebetweenPoints(player->x, player->y, vertWallHitX, vertWallHitY) : (float)INT_MAX;
-	//player->rays[sId].text = player->text4;
+	float horzHitDistance = foundHorzWallHit ? distancebetweenPoints(game->player.x, game->player.y, horzWallHitX, horzWallHitY) : (float)INT_MAX;
+	float vertHitDistance = foundVertWallHit ? distancebetweenPoints(game->player.x, game->player.y, vertWallHitX, vertWallHitY) : (float)INT_MAX;
 	if (vertHitDistance < horzHitDistance)
 	{
-		player->rays[sId].distance = vertHitDistance;
-		player->rays[sId].wallHitX = vertWallHitX;
-		player->rays[sId].wallHitY = vertWallHitY;
-		player->rays[sId].wallHitContent = vertWallcontent;
-		player->rays[sId].wasHitVertical = true;
-		if (player->rays[sId].isRayfacingRight)
-			player->rays[sId].text = player->text1;
+		game->rays[sId].distance = vertHitDistance;
+		game->rays[sId].wallHitX = vertWallHitX;
+		game->rays[sId].wallHitY = vertWallHitY;
+		game->rays[sId].wallHitContent = vertWallcontent;
+		game->rays[sId].wasHitVertical = true;
+		if (game->rays[sId].isRayfacingRight) // recheck for texture directions 
+			game->rays[sId].text = game->East.texture; // +
 		else
-			player->rays[sId].text = player->text2;
+			game->rays[sId].text = game->West.texture; // +
 	}
 	else
 	{
-		player->rays[sId].distance = horzHitDistance;
-		player->rays[sId].wallHitX = horzWallHitX;
-		player->rays[sId].wallHitY = horzWallHitY;
-		player->rays[sId].wallHitContent = horzWallcontent;
-		player->rays[sId].wasHitVertical = false;
-		if (player->rays[sId].isRayfacingUp)
-			player->rays[sId].text = player->text3;
+		game->rays[sId].distance = horzHitDistance;
+		game->rays[sId].wallHitX = horzWallHitX;
+		game->rays[sId].wallHitY = horzWallHitY;
+		game->rays[sId].wallHitContent = horzWallcontent;
+		game->rays[sId].wasHitVertical = false;
+		if (game->rays[sId].isRayfacingUp)
+			game->rays[sId].text = game->North.texture; //+
 		else
-			player->rays[sId].text = player->text4;
+			game->rays[sId].text = game->South.texture; // +
 	}
-	player->rays[sId].rayAngle = rayA;
-	player->rays[sId].isRayfacingDown = isRayFacingDown;
-	player->rays[sId].isRayfacingUp = isRayFacingUp;
-	player->rays[sId].isRayfacingleft = isRayFacingLeft;
-	player->rays[sId].isRayfacingRight = isRayFacingRight;
+	game->rays[sId].rayAngle = rayA;
+	game->rays[sId].isRayfacingDown = isRayFacingDown;
+	game->rays[sId].isRayfacingUp = isRayFacingUp;
+	game->rays[sId].isRayfacingleft = isRayFacingLeft;
+	game->rays[sId].isRayfacingRight = isRayFacingRight;
 }
 
-void	castAllRays(t_Player *player)
+void	castAllRays(t_data *game)
 {
-	float rayA = player->rotationA - (FOV_ANGLE / 2);
+	float rayA = game->player.rotationA - (FOV_ANGLE / 2);
 	int	i;
 
 	i = -1;
 	while (++i < NUM_RAYS)
 	{
-		castRay(rayA, i, player);
+		castRay(rayA, i, game);
 		rayA += FOV_ANGLE / NUM_RAYS;
 	}
 	//exit(1);

@@ -6,49 +6,49 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:08:06 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:38:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-static void	mini_map(t_data *game ,double x_vis, double y_vis)
-{
-	int draw_x = 1408;
-	int draw_y = 122;
+// static void	mini_map(t_data *game ,double x_vis, double y_vis)
+// {
+// 	int draw_x = 1408;
+// 	int draw_y = 122;
 
-	int x_distance = (x_vis * 2) * TILE_S + 1407;
-	int y_distance = (y_vis * 2) * TILE_S + 122;
+// 	int x_distance = (x_vis * 2) * TILE_S + 1407;
+// 	int y_distance = (y_vis * 2) * TILE_S + 122;
 
 	
-	float camera_x;
-	float camera_y = game->player.y - (y_vis * TILE_S);
-	while (draw_y <= y_distance)
-	{
-		camera_x = game->player.x - (x_vis * TILE_S);
-		while (draw_x <= x_distance)
-		{
-			int x = floor(camera_x / TILE_S);
-			int y = floor(camera_y / TILE_S);
-			if (x < 0 || y < 0 || x >= (float)game->map_width || y >= (float)game->map_height)
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
-			else if (game->map[y][x] == '1')
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0xFFFFFFFF);
-			else if (game->map[y][x] == '0')
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x66FFFFFF);
-			else
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
-			draw_x++;
-			camera_x++;
-		}
-		camera_y++;
-		draw_x = 1407;
-		if (draw_y == y_distance - 1)
-			draw_x = 1408;
-		draw_y++;
-	}
-	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
-}
+// 	float camera_x;
+// 	float camera_y = game->player.y - (y_vis * TILE_S);
+// 	while (draw_y <= y_distance)
+// 	{
+// 		camera_x = game->player.x - (x_vis * TILE_S);
+// 		while (draw_x <= x_distance)
+// 		{
+// 			int x = floor(camera_x / TILE_S);
+// 			int y = floor(camera_y / TILE_S);
+// 			if (x < 0 || y < 0 || x >= (float)game->map_width || y >= (float)game->map_height)
+// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
+// 			else if (game->map[y][x] == '1')
+// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0xFFFFFFFF);
+// 			else if (game->map[y][x] == '0')
+// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x66FFFFFF);
+// 			else
+// 				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
+// 			draw_x++;
+// 			camera_x++;
+// 		}
+// 		camera_y++;
+// 		draw_x = 1407;
+// 		if (draw_y == y_distance - 1)
+// 			draw_x = 1408;
+// 		draw_y++;
+// 	}
+// 	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
+// }
 
 // static bool collision(t_data *game, float x, float y) // working in the dark
 // {
@@ -64,52 +64,52 @@ static void	mini_map(t_data *game ,double x_vis, double y_vis)
 // }
 
 
-static void update(t_data *game)
-{
-	game->player.rotationA += game->player.turnS * game->player.turnD;
+// static void update(t_data *game)
+// {
+// 	game->player.rotationA += game->player.turnS * game->player.turnD;
 
-	float move = game->player.walkD * game->player.walkS;
-	// printf("move = %f\n", move);
+// 	float move = game->player.walkD * game->player.walkS;
+// 	// printf("move = %f\n", move);
 
-	// check for collisions before updating the player position
+// 	// check for collisions before updating the player position
 
-	if (collision(game, game->player.x + cos(game->player.rotationA) * move, game->player.y + sin(game->player.rotationA) * move) == false)
-	{
-		game->player.x += cos(game->player.rotationA) * move;
-		game->player.y += sin(game->player.rotationA) * move;
-	}
-	// printf("x = %f y = %f\n", game->player.x, game->player.y);
-}
+// 	if (collision(game, game->player.x + cos(game->player.rotationA) * move, game->player.y + sin(game->player.rotationA) * move) == false)
+// 	{
+// 		game->player.x += cos(game->player.rotationA) * move;
+// 		game->player.y += sin(game->player.rotationA) * move;
+// 	}
+// 	// printf("x = %f y = %f\n", game->player.x, game->player.y);
+// }
 
-static void draw_gun(t_data *game)
-{
-	mlx_texture_to_image(game->mlx, game->texs.Gun_animation->content);
-	mlx_image_to_window(game->mlx, game->texs.Gun_animation->content, 0, 0);
-}
+// static void draw_gun(t_data *game)
+// {
+// 	mlx_texture_to_image(game->mlx, game->texs.Gun_animation->content);
+// 	mlx_image_to_window(game->mlx, game->texs.Gun_animation->content, 0, 0);
+// }
 
-static void draw_faces(t_data *game)
-{
-	if (game->player.walkD == 1 || game->player.walkD == -1) // or side walking // move the gun left and right
-	{
-		mlx_texture_to_image(game->mlx, game->texs.Faces->content);
-		mlx_image_to_window(game->mlx, game->texs.Faces->content, 0, 0);
-	}
-	else if (game->player.turnD == 1)
-	{
-		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->content);
-		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->content, 0, 0);
-	}
-	else if (game->player.turnD == -1)
-	{
-		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->next->content);
-		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->next->content, 0, 0);
-	}
-	else
-	{
-		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->next->next->content);
-		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->next->next->content, 0, 0);
-	}
-}
+// static void draw_faces(t_data *game)
+// {
+// 	if (game->player.walkD == 1 || game->player.walkD == -1) // or side walking // move the gun left and right
+// 	{
+// 		mlx_texture_to_image(game->mlx, game->texs.Faces->content);
+// 		mlx_image_to_window(game->mlx, game->texs.Faces->content, 0, 0);
+// 	}
+// 	else if (game->player.turnD == 1)
+// 	{
+// 		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->content);
+// 		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->content, 0, 0);
+// 	}
+// 	else if (game->player.turnD == -1)
+// 	{
+// 		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->next->content);
+// 		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->next->content, 0, 0);
+// 	}
+// 	else
+// 	{
+// 		mlx_texture_to_image(game->mlx, game->texs.Faces->next->next->next->next->content);
+// 		mlx_image_to_window(game->mlx, game->texs.Faces->next->next->next->next->content, 0, 0);
+// 	}
+// }
 
 //ray casted map first
 // gun
@@ -117,34 +117,47 @@ static void draw_faces(t_data *game)
 
 static void	my_drawing(t_data *game)
 {
-	mlx_delete_image(game->mlx, game->HUD);
-	game->HUD =  mlx_texture_to_image(game->mlx, game->texs.HUD_template);
-	update(game);
-	mini_map(game, 3, 3);
+	// mlx_delete_image(game->mlx, game->HUD);
+	// game->HUD =  mlx_texture_to_image(game->mlx, game->texs.HUD_template);
+	// update(game);
+	// mini_map(game, 3, 3);
 	
 	
 
-	if (!game->HUD || (mlx_image_to_window(game->mlx, game->HUD, 0, 0)) < 0)
-		ft_error();
+	// if (!game->HUD || (mlx_image_to_window(game->mlx, game->HUD, 0, 0)) < 0)
+	// 	ft_error();
 	// t_draw draw = { game->MINI_Map, game->player.x,
 	// 				game->player.y,
 	// 				game->player.x + (cos(game->player.rotationA) * 30),
 	// 				game->player.y + (sin(game->player.rotationA) * 30),
 	// 				0x00FF00FF };
 	// draw_lines(&draw);
+
+
+/// #############################################	t_Player *player = param;
+
+	mlx_delete_image(game->mlx, game->world_3D);
+	game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	castAllRays(game);
+	update_state(game);
+	generate3DMap(game);
+	// renderMap(game);
+	// renderRays(game);
+	if (!game->world_3D || (mlx_image_to_window(game->mlx, game->world_3D, 0, 0) < 0))
+		ft_error();
+
+
+	
 }
 
 static void setup(t_data	*game)
 {
 	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
 	game->player.y = game->player_info.y * TILE_S + (TILE_S / 2);
-	printf("player location -> x = %f y = %f\n", game->player.x, game->player.y);
-
 	game->player.turnD = 0;
 	game->player.walkD = 0;
 	game->player.mouseX = 0;
 	game->player.sideW = 0;
-
 	if (game->player_info.direction == 'N')
 		game->player.rotationA = M_PI + M_PI_2;
 	else if (game->player_info.direction == 'S')
@@ -153,8 +166,6 @@ static void setup(t_data	*game)
 		game->player.rotationA = 0;
 	else if (game->player_info.direction == 'W')
 		game->player.rotationA = M_PI;
-	// game->player.rotationA = M_PI / 2; // setup this to be the direction of the player
-	printf("rotation angle = %f\n\n", game->player.rotationA);
 	game->player.walkS = 3.0f;
 	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
@@ -170,7 +181,7 @@ static void	gerphec(t_data *game)
 	mlx_key_hook(game->mlx, (void *)key_events, game);
 
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
-	mlx_cursor_hook(game->mlx,(void *)ft_mouse, game);
+	mlx_cursor_hook(game->mlx,(void *)mouse_event, game);
 
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
@@ -199,23 +210,23 @@ int	main(int ac, char **av)
 }
 
 
-void	ft_loop(void* param)
-{
-	t_Player *player = param;
+// void	ft_loop(void* param)
+// {
+// 	t_Player *player = param;
 
-	mlx_delete_image(player->mlx, player->img);
-	player->img = mlx_new_image(player->mlx, WIDTH, HEIGHT);
-	castAllRays(player);
-	ft_update(player);
-	generate3DMap(player);
-	renderMap(player);
-	renderRays(player);
-	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
-		ft_error();
-	//player->gun= mlx_load_png("ok.png");
-	// mlx_image_t *ok = mlx_texture_to_image(player->mlx, player->gun);
-	// mlx_image_to_window(player->mlx, ok, WIDTH / 2, HEIGHT / 2);
-}
+// 	mlx_delete_image(player->mlx, player->img);
+// 	player->img = mlx_new_image(player->mlx, WIDTH, HEIGHT);
+// 	castAllRays(player);
+// 	ft_update(player);
+// 	generate3DMap(player);
+// 	// renderMap(player);
+// 	// renderRays(player);
+// 	if (!player->img || (mlx_image_to_window(player->mlx, player->img, 0, 0) < 0))
+// 		ft_error();
+// 	//player->gun= mlx_load_png("ok.png");
+// 	// mlx_image_t *ok = mlx_texture_to_image(player->mlx, player->gun);
+// 	// mlx_image_to_window(player->mlx, ok, WIDTH / 2, HEIGHT / 2);
+// }
 
 // void ft_helper(t_Player *player)
 // {
