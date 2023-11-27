@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 16:00:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 16:26:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,23 @@
 
 static void draw_faces(t_data *game)
 {
+	static int gun_frames = 0;
+
 	game->frames++;
 	if (game->frames % 80 == 0)
 		game->face_idle = !game->face_idle;
+	
+	if (game->frames % 10 == 0)
+	{
+		if (game->player.attack == true)
+		
+				
+		// game->gun = mlx_texture_to_image(game->mlx, game->texs.Gun_animation[0]);
+		// mlx_image_to_window(game->mlx, game->gun, game->mlx->width / 2 - game->gun->width / 2, 270);
+
+	}
+
+	
 	if (game->player.turnD == 1 || (float)(game->player.mouseX - 500) > 10)
 		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[4]);
 	else if (game->player.turnD == -1 || (float)(game->player.mouseX - 500) < -10)
@@ -60,8 +74,11 @@ static void	drawing(t_data *game)
 	// 				0x00FF00FF };
 	// draw_lines(&draw);
 
+
+
 /// #############################################
 	mlx_delete_image(game->mlx, game->Faces);
+	mlx_delete_image(game->mlx, game->gun);
 
 	draw_faces(game);
 	update_state(game);
@@ -96,23 +113,6 @@ static void setup(t_data	*game)
 	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
 
-static void	gerphec(t_data *game)
-{
-	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
-	if (!game->mlx)
-		ft_error();
-
-    init_images(game);
-
-	mlx_key_hook(game->mlx, (void *)key_events, game);
-	mlx_loop_hook(game->mlx, (void *)drawing, game);
-
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
-	mlx_cursor_hook(game->mlx,(void *)mouse_event, game);
-
-	mlx_loop(game->mlx);
-	mlx_terminate(game->mlx);
-}
 
 // void f()
 // {
@@ -128,7 +128,20 @@ int	main(int ac, char **av)
 
 	parser(&game, read_file(*(++av)));
 	setup(&game);
-	gerphec(&game);
+	game.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	if (!game.mlx)
+		ft_error();
+
+    init_images(&game);
+
+	mlx_key_hook(game.mlx, (void *)key_events, &game);
+	mlx_loop_hook(game.mlx, (void *)drawing, &game);
+
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_DISABLED);
+	mlx_cursor_hook(game.mlx,(void *)mouse_event, &game);
+
+	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
 
 	// atexit(f);
 	return (EXIT_SUCCESS);

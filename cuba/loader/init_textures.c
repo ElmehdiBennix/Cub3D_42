@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 13:23:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 16:13:35 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void init_images(t_data *game)
 
     game->world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
     mlx_image_to_window(game->mlx, game->world_3D, 0, 0); // only need to loop over the drawing
-
-    game->gun = mlx_texture_to_image(game->mlx, game->texs.Gun_animation[0]);
-	mlx_image_to_window(game->mlx, game->gun, game->mlx->width / 2 - game->gun->width / 2, 270); // hard codeeee goes brrreee
 
 	game->HUD = mlx_texture_to_image(game->mlx, game->texs.HUD_template);
 	mlx_image_to_window(game->mlx, game->HUD, -2, 0); // hard codeeee goes brrreee

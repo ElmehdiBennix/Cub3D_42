@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 15:21:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 16:12:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_state
 	float rotationA; // for retation angle
 	float walkS; // for walk speed
 	float turnS; // for turn speed
-	
+	bool	attack;
 } t_state;
 
 typedef struct s_data
@@ -112,6 +112,7 @@ typedef struct s_data
 	mlx_image_t		*gun;
 	bool			gun_running;
 	bool			face_idle;
+
 	mlx_image_t		*HUD;
 	mlx_image_t		*Faces;
 	unsigned int 	frames;
