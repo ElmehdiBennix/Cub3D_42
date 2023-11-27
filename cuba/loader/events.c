@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 14:26:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 15:54:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void mouse_event(t_data *game)
 	static int i;
 
 	mlx_get_mouse_pos(game->mlx, &game->player.mouseX, &game->player.mouseY);
+	printf("%f\n",(float)(game->player.mouseX - 500));
 	if (i++ == 0)
 		game->player.mouseX = 500;
 	game->player.rotationA += (float)(game->player.mouseX - 500) / 500;

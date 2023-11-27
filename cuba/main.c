@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 15:27:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 15:56:41 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static void draw_faces(t_data *game)
 	game->frames++;
 	if (game->frames % 80 == 0)
 		game->face_idle = !game->face_idle;
-	if (game->player.walkD == 1 || game->player.walkD == -1)
+	if (game->player.turnD == 1 || (float)(game->player.mouseX - 500) > 10)
+		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[4]);
+	else if (game->player.turnD == -1 || (float)(game->player.mouseX - 500) < -10)
+		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[3]);
+	else if (game->player.walkD == 1 || game->player.walkD == -1)
 	{
 		if (game->gun_running == false && game->gun->instances->x < 680)
 			game->gun->instances->x += 4;
@@ -35,26 +39,15 @@ static void draw_faces(t_data *game)
 				game->gun_running = false;
 		}
 		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[2]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
 	}
-	else if (game->player.turnD == 1)
-	{
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[4]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
-	}
-	else if (game->player.turnD == -1)
-	{
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[3]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
-	}
-	else
+	else if (game->player.walkD == 0)
 	{
 		if (game->face_idle == false)
 			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[0]);
 		else
 			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[1]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
 	}
+	mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
 	game->Faces->enabled = false;
 }
 
