@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 15:56:41 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 16:00:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void setup(t_data	*game)
 	else if (game->player_info.direction == 'W')
 		game->player.rotationA = M_PI;
 	game->player.walkS = 3.0f;
-	game->player.turnS = 1 * (M_PI / 180); // 2 degrees per frame
+	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
 }
 
 static void	gerphec(t_data *game)
