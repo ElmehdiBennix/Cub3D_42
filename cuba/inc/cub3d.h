@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:35:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 06:05:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void 	boundary_check(t_data *game);
 bool    init_textures(char *content ,mlx_texture_t   **texture);
 
 void draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1);
-void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile);
+// void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile);
 
 int get_rgba(int r, int g, int b, int a);
 int ft_get_color(int i ,int x, int y, t_data *game);

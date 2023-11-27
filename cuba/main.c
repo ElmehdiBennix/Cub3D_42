@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 05:38:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/27 06:06:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,6 @@ static void	my_drawing(t_data *game)
 	// renderRays(game);
 	if (!game->world_3D || (mlx_image_to_window(game->mlx, game->world_3D, 0, 0) < 0))
 		ft_error();
-
-
-	
 }
 
 static void setup(t_data	*game)
