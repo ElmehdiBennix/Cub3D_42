@@ -6,17 +6,32 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 03:07:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 21:16:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static bool	plus_check(t_data *game, int i, int j) // implement a true + check
+// static bool	plus_check(t_data *game, int i, int j) // implement a true + check
+// {
+// 	if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
+// 		return (true);
+// 	return (false);
+// }
+
+static int	plus_check(t_data *game, int i, int j) // implement a true + check
 {
-	if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
-		return (true);
-	return (false);
+	int check = 0;
+
+	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == game->player_info.direction)
+		check++;
+	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == game->player_info.direction)
+		check++;
+	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == game->player_info.direction)
+		check++;
+	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == game->player_info.direction)
+		check++;
+	return (check);
 }
 
 static bool first_line(char *line)
@@ -50,8 +65,7 @@ void 	boundary_check(t_data *game)
 		{
 			if (game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
 			{
-				if (plus_check(game, i + 1, j) == false || plus_check(game, i - 1, j) == false ||
-						plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
+				if (plus_check(game, i , j) != 4)
 					return (ft_fprintf(2,"Error : map must be surrounded by walls."), free2d(game->map), exit(1));
 			}
 			j++;

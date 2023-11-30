@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 02:47:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 03:23:35 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void draw_faces(t_data *game)
 		game->canvas.face_idle = !game->canvas.face_idle;
 	if (game->canvas.gun_shoot == true)
 		game->canvas.Faces[5]->enabled = true;
+	else if (game->player.turnD == 1 || game->player.mouseX > 520) // || game->player.mouseX - 500 > 10
+		game->canvas.Faces[4]->enabled = true;
+	else if (game->player.turnD == -1 || game->player.mouseX < 480) // moouse face left
+		game->canvas.Faces[3]->enabled = true;
 	else if (game->player.walkD == 1 || game->player.walkD == -1)
 		game->canvas.Faces[2]->enabled = true;
-	else if (game->player.turnD == 1) // || game->player.mouseX - 500 > 10
-		game->canvas.Faces[4]->enabled = true;
-	else if (game->player.turnD == -1) // moouse face left
-		game->canvas.Faces[3]->enabled = true;
 	else
 	{
 		if (game->canvas.face_idle == false)
@@ -120,4 +120,3 @@ int	main(int ac, char **av)
 	// atexit(f);
 	return (EXIT_SUCCESS);
 }
-// flip colors of c and floor
