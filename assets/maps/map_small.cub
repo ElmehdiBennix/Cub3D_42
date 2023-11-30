@@ -1,15 +1,15 @@
 NO ./assets/textures/walls/wall1.png     
 
        
-SO ./assets/textures/walls/wall2.png
-WE ./assets/textures/walls/wall3.png
+SO ./assets/textures/walls/wall1.png
+WE ./assets/textures/walls/wall1.png
                    
         
-EA ./assets/textures/walls/wall4.png
+EA ./assets/textures/walls/wall1.png
 
 
-F 0,0,0
-C 100,200,100
+C 0,0,0
+F 128,128,128
 
 
 11111111111111111111111       

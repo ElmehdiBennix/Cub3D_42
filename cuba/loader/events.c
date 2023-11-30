@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 16:12:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:35:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void mouse_event(t_data *game)
 	static int i;
 
 	mlx_get_mouse_pos(game->mlx, &game->player.mouseX, &game->player.mouseY);
-	printf("%f\n",(float)(game->player.mouseX - 500));
 	if (i++ == 0)
 		game->player.mouseX = 500;
 	game->player.rotationA += (float)(game->player.mouseX - 500) / 500;
@@ -55,32 +54,30 @@ void key_events(mlx_key_data_t keycode, t_data *game)
 {
 	if (keycode.key == MLX_KEY_ESCAPE)
 		exit(1);
-	else if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.walkD = 1;
-	else if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
 		game->player.walkD = 0;
-	else if (keycode.key == MLX_KEY_S && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_S && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.walkD = -1;
-	else if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_S && keycode.action == MLX_RELEASE)
 		game->player.walkD = 0;
-	else if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_RIGHT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.turnD = 1;
-	else if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_RIGHT && keycode.action == MLX_RELEASE)
 		game->player.turnD = 0;
-	else if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.turnD = -1;
-	else if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_LEFT && keycode.action == MLX_RELEASE)
 		game->player.turnD = 0;
-	else if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_D && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.sideW = 1;
-	else if (keycode.key == MLX_KEY_D && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_D && keycode.action == MLX_RELEASE)
 		game->player.sideW = 0;
-	else if (keycode.key == MLX_KEY_A && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+	if (keycode.key == MLX_KEY_A && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.sideW = -1;
-	else if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
+	if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
 		game->player.sideW = 0;
-	else if (keycode.key == MLX_MOUSE_BUTTON_LEFT && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
-		 game->player.attack = true;
-	
-	//ft_loop(param);
+	if (keycode.key == MLX_KEY_G && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		game->canvas.gun_shoot = true; // chnage to mouse event click
 }

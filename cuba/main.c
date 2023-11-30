@@ -6,113 +6,102 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 16:26:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:47:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-// static void draw_gun(t_data *game)
-// {
-// 	mlx_texture_to_image(game->mlx, game->texs.Gun_animation->content);
-// 	mlx_image_to_window(game->mlx, game->texs.Gun_animation->content, 0, 0);
-// }
-
 static void draw_faces(t_data *game)
 {
-	static int gun_frames = 0;
-
-	game->frames++;
 	if (game->frames % 80 == 0)
-		game->face_idle = !game->face_idle;
-	
-	if (game->frames % 10 == 0)
+		game->canvas.face_idle = !game->canvas.face_idle;
+	if (game->canvas.gun_shoot == true)
+		game->canvas.Faces[5]->enabled = true;
+	else if (game->player.walkD == 1 || game->player.walkD == -1)
+		game->canvas.Faces[2]->enabled = true;
+	else if (game->player.turnD == 1) // || game->player.mouseX - 500 > 10
+		game->canvas.Faces[4]->enabled = true;
+	else if (game->player.turnD == -1) // moouse face left
+		game->canvas.Faces[3]->enabled = true;
+	else
 	{
-		if (game->player.attack == true)
-		
-				
-		// game->gun = mlx_texture_to_image(game->mlx, game->texs.Gun_animation[0]);
-		// mlx_image_to_window(game->mlx, game->gun, game->mlx->width / 2 - game->gun->width / 2, 270);
-
+		if (game->canvas.face_idle == false)
+			game->canvas.Faces[0]->enabled = true;
+		else
+			game->canvas.Faces[1]->enabled = true;
 	}
+}
 
-	
-	if (game->player.turnD == 1 || (float)(game->player.mouseX - 500) > 10)
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[4]);
-	else if (game->player.turnD == -1 || (float)(game->player.mouseX - 500) < -10)
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[3]);
+static void draw_gun(t_data *game)
+{
+	static int play = 0;
+	int animation[7] = {1,2,3,4,5,4,3};
+
+	if (game->canvas.gun_shoot == true)
+	{
+		game->canvas.gun[animation[play]]->enabled = true;
+		game->canvas.gun[animation[play]]->instances->x = game->canvas.gun_x;
+		if (game->frames % 8 == 0)
+		{
+			game->canvas.gun[animation[play]]->enabled = true;
+			play++;
+			if (play == 7)
+			{
+				play = 0;
+				game->canvas.gun_shoot = false;
+			}
+		}
+		return ;
+	}
 	else if (game->player.walkD == 1 || game->player.walkD == -1)
 	{
-		if (game->gun_running == false && game->gun->instances->x < 680)
-			game->gun->instances->x += 4;
+		if (game->canvas.gun_running == false && game->canvas.gun_x < 680)
+			game->canvas.gun_x += 4;
 		else
 		{
-			game->gun_running = true;
-			game->gun->instances->x -= 4;
-			if (game->gun->instances->x < 580)
-				game->gun_running = false;
+			game->canvas.gun_running = true;
+			game->canvas.gun_x -= 4;
+			if (game->canvas.gun_x < 580)
+				game->canvas.gun_running = false;
 		}
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[2]);
+		game->canvas.gun[0]->instances->x = game->canvas.gun_x;
 	}
-	else if (game->player.walkD == 0)
-	{
-		if (game->face_idle == false)
-			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[0]);
-		else
-			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[1]);
-	}
-	mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
-	game->Faces->enabled = false;
+	game->canvas.gun[0]->enabled = true;
 }
 
 static void	drawing(t_data *game)
 {
-	// t_draw draw = { game->MINI_Map, game->player.x,
-	// 				game->player.y,
-	// 				game->player.x + (cos(game->player.rotationA) * 30),
-	// 				game->player.y + (sin(game->player.rotationA) * 30),
-	// 				0x00FF00FF };
-	// draw_lines(&draw);
+	game->frames++;
 
-
-
-/// #############################################
-	mlx_delete_image(game->mlx, game->Faces);
-	mlx_delete_image(game->mlx, game->gun);
-
-	draw_faces(game);
+	disable_images(game);
 	update_state(game);
-	game->gun->enabled = false;
-	game->HUD->enabled = false;
 	castAllRays(game);
 	generate3DMap(game);
-	game->gun->enabled = true;
+	draw_gun(game);
 	mini_map(game, 3, 3);
-	game->HUD->enabled = true;
-	game->Faces->enabled = true;
-
+	draw_faces(game);
 }
 
-static void setup(t_data	*game)
+
+
+static void	gerphec(t_data *game)
 {
-	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
-	game->player.y = game->player_info.y * TILE_S + (TILE_S / 2);
-	game->player.turnD = 0;
-	game->player.walkD = 0;
-	game->player.mouseX = 0;
-	game->player.sideW = 0;
-	if (game->player_info.direction == 'N')
-		game->player.rotationA = M_PI + M_PI_2;
-	else if (game->player_info.direction == 'S')
-		game->player.rotationA = M_PI_2;
-	else if (game->player_info.direction == 'E')
-		game->player.rotationA = 0;
-	else if (game->player_info.direction == 'W')
-		game->player.rotationA = M_PI;
-	game->player.walkS = 3.0f;
-	game->player.turnS = 2 * (M_PI / 180); // 2 degrees per frame
-}
+	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	if (!game->mlx)
+		ft_error();
 
+    init_images(game);
+
+	mlx_key_hook(game->mlx, (void *)key_events, game);
+	mlx_loop_hook(game->mlx, (void *)drawing, game);
+
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
+	mlx_cursor_hook(game->mlx,(void *)mouse_event, game);
+
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
+}
 
 // void f()
 // {
@@ -125,23 +114,8 @@ int	main(int ac, char **av)
 	
     if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
-
 	parser(&game, read_file(*(++av)));
-	setup(&game);
-	game.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
-	if (!game.mlx)
-		ft_error();
-
-    init_images(&game);
-
-	mlx_key_hook(game.mlx, (void *)key_events, &game);
-	mlx_loop_hook(game.mlx, (void *)drawing, &game);
-
-	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_DISABLED);
-	mlx_cursor_hook(game.mlx,(void *)mouse_event, &game);
-
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
+	gerphec(&game);
 
 	// atexit(f);
 	return (EXIT_SUCCESS);

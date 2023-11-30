@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 22:34:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:47:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,26 @@ void 	boundary_check(t_data *game)
 
 //#######################//#######################//#######################//#######################
 
+static void setup(t_data	*game)
+{
+	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
+	game->player.y = game->player_info.y * TILE_S + (TILE_S / 2);
+	game->player.turnD = 0;
+	game->player.walkD = 0;
+	game->player.mouseX = 0;
+	game->player.sideW = 0;
+	if (game->player_info.direction == 'N')
+		game->player.rotationA = M_PI + M_PI_2;
+	else if (game->player_info.direction == 'S')
+		game->player.rotationA = M_PI_2;
+	else if (game->player_info.direction == 'E')
+		game->player.rotationA = 0;
+	else if (game->player_info.direction == 'W')
+		game->player.rotationA = M_PI;
+	game->player.walkS = 3.0f;
+	game->player.turnS = 1 * (M_PI / 180);
+}
+
 void	parser(t_data   *game, char **file)
 {
     ft_bzero(game, sizeof(t_data));
@@ -72,5 +92,5 @@ void	parser(t_data   *game, char **file)
 	map_padding(game);
 	boundary_check(game);
 	game->map[game->player_info.y][game->player_info.x] = '0';
-	// setup_player(game);
+	setup(game);
 }

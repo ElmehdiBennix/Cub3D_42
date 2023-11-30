@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:35:59 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 01:10:32 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <math.h>
 // # include <time.h>
 
+
+
+
 bool    spaces(char *line, bool new_line);
 char	**read_file(char *str);
 void    parser(t_data   *game, char **file); // might delete it and make it static 
@@ -31,6 +34,7 @@ void 	boundary_check(t_data *game);
 
 // void	open_window(t_data *game);
 bool    init_textures(char *content ,mlx_texture_t   **texture);
+void    disable_images(t_data *game);
 
 void draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1);
 // void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile);

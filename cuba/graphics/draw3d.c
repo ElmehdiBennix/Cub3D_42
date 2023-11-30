@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:35:18 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:52:41 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:47:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	generate3DMap(t_data *game)
 		int textOffsetX;
 		while (y < wallTopPixel)
 		{
-			mlx_put_pixel(game->world_3D, i, y, get_rgba(game->C_Ceiling.R,game->C_Ceiling.G,game->C_Ceiling.B,255)); // sky
+			mlx_put_pixel(game->canvas.world_3D, i, y, get_rgba(game->C_Floor.R,game->C_Floor.G,game->C_Floor.B,255)); // sky
 			y++;
 		}
 
@@ -48,13 +48,13 @@ void	generate3DMap(t_data *game)
 			int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
 			int textOffsetY = distanceFromTop * ((float)game->rays[i].text->height / wallStripHeight);
   			uint32_t color = ft_get_color(i,textOffsetX, textOffsetY, game);
-			mlx_put_pixel(game->world_3D, i, y, color);
+			mlx_put_pixel(game->canvas.world_3D, i, y, color);
 			y++;
 		}
 		y = wallBottomPixel;
 		while (y < HEIGHT)
 		{
-			mlx_put_pixel(game->world_3D, i, y, get_rgba(game->C_Floor.R,game->C_Floor.G,game->C_Floor.B,255)); // floor
+			mlx_put_pixel(game->canvas.world_3D, i, y, get_rgba(game->C_Ceiling.R,game->C_Ceiling.G,game->C_Ceiling.B,255));
 			y++;
 		}
 		i++;
