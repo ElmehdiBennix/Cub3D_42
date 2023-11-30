@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:35:18 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 00:13:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:47:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	generate3DMap(t_data *game)
 		int textOffsetX;
 		while (y < wallTopPixel)
 		{
-			mlx_put_pixel(game->canvas.world_3D, i, y, get_rgba(game->C_Ceiling.R,game->C_Ceiling.G,game->C_Ceiling.B,255)); // sky
+			mlx_put_pixel(game->canvas.world_3D, i, y, get_rgba(game->C_Floor.R,game->C_Floor.G,game->C_Floor.B,255)); // sky
 			y++;
 		}
 
@@ -54,7 +54,7 @@ void	generate3DMap(t_data *game)
 		y = wallBottomPixel;
 		while (y < HEIGHT)
 		{
-			mlx_put_pixel(game->canvas.world_3D, i, y, get_rgba(game->C_Floor.R,game->C_Floor.G,game->C_Floor.B,255)); // floor
+			mlx_put_pixel(game->canvas.world_3D, i, y, get_rgba(game->C_Ceiling.R,game->C_Ceiling.G,game->C_Ceiling.B,255));
 			y++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 02:41:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:47:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,7 @@ static void	drawing(t_data *game)
 	draw_faces(game);
 }
 
-static void setup(t_data	*game)
-{
-	game->player.x = game->player_info.x * TILE_S + (TILE_S / 2);
-	game->player.y = game->player_info.y * TILE_S + (TILE_S / 2);
-	game->player.turnD = 0;
-	game->player.walkD = 0;
-	game->player.mouseX = 0;
-	game->player.sideW = 0;
-	if (game->player_info.direction == 'N')
-		game->player.rotationA = M_PI + M_PI_2;
-	else if (game->player_info.direction == 'S')
-		game->player.rotationA = M_PI_2;
-	else if (game->player_info.direction == 'E')
-		game->player.rotationA = 0;
-	else if (game->player_info.direction == 'W')
-		game->player.rotationA = M_PI;
-	game->player.walkS = 3.0f;
-	game->player.turnS = 1 * (M_PI / 180);
-}
+
 
 static void	gerphec(t_data *game)
 {
@@ -132,9 +114,7 @@ int	main(int ac, char **av)
 	
     if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
-
 	parser(&game, read_file(*(++av)));
-	setup(&game);
 	gerphec(&game);
 
 	// atexit(f);
