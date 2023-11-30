@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 02:47:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 03:00:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 static bool	plus_check(t_data *game, int i, int j)
 {
-	if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
-		return (true);
-	return (false);
+	bool checker = false;
+	
+	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == game->player_info.direction)
+		checker = true;
+	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == game->player_info.direction)
+		checker = true;
+	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == game->player_info.direction)
+		checker = true;
+	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == game->player_info.direction)
+		checker = true;
+	return (checker);
 }
 
 static bool first_line(char *line)
@@ -50,8 +58,7 @@ void 	boundary_check(t_data *game)
 		{
 			if (game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
 			{
-				if (plus_check(game, i + 1, j) == false || plus_check(game, i - 1, j) == false ||
-						plus_check(game, i, j + 1) == false || plus_check(game, i, j - 1) == false)
+				if (plus_check(game, i, j) == false)
 					return (ft_fprintf(2,"Error : map must be surrounded by walls."), free2d(game->map), exit(1));
 			}
 			j++;
