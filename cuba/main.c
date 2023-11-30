@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 15:27:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 01:21:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,67 +20,49 @@
 
 static void draw_faces(t_data *game)
 {
-	game->frames++;
 	if (game->frames % 80 == 0)
-		game->face_idle = !game->face_idle;
+		game->canvas.face_idle = !game->canvas.face_idle;
 	if (game->player.walkD == 1 || game->player.walkD == -1)
 	{
-		if (game->gun_running == false && game->gun->instances->x < 680)
-			game->gun->instances->x += 4;
+		if (game->canvas.gun_running == false && game->canvas.gun_x < 680)
+			game->canvas.gun_x += 4;
 		else
 		{
-			game->gun_running = true;
-			game->gun->instances->x -= 4;
-			if (game->gun->instances->x < 580)
-				game->gun_running = false;
+			game->canvas.gun_running = true;
+			game->canvas.gun_x -= 4;
+			if (game->canvas.gun_x < 580)
+				game->canvas.gun_running = false;
+			// add it to the instance of the gun
 		}
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[2]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
+		game->canvas.Faces[2]->enabled = true;
 	}
 	else if (game->player.turnD == 1)
-	{
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[4]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
-	}
+		game->canvas.Faces[4]->enabled = true;
 	else if (game->player.turnD == -1)
-	{
-		game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[3]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
-	}
+		game->canvas.Faces[3]->enabled = true;
 	else
 	{
-		if (game->face_idle == false)
-			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[0]);
+		if (game->canvas.face_idle == false)
+			game->canvas.Faces[0]->enabled = true;
+
 		else
-			game->Faces = mlx_texture_to_image(game->mlx, game->texs.Faces[1]);
-		mlx_image_to_window(game->mlx, game->Faces ,1463, 563);
+			game->canvas.Faces[1]->enabled = true;
 	}
-	game->Faces->enabled = false;
 }
 
 static void	drawing(t_data *game)
 {
-	// t_draw draw = { game->MINI_Map, game->player.x,
-	// 				game->player.y,
-	// 				game->player.x + (cos(game->player.rotationA) * 30),
-	// 				game->player.y + (sin(game->player.rotationA) * 30),
-	// 				0x00FF00FF };
-	// draw_lines(&draw);
+	game->frames++;
 
-/// #############################################
-	mlx_delete_image(game->mlx, game->Faces);
-
-	draw_faces(game);
+	disable_images(game);
 	update_state(game);
-	game->gun->enabled = false;
-	game->HUD->enabled = false;
 	castAllRays(game);
 	generate3DMap(game);
-	game->gun->enabled = true;
+	game->canvas.world_3D->enabled = true;
 	mini_map(game, 3, 3);
-	game->HUD->enabled = true;
-	game->Faces->enabled = true;
-
+	game->canvas.HUD->enabled = true;
+	draw_faces(game);
+	// game->canvas.gun[0]->enabled = true;
 }
 
 static void setup(t_data	*game)

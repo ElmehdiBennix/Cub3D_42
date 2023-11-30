@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 15:21:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/29 23:45:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ typedef struct s_Ray
 	int wallHitContent;
 	mlx_texture_t	*text;
 }	t_Ray[NUM_RAYS];
-
-// typedef struct s_draw
-// {
-// 	mlx_image_t *canva;
-// // from
-// 	float 	x1;
-// 	float 	y1;
-// // to
-// 	float 	x2;
-// 	float 	y2;
-// 	uint32_t 	color;
-// }				t_draw;
 
 typedef struct 	s_RGB
 {
@@ -69,7 +57,6 @@ typedef struct s_textures
 	mlx_texture_t	*HUD_template;
 	mlx_texture_t	*Faces[6];
 	mlx_texture_t	*Gun_animation[6];
-	// add all textures hir
 }				t_textures;
 
 typedef struct s_state
@@ -84,8 +71,22 @@ typedef struct s_state
 	float rotationA; // for retation angle
 	float walkS; // for walk speed
 	float turnS; // for turn speed
-	
 } t_state;
+
+typedef struct s_images
+{
+	mlx_image_t		*world_3D;
+	mlx_image_t		*HUD;
+
+	mlx_image_t		*gun[6];
+	int32_t 		gun_x;
+	int32_t 		gun_y;
+	bool 			gun_shoot;
+	bool			gun_running;
+
+	mlx_image_t		*Faces[6];
+	bool			face_idle;
+}				t_images;
 
 typedef struct s_data
 {
@@ -107,13 +108,8 @@ typedef struct s_data
 	t_RGB		C_Ceiling;
 // -> HUD_elemnts canvas
 	t_textures		texs;
+	t_images		canvas;
 
-	mlx_image_t		*world_3D;
-	mlx_image_t		*gun;
-	bool			gun_running;
-	bool			face_idle;
-	mlx_image_t		*HUD;
-	mlx_image_t		*Faces;
 	unsigned int 	frames;
 // -> rays Data
 	t_Ray rays;

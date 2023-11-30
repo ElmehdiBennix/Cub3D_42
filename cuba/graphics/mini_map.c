@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:35:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 00:13:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	mini_map(t_data *game ,double x_vis, double y_vis)
 			int x = floor(camera_x / TILE_S);
 			int y = floor(camera_y / TILE_S);
 			if (x < 0 || y < 0 || x >= (float)game->map_width || y >= (float)game->map_height)
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
+				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0x000000FF);
 			else if (game->map[y][x] == '1')
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0xFFFFFFFF);
+				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0xFFFFFFFF);
 			else if (game->map[y][x] == '0')
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x66FFFFFF);
+				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0x66FFFFFF);
 			else
-				mlx_put_pixel(game->HUD, draw_x , draw_y, 0x000000FF);
+				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0x000000FF);
 			draw_x++;
 			camera_x++;
 		}
