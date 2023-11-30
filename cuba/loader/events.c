@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 14:26:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:35:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void 	update_state(t_data *game)
 
 void key_events(mlx_key_data_t keycode, t_data *game)
 {
-	if(keycode.key == MLX_KEY_ESCAPE)
+	if (keycode.key == MLX_KEY_ESCAPE)
 		exit(1);
 	if (keycode.key == MLX_KEY_W && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
 		game->player.walkD = 1;
@@ -78,5 +78,6 @@ void key_events(mlx_key_data_t keycode, t_data *game)
 		game->player.sideW = -1;
 	if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
 		game->player.sideW = 0;
-	//ft_loop(param);
+	if (keycode.key == MLX_KEY_G && (keycode.action == MLX_PRESS || keycode.action == MLX_REPEAT))
+		game->canvas.gun_shoot = true; // chnage to mouse event click
 }

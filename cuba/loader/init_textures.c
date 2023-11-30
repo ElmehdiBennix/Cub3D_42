@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 01:21:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:21:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void    init_images(t_data *game)
 
 void    disable_images(t_data *game)
 {
-    game->canvas.world_3D->enabled = false;
     game->canvas.gun[0]->enabled = false;
     game->canvas.gun[1]->enabled = false;
     game->canvas.gun[2]->enabled = false;

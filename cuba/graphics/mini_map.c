@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 00:13:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:20:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	mini_map(t_data *game ,double x_vis, double y_vis)
 			draw_x = 1408;
 		draw_y++;
 	}
+	game->canvas.HUD->enabled = true;
  	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
 }

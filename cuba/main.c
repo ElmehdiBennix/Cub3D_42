@@ -6,23 +6,55 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 01:21:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:41:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-// static void draw_gun(t_data *game)
-// {
-// 	mlx_texture_to_image(game->mlx, game->texs.Gun_animation->content);
-// 	mlx_image_to_window(game->mlx, game->texs.Gun_animation->content, 0, 0);
-// }
-
 static void draw_faces(t_data *game)
 {
 	if (game->frames % 80 == 0)
 		game->canvas.face_idle = !game->canvas.face_idle;
-	if (game->player.walkD == 1 || game->player.walkD == -1)
+	if (game->canvas.gun_shoot == true)
+		game->canvas.Faces[5]->enabled = true;
+	else if (game->player.walkD == 1 || game->player.walkD == -1)
+		game->canvas.Faces[2]->enabled = true;
+	else if (game->player.turnD == 1) // || game->player.mouseX - 500 > 10
+		game->canvas.Faces[4]->enabled = true;
+	else if (game->player.turnD == -1) // moouse face left
+		game->canvas.Faces[3]->enabled = true;
+	else
+	{
+		if (game->canvas.face_idle == false)
+			game->canvas.Faces[0]->enabled = true;
+		else
+			game->canvas.Faces[1]->enabled = true;
+	}
+}
+
+static void draw_gun(t_data *game)
+{
+	static int play = 0;
+	int animation[7] = {1,2,3,4,5,4,3};
+
+	if (game->canvas.gun_shoot == true)
+	{
+		game->canvas.gun[animation[play]]->enabled = true;
+		game->canvas.gun[animation[play]]->instances->x = game->canvas.gun_x;
+		if (game->frames % 8 == 0)
+		{
+			game->canvas.gun[animation[play]]->enabled = true;
+			play++;
+			if (play == 7)
+			{
+				play = 0;
+				game->canvas.gun_shoot = false;
+			}
+		}
+		return ;
+	}
+	else if (game->player.walkD == 1 || game->player.walkD == -1)
 	{
 		if (game->canvas.gun_running == false && game->canvas.gun_x < 680)
 			game->canvas.gun_x += 4;
@@ -32,22 +64,10 @@ static void draw_faces(t_data *game)
 			game->canvas.gun_x -= 4;
 			if (game->canvas.gun_x < 580)
 				game->canvas.gun_running = false;
-			// add it to the instance of the gun
 		}
-		game->canvas.Faces[2]->enabled = true;
+		game->canvas.gun[0]->instances->x = game->canvas.gun_x;
 	}
-	else if (game->player.turnD == 1)
-		game->canvas.Faces[4]->enabled = true;
-	else if (game->player.turnD == -1)
-		game->canvas.Faces[3]->enabled = true;
-	else
-	{
-		if (game->canvas.face_idle == false)
-			game->canvas.Faces[0]->enabled = true;
-
-		else
-			game->canvas.Faces[1]->enabled = true;
-	}
+	game->canvas.gun[0]->enabled = true;
 }
 
 static void	drawing(t_data *game)
@@ -58,11 +78,9 @@ static void	drawing(t_data *game)
 	update_state(game);
 	castAllRays(game);
 	generate3DMap(game);
-	game->canvas.world_3D->enabled = true;
+	draw_gun(game);
 	mini_map(game, 3, 3);
-	game->canvas.HUD->enabled = true;
 	draw_faces(game);
-	// game->canvas.gun[0]->enabled = true;
 }
 
 static void setup(t_data	*game)
@@ -82,7 +100,7 @@ static void setup(t_data	*game)
 	else if (game->player_info.direction == 'W')
 		game->player.rotationA = M_PI;
 	game->player.walkS = 3.0f;
-	game->player.turnS = 1 * (M_PI / 180); // 2 degrees per frame
+	game->player.turnS = 1 * (M_PI / 180);
 }
 
 static void	gerphec(t_data *game)
