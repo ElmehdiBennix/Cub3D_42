@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:47:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 12:48:35 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 00:04:37 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,4 @@ void	castAllRays(t_data *game)
 		castRay(rayA, i, game);
 		rayA += FOV_ANGLE / NUM_RAYS;
 	}
-	//exit(1);
 }

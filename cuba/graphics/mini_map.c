@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 02:20:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 23:55:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	mini_map(t_data *game ,double x_vis, double y_vis)
 				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0xFFFFFFFF);
 			else if (game->map[y][x] == '0')
 				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0x66FFFFFF);
+			else if (game->map[y][x] == 'D')
+				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0xFF0FF00F);
 			else
 				mlx_put_pixel(game->canvas.HUD, draw_x , draw_y, 0x000000FF);
 			draw_x++;

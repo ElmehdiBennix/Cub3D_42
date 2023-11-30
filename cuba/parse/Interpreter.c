@@ -6,23 +6,41 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 21:16:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 00:05:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// static bool	plus_check(t_data *game, int i, int j) // implement a true + check
+// void	add_door(t_data *game, int i, int j)
 // {
-// 	if (game->map[i][j] == '1' || game->map[i][j] == '0' || game->map[i][j] == game->player_info.direction)
-// 		return (true);
-// 	return (false);
+// 	if (game->map[i][j] != game->player_info.direction && game->map[i + 1][j] == '1' && game->map[i - 1][j] == '1' && game->map[i][j + 1] == '0' && game->map[i][j - 1] == '0')
+// 		game->map[i][j] = 'D';
+// 	if (game->map[i][j] != game->player_info.direction && game->map[i + 1][j] == '0' && game->map[i - 1][j] == '0' && game->map[i][j + 1] == '1' && game->map[i][j - 1] == '1')
+// 		game->map[i][j] = 'D';
 // }
 
-static int	plus_check(t_data *game, int i, int j) // implement a true + check
+// static int	plus_check(t_data *game, int i, int j)
+// {
+// 	int check = 0;
+
+// 	printf("i = %c \n", game->map[i][j]);
+// 	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == 'D' || game->map[i + 1][j] == game->player_info.direction)
+// 		check++;
+// 	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == 'D' || game->map[i - 1][j] == game->player_info.direction)
+// 		check++;
+// 	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == 'D' || game->map[i][j + 1] == game->player_info.direction)
+// 		check++;
+// 	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == 'D' || game->map[i][j - 1] == game->player_info.direction)
+// 		check++;
+// 	return (check);
+// }
+
+static int	plus_check(t_data *game, int i, int j)
 {
 	int check = 0;
 
+	printf("i = %c \n", game->map[i][j]);
 	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == game->player_info.direction)
 		check++;
 	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == game->player_info.direction)
@@ -67,6 +85,7 @@ void 	boundary_check(t_data *game)
 			{
 				if (plus_check(game, i , j) != 4)
 					return (ft_fprintf(2,"Error : map must be surrounded by walls."), free2d(game->map), exit(1));
+				// add_door(game, i, j);
 			}
 			j++;
 		}
@@ -106,6 +125,8 @@ void	parser(t_data   *game, char **file)
 	valid_map(game);
 	map_padding(game);
 	boundary_check(game);
+	// for ( int i = 0 ; game->map[i]; i++)
+	// 	ft_fprintf(2,"%s\n",game->map[i]);
 	game->map[game->player_info.y][game->player_info.x] = '0';
 	setup(game);
 }

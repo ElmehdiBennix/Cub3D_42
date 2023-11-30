@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/29 23:45:19 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/11/30 23:59:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ typedef struct s_images
 
 	mlx_image_t		*Faces[6];
 	bool			face_idle;
+
+	mlx_image_t		*door[2];
+	bool			enable_door;
 }				t_images;
 
 typedef struct s_data
