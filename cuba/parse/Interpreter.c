@@ -6,50 +6,49 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 02:55:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:55:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// void	add_door(t_data *game, int i, int j)
-// {
-// 	if (game->map[i][j] != game->player_info.direction && game->map[i + 1][j] == '1' && game->map[i - 1][j] == '1' && game->map[i][j + 1] == '0' && game->map[i][j - 1] == '0')
-// 		game->map[i][j] = 'D';
-// 	if (game->map[i][j] != game->player_info.direction && game->map[i + 1][j] == '0' && game->map[i - 1][j] == '0' && game->map[i][j + 1] == '1' && game->map[i][j - 1] == '1')
-// 		game->map[i][j] = 'D';
-// }
-
-// static int	plus_check(t_data *game, int i, int j)
-// {
-// 	int check = 0;
-
-// 	printf("i = %c \n", game->map[i][j]);
-// 	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == 'D' || game->map[i + 1][j] == game->player_info.direction)
-// 		check++;
-// 	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == 'D' || game->map[i - 1][j] == game->player_info.direction)
-// 		check++;
-// 	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == 'D' || game->map[i][j + 1] == game->player_info.direction)
-// 		check++;
-// 	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == 'D' || game->map[i][j - 1] == game->player_info.direction)
-// 		check++;
-// 	return (check);
-// }
+void	add_door(t_data *game, int i, int j)
+{
+	if (game->map[i][j] != game->player_info.direction && game->map[i + 1][j] == '1' && game->map[i - 1][j] == '1' && game->map[i][j + 1] == '0' && game->map[i][j - 1] == '0')
+		game->map[i][j] = 'D';
+	if (game->map[i][j] != game->player_info.direction && game->map[i + 1][j] == '0' && game->map[i - 1][j] == '0' && game->map[i][j + 1] == '1' && game->map[i][j - 1] == '1')
+		game->map[i][j] = 'D';
+}
 
 static int	plus_check(t_data *game, int i, int j)
 {
 	int check = 0;
 
-	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == game->player_info.direction)
+	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == 'D' || game->map[i + 1][j] == game->player_info.direction)
 		check++;
-	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == game->player_info.direction)
+	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == 'D' || game->map[i - 1][j] == game->player_info.direction)
 		check++;
-	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == game->player_info.direction)
+	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == 'D' || game->map[i][j + 1] == game->player_info.direction)
 		check++;
-	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == game->player_info.direction)
+	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == 'D' || game->map[i][j - 1] == game->player_info.direction)
 		check++;
 	return (check);
 }
+
+// static int	plus_check(t_data *game, int i, int j)
+// {
+// 	int check = 0;
+
+// 	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == game->player_info.direction)
+// 		check++;
+// 	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == game->player_info.direction)
+// 		check++;
+// 	if (game->map[i][j + 1] == '1' || game->map[i][j + 1] == '0' || game->map[i][j + 1] == game->player_info.direction)
+// 		check++;
+// 	if (game->map[i][j - 1] == '1' || game->map[i][j - 1] == '0' || game->map[i][j - 1] == game->player_info.direction)
+// 		check++;
+// 	return (check);
+// }
 
 static bool first_line(char *line)
 {
@@ -84,7 +83,7 @@ void 	boundary_check(t_data *game)
 			{
 				if (plus_check(game, i , j) != 4)
 					return (ft_fprintf(2,"Error : map must be surrounded by walls."), free2d(game->map), exit(1));
-				// add_door(game, i, j);
+				add_door(game, i, j);
 			}
 			j++;
 		}

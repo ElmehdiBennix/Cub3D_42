@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/12/01 00:09:00 by ebennix          ###   ########.fr        #
+#    Updated: 2023/12/01 20:03:23 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,14 @@ FILES := cuba/main \
 		 cuba/parse/map_evaluator \
 		 cuba/loader/init_textures \
 		 cuba/loader/events \
-		 cuba/graphics/raycasting \
-		 cuba/graphics/draw3d \
 		 cuba/tools/free_game \
 		 cuba/tools/draw_tools \
 		 cuba/tools/cub_tools \
 		 cuba/tools/ray_tools \
+		 cuba/graphics/draw3d \
+		 cuba/graphics/raycasting \
 		 cuba/graphics/mini_map \
-		#  cuba/loader/init_window \
+		 cuba/graphics/sprites \
 
 SRC := $(FILES:=.c)
 
@@ -50,7 +50,7 @@ OBJ := $(SRC:.c=.o)
 
 RM := rm -rf
 
-m := merge and drawing phase
+m := almost finished
 
 ########################################################################
 

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:35:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 06:00:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:02:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,3 @@ void draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1)
 		i++;
 	}
 }
-
-// void draw_rectangle(mlx_image_t *img, int h, int w, int color, int tile)
-// {
-// 	int i = h;
-// 	while (i < h + tile)
-// 	{
-// 		int j = w;
-// 		while (j < w + tile)
-// 		{
-// 			mlx_put_pixel(img, j * MINIMAP, i * MINIMAP, color);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }

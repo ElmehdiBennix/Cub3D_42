@@ -6,23 +6,23 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 23:55:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:58:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// void	renderRays(t_Player *player)
-// {
-// 	int	i;
+static void	renderRays(t_data *game)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < NUM_RAYS)
-// 	{
-// 		draw_line(player->img, player->x * MINIMAP, player->y * MINIMAP, player->rays[i].wallHitX * MINIMAP, player->rays[i].wallHitY * MINIMAP);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (i < NUM_RAYS)
+	{
+		draw_line(game->canvas.HUD, 3 * TILE_S + 1407 , 3 * TILE_S + 122, game->rays[i].wallHitX, game->rays[i].wallHitY);
+		i++;
+	}
+}
 
 void	mini_map(t_data *game ,double x_vis, double y_vis)
 {
@@ -61,6 +61,6 @@ void	mini_map(t_data *game ,double x_vis, double y_vis)
 			draw_x = 1408;
 		draw_y++;
 	}
+	renderRays(game);
 	game->canvas.HUD->enabled = true;
- 	// mlx_put_pixel(game->HUD,draw_x+ ((x_vis * 2) * TILE_S) / 2,draw_y + ((y_vis * 2) * TILE_S) / 2,0x000000FF); // render player
 }

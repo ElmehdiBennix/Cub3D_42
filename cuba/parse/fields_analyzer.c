@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/24 01:10:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:00:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static bool	parse_colors(char *RGB)
 	return (true);
 }
 
-static bool	check_fields(t_data *game)  // only top 6 values are readed else smthing will stay NULL
+static bool	check_fields(t_data *game)
 {
 	if (game->North.content_Nullable == NULL || init_textures(game->North.content_Nullable ,&(game->North.texture)) == false)
 		return (ft_fprintf(2,"Error : Failed to read North texture.\n"), false);
@@ -80,7 +80,6 @@ static bool	check_fields(t_data *game)  // only top 6 values are readed else smt
 
 static bool	collect_fields(char *line, int  *fields, t_data *game)
 {
-	// printf("line = |%s|\n", line);
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
 		game->North.content_Nullable = ft_strtrim(&line[2]," ");
 	else if (line && ft_strncmp(line, "SO ", 3) == 0)
@@ -97,7 +96,6 @@ static bool	collect_fields(char *line, int  *fields, t_data *game)
 		return (free(line), true);
 	else
 		return (ft_fprintf(2,"Error : Fields must start with 'NO' , 'SO' , 'WE' , 'EA' , 'F' or 'C'."), close(2), false);
-	// printf("\n");
 	free(line);
 	(*fields)++;
 	return (true);

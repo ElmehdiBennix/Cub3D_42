@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/26 22:31:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:01:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ void	map_padding(t_data *game)
 	while (game->map[i])
 	{
 		padding = game->map_width - ft_strlen(game->map[i]);
-		// printf("padding %d \n",padding);
 		if (padding > 0)
 			game->map[i] = join_em(game->map[i], repeat_char(' ', padding),3);
-		// printf("line = %d = |%s|\n", i, game->map[i]);
 		i++;
 	}
 }
@@ -63,7 +61,7 @@ static bool		allowed_units(t_data *game, int i, int j, int *player)
 	return (false);
 }
 
-void	valid_map(t_data *game) // leaks left
+void	valid_map(t_data *game)
 {
 	int i = 0;
 	int j = 0;
@@ -72,7 +70,6 @@ void	valid_map(t_data *game) // leaks left
 
 	while (game->map[i])
 	{
-		// printf("game->map[%d] = |%s|\n",i,game->map[i]);
 		while (game->map[i][j])
 		{
 			if (allowed_units(game, i, j, &player) == false)
@@ -89,5 +86,3 @@ void	valid_map(t_data *game) // leaks left
 	game->map_width = longest;
 	game->map_height = i;
 }
-
- // destroy the map textures

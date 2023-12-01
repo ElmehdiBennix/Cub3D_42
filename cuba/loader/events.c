@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 02:49:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:00:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void 	update_state(t_data *game)
 	float newplayerY = sin(game->player.rotationA) * movestep;
 	float px = game->player.x + newplayerX;
 	float py = game->player.y + newplayerY;
-	// printf("px = %f, py = %f\n", px, py);
 	if (!check_walls1(game, px, py))
 	{
 		game->player.x = px;
@@ -50,16 +49,21 @@ void 	update_state(t_data *game)
 	}
 }
 
-// void open_door(t_data *game)
-// {
-// 	printf("open door\n");
+void open_door(t_data *game)
+{
+	printf("open door\n");
+	
+	double p_X = game->player.x + (cos(game->player.rotationA) * 20);
+	double p_Y = game->player.y + (sin(game->player.rotationA) * 20);
 
-// 	if (game->map[][] == 'D')
-// 	{
-// 		game->map[][] = '0';
-// 		game->canvas.enable_door = true;
-// 	}
-// }
+	int X = floor(p_X / TILE_S);
+	int Y = floor(p_Y / TILE_S);
+	if (game->map[Y][X] == 'D')
+		game->map[Y][X] = '0';
+	// {
+	// 	game->canvas.enable_door = true;
+	// }
+}
 
 void key_events(mlx_key_data_t keycode, t_data *game)
 {
@@ -89,8 +93,8 @@ void key_events(mlx_key_data_t keycode, t_data *game)
 		game->player.sideW = -1;
 	else if (keycode.key == MLX_KEY_A && keycode.action == MLX_RELEASE)
 		game->player.sideW = 0;
-	else if (keycode.key == MLX_KEY_G && keycode.action == MLX_PRESS)
+	else if (keycode.key == MLX_KEY_LEFT_SHIFT && keycode.action == MLX_PRESS)
 		game->canvas.gun_shoot = true; // chnage to mouse event click
-	// else if (keycode.key == MLX_KEY_B && keycode.action == MLX_PRESS)
-	// 	open_door(game);
+	else if (keycode.key == MLX_KEY_B && keycode.action == MLX_PRESS)
+		open_door(game);
 }

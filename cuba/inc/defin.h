@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:16:42 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 02:55:01 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:59:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@
 # define NUM_RAYS WIDTH
 
 # define PI 3.14159265
-# define TWO_PI 6.28318530
 # define FOV_ANGLE (60 * (M_PI / 180))
-
-/*******************************/
-
-# define TEX_WIDTH 32
-# define TEX_HEIGHT 32
-
 
 #endif
