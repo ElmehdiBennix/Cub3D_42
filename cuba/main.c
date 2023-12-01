@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:07:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:55:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	parser(t_data   *game, char **file)
 	setup(game);
 }
 
-// void f()
-// {
-// 	system("leaks cub3d");
-// }
+void f()
+{
+	system("leaks cub3d");
+}
 
 int	main(int ac, char **av)
 {
@@ -68,6 +68,12 @@ int	main(int ac, char **av)
 	parser(&game, read_file(*(++av)));
 	gerphec(&game);
 
-	// atexit(f);
+	// free2d(game.map);
+	// free_fields(&game);
+	// free_texture(&game);
+
+	atexit(f);
 	return (EXIT_SUCCESS);
 }
+
+// cross for closing the screen
