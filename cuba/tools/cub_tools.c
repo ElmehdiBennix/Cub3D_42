@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:34:24 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/27 06:05:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:13:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int ft_get_color(int i ,int x, int y, t_data *game)
 	// printf("%d\n",player);
 	// exit(0);
 	// return (get_rgba(color[0], color[1], color[2], color[3]));
-	return get_rgba(r, g, b, a);
+	return (get_rgba(r, g, b, a));
 }

@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:47:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 00:04:37 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:11:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	castRay(float rayA, int sId, t_data *game)
+static void	castRay(float rayA, int sId, t_data *game)
 {
 	rayA = normalizeAngle(rayA);
 	

@@ -6,23 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 19:58:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:16:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-static void	renderRays(t_data *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < NUM_RAYS)
-	{
-		draw_line(game->canvas.HUD, 3 * TILE_S + 1407 , 3 * TILE_S + 122, game->rays[i].wallHitX, game->rays[i].wallHitY);
-		i++;
-	}
-}
 
 void	mini_map(t_data *game ,double x_vis, double y_vis)
 {
@@ -61,6 +49,6 @@ void	mini_map(t_data *game ,double x_vis, double y_vis)
 			draw_x = 1408;
 		draw_y++;
 	}
-	renderRays(game);
+	// draw_line(game->canvas.HUD, , , , );
 	game->canvas.HUD->enabled = true;
 }

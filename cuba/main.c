@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:01:57 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:07:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ static void	gerphec(t_data *game)
 
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
+}
+
+static void	parser(t_data   *game, char **file)
+{
+    ft_bzero(game, sizeof(t_data));
+	game->map = world_fields(file, game);
+	valid_map(game);
+	map_padding(game);
+	boundary_check(game);
+	game->map[game->player_info.y][game->player_info.x] = '0';
+	setup(game);
 }
 
 // void f()

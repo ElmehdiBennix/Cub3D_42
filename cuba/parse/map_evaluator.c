@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:01:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:08:40 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ void	map_padding(t_data *game)
 }
 
 //#######################//#######################//#######################//#######################
-
-//static bool	white_spaces(char c)
-// {
-// 	if ()
-// 		return (true);
-// 	return (false);
-// }
 
 static bool		allowed_units(t_data *game, int i, int j, int *player)
 {
