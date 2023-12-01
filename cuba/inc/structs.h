@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/30 23:59:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:59:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,27 @@ typedef struct s_images
 
 typedef struct s_data
 {
-// -> mlx Data
 	mlx_t			*mlx;
-// -> file_pase_Data
+
 	char			**map;
 	unsigned int	map_height;
 	unsigned int	map_width;
-	t_position		player_info; // take off and setup player using it
-// -> player location Data
+	t_position		player_info;
+
 	t_state			player;
-// -> fields data
+	
 	t_elements		North;
 	t_elements		South;
 	t_elements		West;
 	t_elements		East;
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
-// -> HUD_elemnts canvas
+	
 	t_textures		texs;
 	t_images		canvas;
 
 	unsigned int 	frames;
-// -> rays Data
+
 	t_Ray rays;
 }					t_data;
 

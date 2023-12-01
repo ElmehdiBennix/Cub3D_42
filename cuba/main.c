@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:55:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:01:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int ac, char **av)
 	// free_fields(&game);
 	// free_texture(&game);
 
-	atexit(f);
+	// atexit(f);
 	return (EXIT_SUCCESS);
 }
 
