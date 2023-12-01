@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 00:06:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 00:16:59 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,12 @@ static void	gerphec(t_data *game)
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		ft_error();
-
     init_images(game);
 
 	mlx_key_hook(game->mlx, (void *)key_events, game);
 	mlx_loop_hook(game->mlx, (void *)drawing, game);
 
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED); // add mouse events 
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	mlx_cursor_hook(game->mlx,(void *)mouse_event, game);
 
 	mlx_loop(game->mlx);

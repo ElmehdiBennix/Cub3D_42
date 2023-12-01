@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 00:05:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/01 02:55:46 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	plus_check(t_data *game, int i, int j)
 {
 	int check = 0;
 
-	printf("i = %c \n", game->map[i][j]);
 	if (game->map[i + 1][j] == '1' || game->map[i + 1][j] == '0' || game->map[i + 1][j] == game->player_info.direction)
 		check++;
 	if (game->map[i - 1][j] == '1' || game->map[i - 1][j] == '0' || game->map[i - 1][j] == game->player_info.direction)

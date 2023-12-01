@@ -1,11 +1,11 @@
-NO ./assets/textures/walls/wall1.png     
+NO ./assets/textures/walls/wall2.png     
 
        
-SO ./assets/textures/walls/wall1.png
+SO ./assets/textures/walls/wall3.png
 WE ./assets/textures/walls/wall1.png
                    
         
-EA ./assets/textures/walls/wall1.png
+EA ./assets/textures/walls/wall4.png
 
 
 C 0,0,0
