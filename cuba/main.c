@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 21:01:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/02 02:53:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ static void	gerphec(t_data *game)
 	mlx_terminate(game->mlx);
 }
 
+void f()
+{
+	system("leaks cub3d");
+}
+
 static void	parser(t_data   *game, char **file)
 {
     ft_bzero(game, sizeof(t_data));
@@ -52,11 +57,7 @@ static void	parser(t_data   *game, char **file)
 	boundary_check(game);
 	game->map[game->player_info.y][game->player_info.x] = '0';
 	setup(game);
-}
 
-void f()
-{
-	system("leaks cub3d");
 }
 
 int	main(int ac, char **av)
@@ -65,14 +66,13 @@ int	main(int ac, char **av)
 	
     if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
+	atexit(f);
 	parser(&game, read_file(*(++av)));
-	gerphec(&game);
-
-	// free2d(game.map);
+	// gerphec(&game);
 	// free_fields(&game);
-	// free_texture(&game);
-
-	// atexit(f);
+	free2d(game.map);
+	free_texture(&game);
+	
 	return (EXIT_SUCCESS);
 }
 

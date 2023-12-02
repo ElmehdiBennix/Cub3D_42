@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:08:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/02 02:05:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*repeat_char(char c, int count)
 {
     char*	repeater = malloc(count + 1);
     if (repeater != NULL) {
-        memset(repeater, c, count);
+        ft_memset(repeater, c, count);
         repeater[count] = '\0';
     }
     return repeater;

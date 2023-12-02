@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/25 01:51:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/02 02:34:41 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	free_fields(t_data *game)
 
 void	free_texture(t_data *game)
 {
-	if (game->North.texture)
+	// if (game->North.texture)
 		mlx_delete_texture(game->North.texture);
-	if (game->South.texture)
+	// if (game->South.texture)
 		mlx_delete_texture(game->South.texture);
-	if (game->West.texture)
+	// if (game->West.texture)
 		mlx_delete_texture(game->West.texture);
-	if (game->East.texture)
+	// if (game->East.texture)
 		mlx_delete_texture(game->East.texture);
 }
 
