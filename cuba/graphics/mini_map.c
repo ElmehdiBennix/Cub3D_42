@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 04:08:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:10:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ void	mini_map(t_data *game ,double x_vis, double y_vis)
 			draw_x = 1408;
 		draw_y++;
 	}
-	// player ------>
 	game->canvas.HUD->enabled = true;
-} // optimize this function // change gimp ui 
+}

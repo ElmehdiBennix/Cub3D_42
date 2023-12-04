@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 04:03:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:10:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,10 @@ int	main(int ac, char **av)
 	gerphec(&game);
 	return (EXIT_SUCCESS);
 }
+ 
+ // optimize this function mini_map 
+ // change gimp ui 
+ // add player in minimap and change colors of it 
+ // add door getting close without closing on th players face 
+ // fix door texture 
+ // fix big map not rendering
