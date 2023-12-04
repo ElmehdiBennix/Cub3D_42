@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 04:04:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:05:33 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool    init_textures(char *content ,mlx_texture_t   **texture)
     return (true);
 }
 
-void load_image_to_screen(t_data *game, char *content ,mlx_image_t **img_adrs ,int32_t *cordenates)
+static void load_image_to_screen(t_data *game, char *content ,mlx_image_t **img_adrs ,int32_t *cordenates)
 {
     mlx_texture_t *texs;
 

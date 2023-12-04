@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 04:02:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:05:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void 	update_state(t_data *game)
 	}
 }
 
-void open_door(t_data *game)
+static void open_door(t_data *game)
 {	
 	double p_X = game->player.x + (cos(game->player.rotationA) * 20);
 	double p_Y = game->player.y + (sin(game->player.rotationA) * 20);

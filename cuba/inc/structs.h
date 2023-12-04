@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 03:41:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:06:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_Ray
 	int isRayfacingRight;
 	int wallHitContent;
 	mlx_texture_t	*text;
-}	t_Ray[NUM_RAYS];
+}				t_Ray[NUM_RAYS];
 
 typedef struct 	s_RGB
 {
@@ -42,7 +42,7 @@ typedef struct s_elements
 	char 	*content_Nullable;
 
 	mlx_texture_t	*texture;
-}					t_elements;
+}				t_elements;
 
 typedef struct s_position
 {
@@ -50,7 +50,7 @@ typedef struct s_position
 
 	int				x;
 	int				y;
-}					t_position;
+}				t_position;
 
 typedef struct s_state
 {
@@ -58,13 +58,13 @@ typedef struct s_state
 	float y;
 	int	mouseX;
 	int	mouseY;
-	int turnD; // -1 for left, +1 for right
-	int walkD; // -1 for back, +1 for front
+	int turnD;
+	int walkD;
 	int sideW;
-	float rotationA; // for retation angle
-	float walkS; // for walk speed
-	float turnS; // for turn speed
-} t_state;
+	float rotationA;
+	float walkS;
+	float turnS;
+}				t_state;
 
 typedef struct s_images
 {
@@ -101,7 +101,7 @@ typedef struct s_data
 	t_elements		East;
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
-	
+
 	t_images		canvas;
 	unsigned int 	frames;
 
