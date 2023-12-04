@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 04:06:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:07:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 typedef struct s_Ray
 {
-	float rayAngle;
-	float wallHitX;
-	float wallHitY;
-	float distance;
-	int wasHitVertical;
-	int isRayfacingUp;
-	int isRayfacingDown;
-	int isRayfacingleft;
-	int isRayfacingRight;
-	int wallHitContent;
+	float 			rayAngle;
+	float 			wallHitX;
+	float 			wallHitY;
+	float 			distance;
+	int 			wasHitVertical;
+	int 			isRayfacingUp;
+	int 			isRayfacingDown;
+	int 			isRayfacingleft;
+	int 			isRayfacingRight;
+	int 			wallHitContent;
 	mlx_texture_t	*text;
 }				t_Ray[NUM_RAYS];
 
