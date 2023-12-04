@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 02:33:06 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 04:03:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-static void	drawing(t_data *game) // protects
+static void	drawing(t_data *game)
 {
 	game->frames++;
 
@@ -32,20 +32,12 @@ static void	gerphec(t_data *game)
 		ft_error();
 
     init_images(game);
-
 	mlx_loop_hook(game->mlx, (void *)drawing, game);
-
 	mlx_key_hook(game->mlx, (void *)key_events, game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	mlx_cursor_hook(game->mlx,(void *)mouse_event, game);
-
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
-}
-
-void f()
-{
-	system("leaks cub3d");
 }
 
 static void	parser(t_data   *game, char **file)
@@ -57,7 +49,6 @@ static void	parser(t_data   *game, char **file)
 	boundary_check(game);
 	game->map[game->player_info.y][game->player_info.x] = '0';
 	setup(game);
-
 }
 
 int	main(int ac, char **av)
@@ -66,11 +57,7 @@ int	main(int ac, char **av)
 	
     if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
-	atexit(f);
 	parser(&game, read_file(*(++av)));
 	gerphec(&game);
-	
 	return (EXIT_SUCCESS);
 }
-
-// cross for closing the screen
