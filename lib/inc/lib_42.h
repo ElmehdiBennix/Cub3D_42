@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/18 21:24:27 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 00:00:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // #endif // OPEN_MAX
 
 #if !defined BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 60
 # endif
 
 int					ft_printchar(int fd, char c);

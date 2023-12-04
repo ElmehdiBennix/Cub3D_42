@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:07:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 19:53:47 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 00:05:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void draw_faces(t_data *game)
 void draw_gun(t_data *game)
 {
 	static int play = 0;
-	int animation[7] = {1,2,3,4,5,4,3};
+
+	const int animation[7] = {1,2,3,4,5,4,3};
 
 	if (game->canvas.gun_shoot == true)
 	{

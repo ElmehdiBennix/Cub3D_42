@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:59:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 03:41:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,6 @@ typedef struct s_position
 	int				x;
 	int				y;
 }					t_position;
-
-typedef struct s_textures
-{
-	mlx_texture_t	*HUD_template;
-	mlx_texture_t	*Faces[6];
-	mlx_texture_t	*Gun_animation[6];
-}				t_textures;
 
 typedef struct s_state
 {
@@ -109,9 +102,7 @@ typedef struct s_data
 	t_RGB		C_Floor;
 	t_RGB		C_Ceiling;
 	
-	t_textures		texs;
 	t_images		canvas;
-
 	unsigned int 	frames;
 
 	t_Ray rays;

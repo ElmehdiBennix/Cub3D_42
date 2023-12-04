@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/02 02:53:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 02:33:06 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-static void	drawing(t_data *game)
+static void	drawing(t_data *game) // protects
 {
 	game->frames++;
 
@@ -68,10 +68,7 @@ int	main(int ac, char **av)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
 	atexit(f);
 	parser(&game, read_file(*(++av)));
-	// gerphec(&game);
-	// free_fields(&game);
-	free2d(game.map);
-	free_texture(&game);
+	gerphec(&game);
 	
 	return (EXIT_SUCCESS);
 }

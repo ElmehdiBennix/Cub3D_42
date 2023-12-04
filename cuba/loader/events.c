@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:06:02 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:18:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/04 01:04:23 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void open_door(t_data *game)
 void key_events(mlx_key_data_t keycode, t_data *game)
 {
 	if (keycode.key == MLX_KEY_ESCAPE)
-		exit(1);
+		return (free2d(game->map), free_texture(game), exit(1)); // free images
 	else if (keycode.key == MLX_KEY_W && keycode.action == MLX_PRESS)
 		game->player.walkD = 1;
 	else if (keycode.key == MLX_KEY_W && keycode.action == MLX_RELEASE)
