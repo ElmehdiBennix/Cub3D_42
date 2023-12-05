@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 02:06:20 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:21:18 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ bool    spaces(char *line, bool new_line);
 char	**read_file(char *str);
 
 char	**world_fields(char **file, t_data  *game);
+bool	collect_fields(char *line, int *fields, t_data *game);
+bool	check_fields(t_data *game);
+bool	check_fields_helper(t_data *game);
 void	valid_map(t_data *game);
 void    map_padding(t_data *game);
 void 	boundary_check(t_data *game);
@@ -33,7 +36,7 @@ void    disable_images(t_data *game);
 
 void	mini_map(t_data *game ,double x_vis, double y_vis);
 
-void    draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1);
+void	draw_line(mlx_image_t *img, struct s_draw_line *arg);
 
 int     get_rgba(int r, int g, int b, int a);
 int     ft_get_color(int i ,int x, int y, t_data *game);
@@ -60,8 +63,8 @@ void    ft_error(void);
 void	free_fields(t_data *game);
 void	free_texture(t_data *game);
 
-float	normalizeAngle(float angle);
-float	distancebetweenPoints(float x1, float y1, float x2, float y2);
+float	normalize_angle(float angle);
+float	distancebetween_points(float x1, float y1, float x2, float y2);
 int		check_walls(t_data *game, float px, float py, int flag);
 int     check_walls1(t_data *game, float px, float py);
 int     check_walls2(t_data *game, float px, float py);

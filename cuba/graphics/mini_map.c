@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:21:55 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:16:25 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,14 @@ void	mini_map_helper(t_data *game, t_var *var)
 
 void	render_player(t_data *game)
 {
+	struct s_draw_line	arg;
+
+	arg.x0 = 1503;
+	arg.y0 = 217;
+	arg.x1 = 1503 + cos(game->player.rotationA) * 30;
+	arg.y1 = 217 + sin(game->player.rotationA) * 30;
 	mlx_put_pixel(game->canvas.HUD, 1503, 217, 0xFF3333FF);
-	draw_line(game->canvas.HUD, 1503, 217, 1503
-		+ cos(game->player.rotationA) * 30, 217
-		+ sin(game->player.rotationA) * 30);
+	draw_line(game->canvas.HUD, &arg);
 }
 
 void	mini_map(t_data *game, double x_vis, double y_vis)

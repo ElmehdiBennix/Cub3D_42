@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:17:44 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:12:07 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,35 @@ typedef struct s_var
 	float	step;
 	//draw_gun
 	int			animat[7];
+	//file_data
+	char	*str;
+	char	*row;
+	bool	map_flag;
+	char	**res;
+	//valid_map
+	int	j;
+	int	longest;
+	int	player;
+	//draw_line
+
 }	t_var;
+
+struct s_d_line
+{
+	float	dx;
+	float	dy;
+	float	step;
+	float	x;
+	float	y;
+	int		i;
+} ;
+
+struct s_draw_line
+{
+	float	x0;
+	float	y0;
+	float	x1;
+	float	y1;
+} ;
 
 #endif

@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:46:29 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	disable_images(t_data *game)
-{
-	game->canvas.gun[0]->enabled = false;
-	game->canvas.gun[1]->enabled = false;
-	game->canvas.gun[2]->enabled = false;
-	game->canvas.gun[3]->enabled = false;
-	game->canvas.gun[4]->enabled = false;
-	game->canvas.gun[5]->enabled = false;
-	game->canvas.Faces[0]->enabled = false;
-	game->canvas.Faces[1]->enabled = false;
-	game->canvas.Faces[2]->enabled = false;
-	game->canvas.Faces[3]->enabled = false;
-	game->canvas.Faces[4]->enabled = false;
-	game->canvas.Faces[5]->enabled = false;
-	game->canvas.HUD->enabled = false;
-}
 
 bool	init_textures(char *content, mlx_texture_t **texture)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:34:24 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 19:48:25 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,13 @@ int	ft_get_color(int i, int x, int y, t_data *game)
 	int	r;
 	int	g;
 	int	b;
-	int	a;
+	int	total;
 
-	a = 255;
-	r = game->rays[i].text->pixels[(y * (game->rays[i].text->width * 4)) + (x
-			* 4)];
-	g = game->rays[i].text->pixels[(y * (game->rays[i].text->width * 4)) + (x
-			* 4) + 1];
-	b = game->rays[i].text->pixels[(y * (game->rays[i].text->width * 4)) + (x
-			* 4) + 2];
-	// color = &game.text1->pixels[(y * (game.text1->width * 4)) + (x * 4)];
-	// printf("%d\n",player);
-	// exit(0);
-	// return (get_rgba(color[0], color[1], color[2], color[3]));
-	return (get_rgba(r, g, b, a));
+	total = y * (game->rays[i].text->width * 4) + (x * 4);
+	r = game->rays[i].text->pixels[total];
+	g = game->rays[i].text->pixels[total + 1];
+	b = game->rays[i].text->pixels[total + 2];
+	return (get_rgba(r, g, b, 255));
 }
 
 void	update_state(t_data *game)
@@ -64,4 +57,41 @@ void	update_state(t_data *game)
 		game->player.x = var.px;
 		game->player.y = var.py;
 	}
+}
+
+void	disable_images(t_data *game)
+{
+	game->canvas.gun[0]->enabled = false;
+	game->canvas.gun[1]->enabled = false;
+	game->canvas.gun[2]->enabled = false;
+	game->canvas.gun[3]->enabled = false;
+	game->canvas.gun[4]->enabled = false;
+	game->canvas.gun[5]->enabled = false;
+	game->canvas.Faces[0]->enabled = false;
+	game->canvas.Faces[1]->enabled = false;
+	game->canvas.Faces[2]->enabled = false;
+	game->canvas.Faces[3]->enabled = false;
+	game->canvas.Faces[4]->enabled = false;
+	game->canvas.Faces[5]->enabled = false;
+	game->canvas.HUD->enabled = false;
+}
+
+char	**world_fields(char **file, t_data *game)
+{
+	int				fields;
+	unsigned int	i;
+
+	fields = 0;
+	i = 0;
+	while (file[i] && fields < 6)
+	{
+		if (collect_fields(file[i], &fields, game) == false)
+			break ;
+		i++;
+	}
+	if (check_fields(game) == false)
+		return (free2d(&file[i]), free(file), free_fields(game),
+			free_texture(game), exit(1), NULL);
+	free_fields(game);
+	return (&file[i]);
 }

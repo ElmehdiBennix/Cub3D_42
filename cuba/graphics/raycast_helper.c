@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 02:02:09 by hasalam           #+#    #+#             */
-/*   Updated: 2023/12/05 13:44:03 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:22:58 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ void	cast_ray_helper4(t_data *game, t_var *var)
 void	cast_ray_helper5(t_data *game, t_var *var)
 {
 	if (var->foundHorzW_Hit == true)
-		var->horzHitDist = distancebetweenPoints(game->player.x, game->player.y,
-				var->horzWall_Hit_X, var->horzWall_Hit_Y);
+		var->horzHitDist = distancebetween_points(game->player.x,
+				game->player.y, var->horzWall_Hit_X, var->horzWall_Hit_Y);
 	else
 		var->horzHitDist = (float)INT_MAX;
 	if (var->foundVertW_Hit == true)
-		var->vertHitDist = distancebetweenPoints(game->player.x, game->player.y,
-				var->vertWall_Hit_X, var->vertWall_Hit_Y);
+		var->vertHitDist = distancebetween_points(game->player.x,
+				game->player.y, var->vertWall_Hit_X, var->vertWall_Hit_Y);
 	else
 		var->vertHitDist = (float)INT_MAX;
 }

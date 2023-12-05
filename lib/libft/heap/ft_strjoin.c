@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 22:11:13 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/21 01:13:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:24:17 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void free_flags(char *s1, char *s2, int flag[])
 	}
 	if(flag[1] == 1)
 	{
-		if (s1)
-			free(s1);
+		if (s2)
+			free(s2);
 		s2 = NULL;
 	}
 }

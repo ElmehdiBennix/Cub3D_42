@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_evaluator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:27 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:59:49 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	map_padding(t_data *game)
 	}
 }
 
-//#######################//#######################//#######################//#######################
-
 static bool	allowed_units(t_data *game, int i, int j, int *player)
 {
 	char	c;
@@ -60,37 +58,40 @@ static bool	allowed_units(t_data *game, int i, int j, int *player)
 	return (false);
 }
 
-void	valid_map(t_data *game)
+void	valid_map_helper(t_data *game, t_var *var)
 {
-	int	i;
-	int	j;
-	int	longest;
-	int	player;
-
-	i = 0;
-	j = 0;
-	longest = 0;
-	player = 0;
-	while (game->map[i])
+	while (game->map[var->i])
 	{
-		while (game->map[i][j])
+		while (game->map[var->i][var->j])
 		{
-			if (allowed_units(game, i, j, &player) == false)
-				return (ft_fprintf(2, "Error : Wrong symbole '%c' .\n
+			if (allowed_units(game, var->i, var->j, &var->player) == false)
+				return (ft_fprintf(2, "Error : Wrong symbole '%c' ->\n\
 						-> Map symboles :'1','0',' ','W','S','N','E'\n",
-						game->map[i][j]), free_texture(game), free2d(game->map),
+						game->map[var->i][var->j]), free_texture(game),
+						free2d(game->map),
 					exit(1));
-			j++;
+			var->j++;
 		}
-		if (longest < j)
-			longest = j;
-		j = 0;
-		i++;
+		if (var->longest < var->j)
+			var->longest = var->j;
+		var->j = 0;
+		var->i++;
 	}
-	if (player != 1)
-		return (ft_fprintf(2, "Error : One player is allowed .\n 
+	if (var->player != 1)
+		return (ft_fprintf(2, "Error : One player is allowed .\n\
 				-> Player spawn direction symboles : 'W','S','N','E' .\n"),
 			free_texture(game), free2d(game->map), exit(1));
-	game->map_width = longest;
-	game->map_height = i;
+}
+
+void	valid_map(t_data *game)
+{
+	t_var	var;
+
+	var.i = 0;
+	var.j = 0;
+	var.longest = 0;
+	var.player = 0;
+	valid_map_helper(game, &var);
+	game->map_width = var.longest;
+	game->map_height = var.i;
 }

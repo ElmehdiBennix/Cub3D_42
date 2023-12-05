@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:49:46 by hasalam           #+#    #+#             */
-/*   Updated: 2023/12/05 18:22:44 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:19:11 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cast_ray(float ray_a, int sId, t_data *game)
 {
 	t_var	var;
 
-	ray_a = normalizeAngle(ray_a);
+	ray_a = normalize_angle(ray_a);
 	cast_ray_helper1(game, &var, ray_a);
 	if (var.isRayFac_L == true && var.xstep > 0)
 		var.xstep *= -1;

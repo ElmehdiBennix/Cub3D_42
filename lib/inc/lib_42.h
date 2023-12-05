@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_42.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 00:00:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:26:22 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 // #define OPEN_MAX 1024
 // #endif // OPEN_MAX
 
-#if !defined BUFFER_SIZE
-#  define BUFFER_SIZE 60
-# endif
+#ifndef BUFFER_SIZE
+  #define BUFFER_SIZE 40
+ #endif
 
 int					ft_printchar(int fd, char c);
 int					ft_printstr(int fd, char *c);

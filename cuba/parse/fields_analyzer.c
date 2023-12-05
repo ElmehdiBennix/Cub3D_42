@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fields_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:59:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:22 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 19:44:10 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static bool	fill_colors(char *RGB, t_RGB *color)
+bool	fill_colors(char *RGB, t_RGB *color)
 {
 	int		i;
 	int		deco[3];
@@ -37,7 +37,7 @@ static bool	fill_colors(char *RGB, t_RGB *color)
 	return (true);
 }
 
-static bool	parse_colors(char *RGB)
+bool	parse_colors(char *RGB)
 {
 	int		i;
 	int		quote;
@@ -64,7 +64,7 @@ static bool	parse_colors(char *RGB)
 	return (true);
 }
 
-static bool	check_fields(t_data *game)
+bool	check_fields_helper(t_data *game)
 {
 	if (game->North.content_Nullable == NULL
 		|| init_textures(game->North.content_Nullable,
@@ -84,6 +84,13 @@ static bool	check_fields(t_data *game)
 		|| init_textures(game->East.content_Nullable,
 			&(game->East.texture)) == false)
 		return (ft_fprintf(2, "Error : Failed to read East texture.\n"), false);
+	return (true);
+}
+
+bool	check_fields(t_data *game)
+{
+	if (check_fields_helper(game) == false)
+		return (false);
 	if (game->C_Floor.content_Nullable == NULL
 		|| parse_colors(game->C_Floor.content_Nullable) == false)
 		return (ft_fprintf(2, "Error : Failed to parse Floor color.\n"), false);
@@ -98,7 +105,7 @@ static bool	check_fields(t_data *game)
 	return (true);
 }
 
-static bool	collect_fields(char *line, int *fields, t_data *game)
+bool	collect_fields(char *line, int *fields, t_data *game)
 {
 	if (line && ft_strncmp(line, "NO ", 3) == 0)
 		game->North.content_Nullable = ft_strtrim(&line[2], " ");
@@ -115,29 +122,9 @@ static bool	collect_fields(char *line, int *fields, t_data *game)
 	else if (spaces(line, false) == true)
 		return (free(line), true);
 	else
-		return (ft_fprintf(2, "Error : Fields must start with 'NO' , 'SO' ,
+		return (ft_fprintf(2, "Error : Fields must start with 'NO' , 'SO' ,\
 				'WE' , 'EA' , 'F' or 'C'."), close(2), false);
 	free(line);
 	(*fields)++;
 	return (true);
-}
-
-char	**world_fields(char **file, t_data *game)
-{
-	int				fields;
-	unsigned int	i;
-
-	fields = 0;
-	i = 0;
-	while (file[i] && fields < 6)
-	{
-		if (collect_fields(file[i], &fields, game) == false)
-			break ;
-		i++;
-	}
-	if (check_fields(game) == false)
-		return (free2d(&file[i]), free(file), free_fields(game),
-			free_texture(game), exit(1), NULL);
-	free_fields(game);
-	return (&file[i]);
 }

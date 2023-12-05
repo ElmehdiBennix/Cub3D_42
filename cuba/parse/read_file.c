@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:49:23 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,30 @@ static bool	map_head(char *line)
 
 static char	**file_data(int fd)
 {
-	char	*str;
-	char	*row;
-	bool	map_flag;
-	char	**res;
+	t_var	var;
 
-	str = NULL;
-	row = NULL;
-	map_flag = false;
+	var.str = NULL;
+	var.row = NULL;
+	var.map_flag = false;
 	while (true)
 	{
-		row = get_next_line(fd);
-		if (row == NULL)
+		var.row = get_next_line(fd);
+		if (var.row == NULL)
 			break ;
-		if (map_flag == false && spaces(row, true) == false
-			&& map_head(row) == true)
-			map_flag = true;
-		else if (row[0] == '\n' && map_flag == true)
-			return (ft_fprintf(2, "Error : new line in map\n"), free(row),
-				free(str), exit(1), NULL);
-		str = join_em(str, row, 3);
+		if (var.map_flag == false && spaces(var.row, true) == false
+			&& map_head(var.row) == true)
+			var.map_flag = true;
+		else if (var.row[0] == '\n' && var.map_flag == true)
+			return (ft_fprintf(2, "Error : new line in map\n"), free(var.row),
+				free(var.str), exit(1), NULL);
+		var.str = join_em(var.str, var.row, 3);
 	}
 	close(fd);
-	res = ft_split(str, '\n');
-	free(str);
-	if (!res)
+	var.res = ft_split(var.str, '\n');
+	free(var.str);
+	if (!var.res)
 		return (ft_fprintf(2, "Error : failed to load map\n"), exit(1), NULL);
-	return (res);
+	return (var.res);
 }
 
 char	**read_file(char *map_name)
