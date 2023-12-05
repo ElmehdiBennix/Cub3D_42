@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 21:14:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	close_doors(t_data *game, int frame)
 	{
 		player_X = floor(game->player.x / TILE_S);
 		player_Y = floor(game->player.y / TILE_S);
-		while (game->map[++i])
+		while (game->map[++i] && (unsigned int)i < game->map_height - 1)
 		{
-			while (game->map[i][++j] && (unsigned int)i < game->map_height - 1)
+			while (game->map[i][++j] && (unsigned int)j < game->map_width - 2)
 			{
 				if (player_X == j && player_Y == i)
-					continue ;
-				if (game->map[i][j] == '0')
+					j++;
+				else if (game->map[i][j] == '0')
 					add_door(game, i, j);
 			}
 			j = 0;
@@ -52,7 +52,7 @@ void	close_doors(t_data *game, int frame)
 static void	drawing(t_data *game)
 {
 	game->frames++;
-	close_doors(game, 500);
+	close_doors(game, 200);
 	disable_images(game);
 	update_state(game);
 	cast_all_rays(game);

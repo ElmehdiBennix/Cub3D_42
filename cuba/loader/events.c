@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:53:35 by hasalam           #+#    #+#             */
-/*   Updated: 2023/12/05 18:41:09 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 21:02:41 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	open_door(t_data *game)
 	x = floor(p_x / TILE_S);
 	y = floor(p_y / TILE_S);
 	if (game->map[y][x] == 'D')
+	{
+		game->frames = 0;
 		game->map[y][x] = '0';
+	}
 }
 
 void	walk_d_and_turn_d(mlx_key_data_t keycode, t_data *game)
