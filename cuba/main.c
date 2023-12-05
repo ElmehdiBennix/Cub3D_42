@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 15:57:50 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:44:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void	close_doors(t_data *game, int frame)
 	}
 }
 
-
 static void	drawing(t_data *game)
 {
 	game->frames++;
-
 	close_doors(game, 500);
 	disable_images(game);
 	update_state(game);
@@ -69,21 +67,20 @@ static void	gerphec(t_data *game)
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		ft_error();
-
-    init_images(game);
+	init_images(game);
 	close_doors(game, 0);
 	mlx_loop_hook(game->mlx, (void *)drawing, game);
 	mlx_key_hook(game->mlx, (void *)key_events, game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
-	mlx_cursor_hook(game->mlx,mouse_event, game);
+	mlx_cursor_hook(game->mlx, mouse_event, game);
 	mlx_mouse_hook(game->mlx, mouse_click, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }
 
-static void	parser(t_data   *game, char **file)
+static void	parser(t_data *game, char **file)
 {
-    ft_bzero(game, sizeof(t_data));
+	ft_bzero(game, sizeof(t_data));
 	game->map = world_fields(file, game);
 	valid_map(game);
 	map_padding(game);
@@ -94,18 +91,18 @@ static void	parser(t_data   *game, char **file)
 
 int	main(int ac, char **av)
 {
-    t_data	game;
-	
-    if (ac != 2)
+	t_data	game;
+
+	if (ac != 2)
 		return (ft_fprintf(2, RED "Error : supply the map file.\n" DEFAULT), 1);
 	parser(&game, read_file(*(++av)));
 	gerphec(&game);
 	return (EXIT_SUCCESS);
 }
- 
- // optimize this function mini_map 
- // change gimp ui 
- // add player in minimap and change colors of it 
- // add door getting close without closing on th players face 
- // fix door texture 
- // fix big map not rendering
+
+// optimize this function mini_map
+// change gimp ui
+// add player in minimap and change colors of it
+// add door getting close without closing on th players face
+// fix door texture
+// fix big map not rendering
