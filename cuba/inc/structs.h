@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/04 04:07:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:17:44 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_Ray
 {
-	float 			rayAngle;
+	float 			ray_angle;
 	float 			wallHitX;
 	float 			wallHitY;
 	float 			distance;
@@ -80,8 +80,6 @@ typedef struct s_images
 	mlx_image_t		*Faces[6];
 	bool			face_idle;
 
-	mlx_image_t		*door[2];
-	bool			enable_door;
 }				t_images;
 
 typedef struct s_data
@@ -93,6 +91,7 @@ typedef struct s_data
 	unsigned int	map_width;
 	t_position		player_info;
 
+
 	t_state			player;
 	
 	t_elements		North;
@@ -103,9 +102,75 @@ typedef struct s_data
 	t_RGB		C_Ceiling;
 
 	t_images		canvas;
+	mlx_texture_t	*door;
 	unsigned int 	frames;
 
 	t_Ray rays;
 }					t_data;
+
+typedef struct s_var
+{
+	//draw 3d
+	float	corrDist;
+	float	distProj;
+	float	projWAll_H;
+	int		wallStrip_H;
+	int		wallTopPixel;
+	int		wallBotPixel;
+	int		i;
+	int 	y;
+	int		txtOffset_X;
+	int		txtOffset_Y;
+	int		distFromTop;
+	//mini map
+	float	cam_x;
+	float	cam_y;
+	int		draw_x;
+	int 	draw_y;
+	int 	x_dist;
+	int 	y_dist;
+	int 	x;
+	//cast ray
+	float	x_intercept;
+	float	y_intercept;
+	float	horzHitDist;
+	float	vertHitDist;
+	float	horzWall_Hit_X;
+	float	horzWall_Hit_Y;
+	float	vertWall_Hit_X;
+	float	vertWall_Hit_Y;
+	float	nxtHorzTouch_X;
+	float	nxtHorzTouch_Y;
+	float	nxtVertTouch_X;
+	float	nxtVertTouch_Y;
+	float	xstep;
+	float	ystep;
+	float	Check_x;
+	float	Check_y;
+	int		foundVertW_Hit;
+	int		foundHorzW_Hit;
+	int		vertWallcontnt;
+	int		horzWallcontnt;
+	int		isRayFac_D;
+	int		isRayFac_U;
+	int		isRayFac_R;
+	int		isRayFac_L;
+	//update state
+	float	move_step;
+	float	newp_x;
+	float	newp_y;
+	float	px;
+	float	py;
+	float	tmp;
+	//init image
+	bool    check;
+	char	*path;
+	//draw line
+	float	dx;
+	float	dy;
+	float	step;
+	//draw_gun
+	int			animat[7];
+}	t_var;
 
 #endif

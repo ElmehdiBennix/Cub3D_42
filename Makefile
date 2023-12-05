@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
+#    By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/12/04 03:53:25 by ebennix          ###   ########.fr        #
+#    Updated: 2023/12/05 13:37:48 by hasalam          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ FILES := cuba/main \
 		 cuba/tools/ray_tools \
 		 cuba/graphics/draw3d \
 		 cuba/graphics/raycasting \
+		 cuba/graphics/raycast_helper \
 		 cuba/graphics/mini_map \
 		 cuba/graphics/sprites \
 

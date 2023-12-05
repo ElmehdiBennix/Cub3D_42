@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/01 20:14:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 02:06:20 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,18 @@ void    draw_line(mlx_image_t *img, float x0, float y0, float x1, float y1);
 int     get_rgba(int r, int g, int b, int a);
 int     ft_get_color(int i ,int x, int y, t_data *game);
 
-void    mouse_event(t_data *game);
+void	mouse_event(double x, double y, void *param);
+void	mouse_click(mouse_key_t b, action_t a, modifier_key_t m, void* p);
 void    update_state(t_data *game);
 void    key_events(mlx_key_data_t keycode, t_data *game);
 
-void	castAllRays(t_data *game);
-void	generate3DMap(t_data *game);
+void	cast_all_rays(t_data *game);
+void	cast_ray_helper1(t_data *game, t_var *var, float ray_a);
+void	cast_ray_helper2(t_data *game, t_var *var);
+void	cast_ray_helper3(t_data *game, t_var *var, float ray_a);
+void	cast_ray_helper4(t_data *game, t_var *var);
+void	cast_ray_helper5(t_data *game, t_var *var);
+void	generate3d_map(t_data *game);
 
 void    setup(t_data	*game);
 
@@ -56,6 +62,7 @@ void	free_texture(t_data *game);
 
 float	normalizeAngle(float angle);
 float	distancebetweenPoints(float x1, float y1, float x2, float y2);
+int		check_walls(t_data *game, float px, float py, int flag);
 int     check_walls1(t_data *game, float px, float py);
 int     check_walls2(t_data *game, float px, float py);
 

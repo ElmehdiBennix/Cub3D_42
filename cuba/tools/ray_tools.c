@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:50:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/11/29 21:33:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:24:03 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,27 @@ float	normalizeAngle(float angle)
 	if (angle < 0)
 		angle = (2 * M_PI) + angle;
 	return angle;
+}
+
+int check_walls(t_data *game, float px, float py, int flag)
+{
+	if (px < 0 || px > game->map_width * TILE_S || py < 0 || py > game->map_height * TILE_S)
+		return 0;
+	float mapgridX = floor(px / TILE_S);
+	float mapgridY = floor(py / TILE_S);
+	if (flag == 0)
+	{
+		if (game->map[(int)mapgridY][(int)mapgridX] != '0'
+			|| (game->map[(int)mapgridY][(int)(game->player.x / TILE_S)] == '1'
+			&& game->map[(int)(game->player.y / TILE_S)][(int)mapgridX] == '1'))
+			return (1);
+	}
+	else if (flag == 1)
+	{
+		if (game->map[(int)mapgridY][(int)mapgridX] != '0')
+			return (1);
+	}
+	return (0);
 }
 
 int check_walls1(t_data *game, float px, float py)
