@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 16:08:04 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:33:41 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,5 @@ void    init_images(t_data *game)
     load_image_to_screen(game, var.path,
         &game->canvas.HUD, (int32_t[2]){-2, 0});
     init_faces_animations(game, &var);
-    disable_images(game);    
+    disable_images(game);
 }

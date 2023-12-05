@@ -6,16 +6,16 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:53:35 by hasalam           #+#    #+#             */
-/*   Updated: 2023/12/05 13:53:37 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:41:09 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void mouse_event(double x, double y, void *param)
+void	mouse_event(double x, double y, void *param)
 {
-	static int i;
-	t_data *game;
+	static int	i;
+	t_data		*game;
 
 	(void)x;
 	(void)y;
@@ -28,52 +28,31 @@ void mouse_event(double x, double y, void *param)
 	mlx_set_mouse_pos(game->mlx, (WIDTH / 2), (HEIGHT / 2));
 }
 
-void	mouse_click(mouse_key_t b, action_t a, modifier_key_t m, void* p)
+void	mouse_click(mouse_key_t b, action_t a, modifier_key_t m, void *p)
 {
-	t_data *game = p;
+	t_data	*game;
+
+	game = p;
 	(void)m;
 	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
 		game->canvas.gun_shoot = true;
 }
 
-void 	update_state(t_data *game)
+void	open_door(t_data *game)
 {
-	t_var	var;
+	double	p_x;
+	double	p_y;
+	int		x;
+	int		y;
 
-	game->player.rotationA += game->player.turnD * game->player.turnS;
-	var.move_step = game->player.walkD * game->player.walkS;
-	var.newp_x = cos(game->player.rotationA) * var.move_step;
-	var.newp_y = sin(game->player.rotationA) * var.move_step;
-	var.px = game->player.x + var.newp_x;
-	var.py = game->player.y + var.newp_y;
-	if (!check_walls(game, var.px, var.py, 0))
-	{
-		game->player.x = var.px;
-		game->player.y = var.py;
-	}
-	var.tmp = game->player.rotationA + game->player.sideW * game->player.turnS;
-	var.move_step = game->player.sideW * game->player.walkS;
-	var.newp_x = cos(var.tmp + (90 * (M_PI / 180))) * var.move_step;
-	var.newp_y = sin(var.tmp + (90 * (M_PI / 180))) * var.move_step;
-	var.px = game->player.x +var. newp_x;
-	var.py = game->player.y + var.newp_y;
-	if (!check_walls(game, var.px, var.py, 0))
-	{
-		game->player.x = var.px;
-		game->player.y = var.py;
-	}
+	p_x = game->player.x + (cos(game->player.rotationA) * 20);
+	p_y = game->player.y + (sin(game->player.rotationA) * 20);
+	x = floor(p_x / TILE_S);
+	y = floor(p_y / TILE_S);
+	if (game->map[y][x] == 'D')
+		game->map[y][x] = '0';
 }
 
-void open_door(t_data *game)
-{	
-	double p_X = game->player.x + (cos(game->player.rotationA) * 20);
-	double p_Y = game->player.y + (sin(game->player.rotationA) * 20);
-
-	int X = floor(p_X / TILE_S);
-	int Y = floor(p_Y / TILE_S);
-	if (game->map[Y][X] == 'D')
-		game->map[Y][X] = '0';
-}
 void	walk_d_and_turn_d(mlx_key_data_t keycode, t_data *game)
 {
 	if (keycode.key == MLX_KEY_W && keycode.action == MLX_PRESS)
@@ -94,7 +73,7 @@ void	walk_d_and_turn_d(mlx_key_data_t keycode, t_data *game)
 		game->player.turnD = 0;
 }
 
-void key_events(mlx_key_data_t keycode, t_data *game)
+void	key_events(mlx_key_data_t keycode, t_data *game)
 {
 	if (keycode.key == MLX_KEY_ESCAPE)
 		exit(1);
