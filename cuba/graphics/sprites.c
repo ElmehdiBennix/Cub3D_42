@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:07:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:17:53 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 01:07:23 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ void	draw_faces(t_data *game)
 	if (game->frames % 80 == 0)
 		game->canvas.face_idle = !game->canvas.face_idle;
 	if (game->canvas.gun_shoot == true)
-		game->canvas.Faces[5]->enabled = true;
-	else if (game->player.turnD == 1 || game->player.mouseX > (WIDTH / 2) + 20)
-		game->canvas.Faces[4]->enabled = true;
-	else if (game->player.turnD == -1 || game->player.mouseX < (WIDTH / 2) - 20)
-		game->canvas.Faces[3]->enabled = true;
-	else if (game->player.walkD == 1 || game->player.walkD == -1)
-		game->canvas.Faces[2]->enabled = true;
+		game->canvas.faces[5]->enabled = true;
+	else if (game->player.turn_d == 1
+		|| game->player.mouse_x > (WIDTH / 2) + 20)
+		game->canvas.faces[4]->enabled = true;
+	else if (game->player.turn_d == -1
+		|| game->player.mouse_x < (WIDTH / 2) - 20)
+		game->canvas.faces[3]->enabled = true;
+	else if (game->player.walk_d == 1 || game->player.walk_d == -1)
+		game->canvas.faces[2]->enabled = true;
 	else
 	{
 		if (game->canvas.face_idle == false)
-			game->canvas.Faces[0]->enabled = true;
+			game->canvas.faces[0]->enabled = true;
 		else
-			game->canvas.Faces[1]->enabled = true;
+			game->canvas.faces[1]->enabled = true;
 	}
 }
 
-void	draw_gun_helper(t_data *game, t_var *var, int flag)
+void	draw_gun_helper(t_data *game, struct s_draw_gun *var, int flag)
 {
 	if (flag == 0)
 	{
@@ -63,8 +65,8 @@ void	draw_gun_helper(t_data *game, t_var *var, int flag)
 
 void	draw_gun(t_data *game)
 {
-	static int	play;
-	t_var		var;
+	struct s_draw_gun	var;
+	static int			play;
 
 	draw_gun_helper(game, &var, 0);
 	if (game->canvas.gun_shoot == true)
@@ -83,8 +85,8 @@ void	draw_gun(t_data *game)
 		}
 		return ;
 	}
-	else if (game->player.walkD == 1 || game->player.walkD == -1
-		|| game->player.sideW == 1 || game->player.sideW == -1)
+	else if (game->player.walk_d == 1 || game->player.walk_d == -1
+		|| game->player.side_w == 1 || game->player.side_w == -1)
 		draw_gun_helper(game, &var, 1);
 	game->canvas.gun[0]->enabled = true;
 }

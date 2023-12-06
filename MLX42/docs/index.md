@@ -57,7 +57,7 @@ It is responsible for setting up the GLFW windowing library which
 creates a connection between your software and the display. It also loads the 
 OpenGL function pointers, compiling the shaders and more.
 
-It returns a mlx_t* which is a structure containing the current window instance.
+It return_s a mlx_t* which is a structure containing the current window instance.
 With this instance you can manipulate, hook onto and control what happens inside 
 your window instance. For example you would use it to send graphical instructions such as 
 creating an image, which is used to display pixel data. You can also detect key

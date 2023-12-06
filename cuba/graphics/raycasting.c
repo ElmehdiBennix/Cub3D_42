@@ -6,64 +6,64 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:49:46 by hasalam           #+#    #+#             */
-/*   Updated: 2023/12/05 20:19:11 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 01:04:03 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	cast_ray_helper6(t_data *game, t_var *var, int sId)
+void	cast_ray_helper6(t_data *game, struct s_cast_ray *var, int sId)
 {
-	if (var->vertHitDist < var->horzHitDist)
+	if (var->vert_hit_dist < var->horz_hit_dist)
 	{
-		game->rays[sId].distance = var->vertHitDist;
-		game->rays[sId].wallHitX = var->vertWall_Hit_X;
-		game->rays[sId].wallHitY = var->vertWall_Hit_Y;
-		game->rays[sId].wallHitContent = var->vertWallcontnt;
-		game->rays[sId].wasHitVertical = true;
-		if (game->rays[sId].isRayfacingRight)
-			game->rays[sId].text = game->East.texture;
+		game->rays[sId].distance = var->vert_hit_dist;
+		game->rays[sId].wall_hit_x = var->vert_wall_hit_x;
+		game->rays[sId].wall_hit_y = var->vert_wall_hit_y;
+		game->rays[sId].wall_hit_content = var->vert_wall_contnt;
+		game->rays[sId].was_hit_vertical = true;
+		if (game->rays[sId].is_ray_facing_right)
+			game->rays[sId].text = game->east.texture;
 		else
-			game->rays[sId].text = game->West.texture;
+			game->rays[sId].text = game->west.texture;
 	}
 	else
 	{
-		game->rays[sId].distance = var->horzHitDist;
-		game->rays[sId].wallHitX = var->horzWall_Hit_X;
-		game->rays[sId].wallHitY = var->horzWall_Hit_Y;
-		game->rays[sId].wallHitContent = var->horzWallcontnt;
-		game->rays[sId].wasHitVertical = false;
-		if (game->rays[sId].isRayfacingUp)
-			game->rays[sId].text = game->North.texture;
+		game->rays[sId].distance = var->horz_hit_dist;
+		game->rays[sId].wall_hit_x = var->horz_wall_hit_x;
+		game->rays[sId].wall_hit_y = var->horz_wall_hit_y;
+		game->rays[sId].wall_hit_content = var->horz_wall_contnt;
+		game->rays[sId].was_hit_vertical = false;
+		if (game->rays[sId].is_ray_facing_up)
+			game->rays[sId].text = game->north.texture;
 		else
-			game->rays[sId].text = game->South.texture;
+			game->rays[sId].text = game->south.texture;
 	}
 }
 
 void	cast_ray(float ray_a, int sId, t_data *game)
 {
-	t_var	var;
+	struct s_cast_ray	var;
 
 	ray_a = normalize_angle(ray_a);
 	cast_ray_helper1(game, &var, ray_a);
-	if (var.isRayFac_L == true && var.xstep > 0)
+	if (var.is_ray_fac_l == true && var.xstep > 0)
 		var.xstep *= -1;
-	else if (var.isRayFac_R == true && var.xstep < 0)
+	else if (var.is_ray_fac_r == true && var.xstep < 0)
 		var.xstep *= -1;
-	var.nxtHorzTouch_X = var.x_intercept;
-	var.nxtHorzTouch_Y = var.y_intercept;
+	var.nxt_horz_touch_x = var.x_intercept;
+	var.nxt_horz_touch_y = var.y_intercept;
 	cast_ray_helper2(game, &var);
 	cast_ray_helper3(game, &var, ray_a);
 	cast_ray_helper4(game, &var);
 	cast_ray_helper5(game, &var);
 	cast_ray_helper6(game, &var, sId);
-	if (game->rays[sId].wallHitContent == 'D')
+	if (game->rays[sId].wall_hit_content == 'D')
 		game->rays[sId].text = game->door;
 	game->rays[sId].ray_angle = ray_a;
-	game->rays[sId].isRayfacingDown = var.isRayFac_D;
-	game->rays[sId].isRayfacingUp = var.isRayFac_U;
-	game->rays[sId].isRayfacingleft = var.isRayFac_L;
-	game->rays[sId].isRayfacingRight = var.isRayFac_R;
+	game->rays[sId].is_ray_facing_down = var.is_ray_fac_d;
+	game->rays[sId].is_ray_facing_up = var.is_ray_fac_u;
+	game->rays[sId].is_ray_facing_left = var.is_ray_fac_l;
+	game->rays[sId].is_ray_facing_right = var.is_ray_fac_r;
 }
 
 void	cast_all_rays(t_data *game)
@@ -71,11 +71,11 @@ void	cast_all_rays(t_data *game)
 	float	ray_a;
 	int		i;
 
-	ray_a = game->player.rotationA - (FOV_ANGLE / 2);
+	ray_a = game->player.rotation_a - (game->player.fov_angle / 2);
 	i = -1;
 	while (++i < NUM_RAYS)
 	{
 		cast_ray(ray_a, i, game);
-		ray_a += FOV_ANGLE / NUM_RAYS;
+		ray_a += game->player.fov_angle / NUM_RAYS;
 	}
 }

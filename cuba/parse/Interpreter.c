@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 12:49:33 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 19:13:54 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 01:19:50 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	first_line(char *line)
 	return (true);
 }
 
-void	boundary_check_helper(t_data *game, t_var *var)
+void	boundary_check_helper(t_data *game, struct s_var *var)
 {
 	while (game->map[++var->i] && (unsigned int)var->i < game->map_height - 1)
 	{
@@ -72,7 +72,7 @@ void	boundary_check_helper(t_data *game, t_var *var)
 
 void	boundary_check(t_data *game)
 {
-	t_var	var;
+	struct s_var	var;
 
 	var.i = -1;
 	var.j = -1;
@@ -89,18 +89,19 @@ void	setup(t_data *game)
 {
 	game->player.x = game->player_info.x * TILE_S + ((float)TILE_S / 2);
 	game->player.y = game->player_info.y * TILE_S + ((float)TILE_S / 2);
-	game->player.turnD = 0;
-	game->player.walkD = 0;
-	game->player.mouseX = 0;
-	game->player.sideW = 0;
+	game->player.turn_d = 0;
+	game->player.walk_d = 0;
+	game->player.mouse_x = 0;
+	game->player.side_w = 0;
+	game->player.fov_angle = (60 * (M_PI / 180));
 	if (game->player_info.direction == 'N')
-		game->player.rotationA = M_PI + M_PI_2;
+		game->player.rotation_a = M_PI + M_PI_2;
 	else if (game->player_info.direction == 'S')
-		game->player.rotationA = M_PI_2;
+		game->player.rotation_a = M_PI_2;
 	else if (game->player_info.direction == 'E')
-		game->player.rotationA = 0;
+		game->player.rotation_a = 0;
 	else if (game->player_info.direction == 'W')
-		game->player.rotationA = M_PI;
-	game->player.walkS = 3.0f;
-	game->player.turnS = 1 * (M_PI / 180);
+		game->player.rotation_a = M_PI;
+	game->player.walk_s = 3.0f;
+	game->player.turn_s = 1 * (M_PI / 180);
 }

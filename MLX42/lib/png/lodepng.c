@@ -78,7 +78,7 @@ static void* lodepng_malloc(size_t size) {
   return malloc(size);
 }
 
-/* NOTE: when realloc returns NULL, it leaves the original memory untouched */
+/* NOTE: when realloc return_s NULL, it leaves the original memory untouched */
 static void* lodepng_realloc(void* ptr, size_t new_size) {
 #ifdef LODEPNG_MAX_ALLOC
   if(new_size > LODEPNG_MAX_ALLOC) return 0;
@@ -190,7 +190,7 @@ Example: if(!uivector_resize(&lz77_encoded, datasize)) ERROR_BREAK(83);
   return code;\
 }
 
-/*Try the code, if it returns error, also return the error.*/
+/*Try the code, if it return_s error, also return the error.*/
 #define CERROR_TRY_RETURN(call){\
   unsigned error = call;\
   if(error) return error;\
@@ -226,7 +226,7 @@ static void uivector_cleanup(void* p) {
   ((uivector*)p)->data = NULL;
 }
 
-/*returns 1 if success, 0 if failure ==> nothing done*/
+/*return_s 1 if success, 0 if failure ==> nothing done*/
 static unsigned uivector_resize(uivector* p, size_t size) {
   size_t allocsize = size * sizeof(unsigned);
   if(allocsize > p->allocsize) {
@@ -247,7 +247,7 @@ static void uivector_init(uivector* p) {
   p->size = p->allocsize = 0;
 }
 
-/*returns 1 if success, 0 if failure ==> nothing done*/
+/*return_s 1 if success, 0 if failure ==> nothing done*/
 static unsigned uivector_push_back(uivector* p, unsigned c) {
   if(!uivector_resize(p, p->size + 1)) return 0;
   p->data[p->size - 1] = c;
@@ -265,7 +265,7 @@ typedef struct ucvector {
   size_t allocsize; /*allocated size*/
 } ucvector;
 
-/*returns 1 if success, 0 if failure ==> nothing done*/
+/*return_s 1 if success, 0 if failure ==> nothing done*/
 static unsigned ucvector_reserve(ucvector* p, size_t size) {
   if(size > p->allocsize) {
     size_t newsize = size + (p->allocsize >> 1u);
@@ -279,7 +279,7 @@ static unsigned ucvector_reserve(ucvector* p, size_t size) {
   return 1; /*success*/
 }
 
-/*returns 1 if success, 0 if failure ==> nothing done*/
+/*return_s 1 if success, 0 if failure ==> nothing done*/
 static unsigned ucvector_resize(ucvector* p, size_t size) {
   p->size = size;
   return ucvector_reserve(p, size);
@@ -345,7 +345,7 @@ static void lodepng_set32bitInt(unsigned char* buffer, unsigned value) {
 
 #ifdef LODEPNG_COMPILE_DISK
 
-/* returns negative value on error. This should be pure C compatible, so no fstat. */
+/* return_s negative value on error. This should be pure C compatible, so no fstat. */
 static long lodepng_filesize(const char* filename) {
   FILE* file;
   long size;
@@ -365,7 +365,7 @@ static long lodepng_filesize(const char* filename) {
   return size;
 }
 
-/* load file into buffer that already has the correct allocated size. Returns error code.*/
+/* load file into buffer that already has the correct allocated size. Return_s error code.*/
 static unsigned lodepng_buffer_file(unsigned char* out, size_t size, const char* filename) {
   FILE* file;
   size_t readsize;
@@ -465,7 +465,7 @@ typedef struct {
   unsigned buffer; /*buffer for reading bits. NOTE: 'unsigned' must support at least 32 bits*/
 } LodePNGBitReader;
 
-/* data size argument is in bytes. Returns error if size too large causing overflow */
+/* data size argument is in bytes. Return_s error if size too large causing overflow */
 static unsigned LodePNGBitReader_init(LodePNGBitReader* reader, const unsigned char* data, size_t size) {
   size_t temp;
   reader->data = data;
@@ -1068,7 +1068,7 @@ static unsigned generateFixedDistanceTree(HuffmanTree* tree) {
 #ifdef LODEPNG_COMPILE_DECODER
 
 /*
-returns the code. The bit reader must already have been ensured at least 15 bits
+return_s the code. The bit reader must already have been ensured at least 15 bits
 */
 static unsigned huffmanDecodeSymbol(LodePNGBitReader* reader, const HuffmanTree* codetree) {
   unsigned short code = peekBits(reader, FIRSTBITS);
@@ -1093,7 +1093,7 @@ static unsigned huffmanDecodeSymbol(LodePNGBitReader* reader, const HuffmanTree*
 /* ////////////////////////////////////////////////////////////////////////// */
 
 /*get the tree of a deflated block with fixed tree, as specified in the deflate specification
-Returns error code.*/
+Return_s error code.*/
 static unsigned getTreeInflateFixed(HuffmanTree* tree_ll, HuffmanTree* tree_d) {
   unsigned error = generateFixedLitLenTree(tree_ll);
   if(error) return error;
@@ -1442,7 +1442,7 @@ static unsigned inflatev(ucvector* out, const unsigned char* in, size_t insize,
 static const size_t MAX_SUPPORTED_DEFLATE_LENGTH = 258;
 
 /*search the index in the array, that has the largest value smaller than or equal to the given value,
-given array must be sorted (if no value is smaller, it returns the size of the given array)*/
+given array must be sorted (if no value is smaller, it return_s the size of the given array)*/
 static size_t searchCodeIndex(const unsigned* array, size_t array_size, size_t value) {
   /*binary search (only small gain over linear). TODO: use CPU log2 instruction for getting symbols instead*/
   size_t left = 1;
@@ -2849,7 +2849,7 @@ unsigned lodepng_chunk_append(unsigned char** out, size_t* outsize, const unsign
 }
 
 /*Sets length and name and allocates the space for data and crc but does not
-set data or crc yet. Returns the start of the chunk in chunk. The start of
+set data or crc yet. Return_s the start of the chunk in chunk. The start of
 the data is at chunk + 8. To finalize chunk, add the data, then use
 lodepng_chunk_generate_crc */
 static unsigned lodepng_chunk_init(unsigned char** chunk,
@@ -3087,7 +3087,7 @@ you can safely compute in a size_t (but not an unsigned):
 -(size_t)w * (size_t)h * 8
 -amount of bytes in IDAT (including filter, padding and Adam7 bytes)
 -amount of bytes in raw color model
-Returns 1 if overflow possible, 0 if not.
+Return_s 1 if overflow possible, 0 if not.
 */
 static int lodepng_pixel_overflow(unsigned w, unsigned h,
                                   const LodePNGColorMode* pngcolor, const LodePNGColorMode* rawcolor) {
@@ -3398,7 +3398,7 @@ static void color_tree_cleanup(ColorTree* tree) {
   }
 }
 
-/*returns -1 if color not present, its index otherwise*/
+/*return_s -1 if color not present, its index otherwise*/
 static int color_tree_get(ColorTree* tree, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
   int bit = 0;
   for(bit = 0; bit < 8; ++bit) {
@@ -3417,7 +3417,7 @@ static int color_tree_has(ColorTree* tree, unsigned char r, unsigned char g, uns
 
 /*color is not allowed to already exist.
 Index should be >= 0 (it's signed to be compatible with using -1 for "doesn't exist")
-Returns error code, or 0 if ok*/
+Return_s error code, or 0 if ok*/
 static unsigned color_tree_add(ColorTree* tree,
                                unsigned char r, unsigned char g, unsigned char b, unsigned char a, unsigned index) {
   int bit;
@@ -3951,7 +3951,7 @@ void lodepng_color_stats_init(LodePNGColorStats* stats) {
   std::cout << "bits: " << (int)p->bits << std::endl;
 }*/
 
-/*Returns how many bits needed to represent given value (max 8 bit)*/
+/*Return_s how many bits needed to represent given value (max 8 bit)*/
 static unsigned getValueRequiredBits(unsigned char value) {
   if(value == 0 || value == 255) return 1;
   /*The scaling of 2-bit and 4-bit values uses multiples of 85 and 17*/
@@ -6658,7 +6658,7 @@ void lodepng_encoder_settings_init(LodePNGEncoderSettings* settings) {
 
 #ifdef LODEPNG_COMPILE_ERROR_TEXT
 /*
-This returns the description of a numerical error code in English. This is also
+This return_s the description of a numerical error code in English. This is also
 the documentation of all the error codes.
 */
 const char* lodepng_error_text(unsigned code) {

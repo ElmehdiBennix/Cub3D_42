@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:45:04 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:49:23 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 01:10:27 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static bool	map_head(char *line)
 
 static char	**file_data(int fd)
 {
-	t_var	var;
+	struct s_file_data	var;
 
 	var.str = NULL;
 	var.row = NULL;

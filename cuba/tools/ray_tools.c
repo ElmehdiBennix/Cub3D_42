@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 01:50:47 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 20:21:18 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/05 23:33:19 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ int	check_walls(t_data *game, float px, float py, int flag)
 float	distancebetween_points(float x1, float y1, float x2, float y2)
 {
 	return (sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
+}
+
+void	add_door(t_data *game, int i, int j)
+{
+	if (game->map[i + 1][j] == '1' && game->map[i - 1][j] == '1'
+		&& game->map[i][j + 1] == '0' && game->map[i][j - 1] == '0')
+		game->map[i][j] = 'D';
+	if (game->map[i + 1][j] == '0' && game->map[i - 1][j] == '0'
+		&& game->map[i][j + 1] == '1' && game->map[i][j - 1] == '1')
+		game->map[i][j] = 'D';
 }

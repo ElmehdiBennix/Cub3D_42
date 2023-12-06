@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:59:49 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 01:09:28 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static bool	allowed_units(t_data *game, int i, int j, int *player)
 	return (false);
 }
 
-void	valid_map_helper(t_data *game, t_var *var)
+void	valid_map_helper(t_data *game, struct s_valid_map *var)
 {
 	while (game->map[var->i])
 	{
@@ -85,7 +85,7 @@ void	valid_map_helper(t_data *game, t_var *var)
 
 void	valid_map(t_data *game)
 {
-	t_var	var;
+	struct s_valid_map	var;
 
 	var.i = 0;
 	var.j = 0;

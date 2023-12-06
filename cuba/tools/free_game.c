@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 20:18:40 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 00:16:47 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 void	free_fields(t_data *game)
 {
-	if (game->North.content_Nullable)
-		free(game->North.content_Nullable);
-	if (game->South.content_Nullable)
-		free(game->South.content_Nullable);
-	if (game->West.content_Nullable)
-		free(game->West.content_Nullable);
-	if (game->East.content_Nullable)
-		free(game->East.content_Nullable);
-	if (game->C_Floor.content_Nullable)
-		free(game->C_Floor.content_Nullable);
-	if (game->C_Ceiling.content_Nullable)
-		free(game->C_Ceiling.content_Nullable);
+	if (game->north.content_nullable)
+		free(game->north.content_nullable);
+	if (game->south.content_nullable)
+		free(game->south.content_nullable);
+	if (game->west.content_nullable)
+		free(game->west.content_nullable);
+	if (game->east.content_nullable)
+		free(game->east.content_nullable);
+	if (game->c_floor.content_nullable)
+		free(game->c_floor.content_nullable);
+	if (game->c_ceiling.content_nullable)
+		free(game->c_ceiling.content_nullable);
 }
 
 void	free_texture(t_data *game)
 {
-	if (game->North.texture)
-		mlx_delete_texture(game->North.texture);
-	if (game->South.texture)
-		mlx_delete_texture(game->South.texture);
-	if (game->West.texture)
-		mlx_delete_texture(game->West.texture);
-	if (game->East.texture)
-		mlx_delete_texture(game->East.texture);
+	if (game->north.texture)
+		mlx_delete_texture(game->north.texture);
+	if (game->south.texture)
+		mlx_delete_texture(game->south.texture);
+	if (game->west.texture)
+		mlx_delete_texture(game->west.texture);
+	if (game->east.texture)
+		mlx_delete_texture(game->east.texture);
 }
 
 void	ft_error(void)

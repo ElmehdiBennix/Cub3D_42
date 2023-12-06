@@ -3,43 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 21:16:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/06 00:14:27 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-static void	add_door(t_data *game, int i, int j)
-{
-	if (game->map[i + 1][j] == '1' && game->map[i - 1][j] == '1'
-		&& game->map[i][j + 1] == '0' && game->map[i][j - 1] == '0')
-		game->map[i][j] = 'D';
-	if (game->map[i + 1][j] == '0' && game->map[i - 1][j] == '0'
-		&& game->map[i][j + 1] == '1' && game->map[i][j - 1] == '1')
-		game->map[i][j] = 'D';
-}
-
 void	close_doors(t_data *game, int frame)
 {
 	int	i;
 	int	j;
-	int	player_X;
-	int	player_Y;
+	int	player_x;
+	int	player_y;
 
 	i = 0;
 	j = 0;
 	if (frame == 0 || game->frames % frame == 0)
 	{
-		player_X = floor(game->player.x / TILE_S);
-		player_Y = floor(game->player.y / TILE_S);
+		player_x = floor(game->player.x / TILE_S);
+		player_y = floor(game->player.y / TILE_S);
 		while (game->map[++i] && (unsigned int)i < game->map_height - 1)
 		{
 			while (game->map[i][++j] && (unsigned int)j < game->map_width - 2)
 			{
-				if (player_X == j && player_Y == i)
+				if (player_x == j && player_y == i)
 					j++;
 				else if (game->map[i][j] == '0')
 					add_door(game, i, j);

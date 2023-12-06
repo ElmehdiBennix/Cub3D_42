@@ -6,7 +6,7 @@
 /*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:29:40 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/05 18:46:29 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 01:18:07 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	load_image_to_screen(t_data *game, char *content,
 	mlx_delete_texture(texs);
 }
 
-void	init_gun_animations(t_data *game, t_var *var)
+void	init_gun_animations(t_data *game, struct s_init_image *var)
 {
 	var->path = "./assets/textures/gun/gun1.png";
 	load_image_to_screen(game, var->path, &game->canvas.gun[0],
@@ -56,35 +56,35 @@ void	init_gun_animations(t_data *game, t_var *var)
 		(int32_t[2]){624, 270});
 }
 
-void	init_faces_animations(t_data *game, t_var *var)
+void	init_faces_animations(t_data *game, struct s_init_image *var)
 {
 	var->path = "./assets/textures/faces/face_idle1.png";
-	load_image_to_screen(game, var->path, &game->canvas.Faces[0],
+	load_image_to_screen(game, var->path, &game->canvas.faces[0],
 		(int32_t[2]){1463, 563});
 	var->path = "./assets/textures/faces/face_idle2.png";
-	load_image_to_screen(game, var->path, &game->canvas.Faces[1],
+	load_image_to_screen(game, var->path, &game->canvas.faces[1],
 		(int32_t[2]){1463, 563});
 	var->path = "./assets/textures/faces/face_move.png";
-	load_image_to_screen(game, var->path, &game->canvas.Faces[2],
+	load_image_to_screen(game, var->path, &game->canvas.faces[2],
 		(int32_t[2]){1463, 563});
 	var->path = "./assets/textures/faces/face_left.png";
-	load_image_to_screen(game, var->path, &game->canvas.Faces[3],
+	load_image_to_screen(game, var->path, &game->canvas.faces[3],
 		(int32_t[2]){1463, 563});
 	var->path = "./assets/textures/faces/face_right.png";
-	load_image_to_screen(game, var->path, &game->canvas.Faces[4],
+	load_image_to_screen(game, var->path, &game->canvas.faces[4],
 		(int32_t[2]){1463, 563});
 	var->path = "./assets/textures/faces/face_attack.png";
-	load_image_to_screen(game, var->path, &game->canvas.Faces[5],
+	load_image_to_screen(game, var->path, &game->canvas.faces[5],
 		(int32_t[2]){1463, 563});
 }
 
 void	init_images(t_data *game)
 {
-	t_var	var;
+	struct s_init_image	var;
 
-	game->canvas.world_3D = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	if (!game->canvas.world_3D || mlx_image_to_window(game->mlx,
-			game->canvas.world_3D, 0, 0) == -1)
+	game->canvas.world_3d = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->canvas.world_3d || mlx_image_to_window(game->mlx,
+			game->canvas.world_3d, 0, 0) == -1)
 		return (free2d(game->map), free_texture(game), ft_error());
 	var.path = "./assets/textures/walls/door.png";
 	if (init_textures(var.path, &game->door) == false)
@@ -93,7 +93,7 @@ void	init_images(t_data *game)
 	game->canvas.gun_x = game->canvas.gun[0]->instances->x;
 	game->canvas.gun_y = game->canvas.gun[0]->instances->y;
 	var.path = "./assets/textures/hud.png";
-	load_image_to_screen(game, var.path, &game->canvas.HUD, (int32_t[2]){-2,
+	load_image_to_screen(game, var.path, &game->canvas.hud, (int32_t[2]){-2,
 		0});
 	init_faces_animations(game, &var);
 	disable_images(game);

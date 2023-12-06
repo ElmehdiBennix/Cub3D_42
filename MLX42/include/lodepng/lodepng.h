@@ -304,7 +304,7 @@ unsigned encode(const std::string& filename,
 #endif /*LODEPNG_COMPILE_PNG*/
 
 #ifdef LODEPNG_COMPILE_ERROR_TEXT
-/*Returns an English description of the numerical error code.*/
+/*Return_s an English description of the numerical error code.*/
 const char* lodepng_error_text(unsigned code);
 #endif /*LODEPNG_COMPILE_ERROR_TEXT*/
 
@@ -447,18 +447,18 @@ unsigned lodepng_is_greyscale_type(const LodePNGColorMode* info);
 unsigned lodepng_is_alpha_type(const LodePNGColorMode* info);
 /*has it got a palette? (only colortype 3)*/
 unsigned lodepng_is_palette_type(const LodePNGColorMode* info);
-/*only returns true if there is a palette and there is a value in the palette with alpha < 255.
+/*only return_s true if there is a palette and there is a value in the palette with alpha < 255.
 Loops through the palette to check this.*/
 unsigned lodepng_has_palette_alpha(const LodePNGColorMode* info);
 /*
 Check if the given color info indicates the possibility of having non-opaque pixels in the PNG image.
-Returns true if the image can have translucent or invisible pixels (it still be opaque if it doesn't use such pixels).
-Returns false if the image can only have opaque pixels.
-In detail, it returns true only if it's a color type with alpha, or has a palette with non-opaque values,
+Return_s true if the image can have translucent or invisible pixels (it still be opaque if it doesn't use such pixels).
+Return_s false if the image can only have opaque pixels.
+In detail, it return_s true only if it's a color type with alpha, or has a palette with non-opaque values,
 or if "key_defined" is true.
 */
 unsigned lodepng_can_have_alpha(const LodePNGColorMode* info);
-/*Returns the byte size of a raw image buffer with given width, height and color mode*/
+/*Return_s the byte size of a raw image buffer with given width, height and color mode*/
 size_t lodepng_get_raw_size(unsigned w, unsigned h, const LodePNGColorMode* color);
 
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
@@ -809,7 +809,7 @@ typedef struct LodePNGColorStats {
 void lodepng_color_stats_init(LodePNGColorStats* stats);
 
 /*Get a LodePNGColorStats of the image. The stats must already have been inited.
-Returns error code (e.g. alloc fail) or 0 if ok.*/
+Return_s error code (e.g. alloc fail) or 0 if ok.*/
 unsigned lodepng_compute_color_stats(LodePNGColorStats* stats,
                                      const unsigned char* image, unsigned w, unsigned h,
                                      const LodePNGColorMode* mode_in);
@@ -883,7 +883,7 @@ unsigned lodepng_decode(unsigned char** out, unsigned* w, unsigned* h,
                         const unsigned char* in, size_t insize);
 
 /*
-Read the PNG header, but not the actual data. This returns only the information
+Read the PNG header, but not the actual data. This return_s only the information
 that is in the IHDR chunk of the PNG, such as width, height and color type. The
 information is placed in the info_png field of the LodePNGState.
 */
@@ -894,7 +894,7 @@ unsigned lodepng_inspect(unsigned* w, unsigned* h,
 
 /*
 Reads one metadata chunk (other than IHDR, which is handled by lodepng_inspect)
-of the PNG file and outputs what it read in the state. Returns error code on failure.
+of the PNG file and outputs what it read in the state. Return_s error code on failure.
 Use lodepng_inspect first with a new state, then e.g. lodepng_chunk_find_const
 to find the desired chunk type, and if non null use lodepng_inspect_chunk (with
 chunk_pointer - start_of_file as pos).
@@ -964,7 +964,7 @@ unsigned char lodepng_chunk_safetocopy(const unsigned char* chunk);
 unsigned char* lodepng_chunk_data(unsigned char* chunk);
 const unsigned char* lodepng_chunk_data_const(const unsigned char* chunk);
 
-/*returns 0 if the crc is correct, 1 if it's incorrect (0 for OK as usual!)*/
+/*return_s 0 if the crc is correct, 1 if it's incorrect (0 for OK as usual!)*/
 unsigned lodepng_chunk_check_crc(const unsigned char* chunk);
 
 /*generates the correct CRC from the data and puts it in the last 4 bytes of the chunk*/
@@ -984,14 +984,14 @@ In a non-corrupt PNG file, the last chunk should have name "IEND".
 unsigned char* lodepng_chunk_next(unsigned char* chunk, unsigned char* end);
 const unsigned char* lodepng_chunk_next_const(const unsigned char* chunk, const unsigned char* end);
 
-/*Finds the first chunk with the given type in the range [chunk, end), or returns NULL if not found.*/
+/*Finds the first chunk with the given type in the range [chunk, end), or return_s NULL if not found.*/
 unsigned char* lodepng_chunk_find(unsigned char* chunk, unsigned char* end, const char type[5]);
 const unsigned char* lodepng_chunk_find_const(const unsigned char* chunk, const unsigned char* end, const char type[5]);
 
 /*
 Appends chunk to the data in out. The given chunk should already have its chunk header.
 The out variable and outsize are updated to reflect the new reallocated buffer.
-Returns error code (0 if it went ok)
+Return_s error code (0 if it went ok)
 */
 unsigned lodepng_chunk_append(unsigned char** out, size_t* outsize, const unsigned char* chunk);
 
@@ -1629,7 +1629,7 @@ All functions in LodePNG that return an error code, return 0 if everything went
 OK, or a non-zero code if there was an error.
 
 The meaning of the LodePNG error values can be retrieved with the function
-lodepng_error_text: given the numerical error code, it returns a description
+lodepng_error_text: given the numerical error code, it return_s a description
 of the error in English as a string.
 
 Check the implementation of lodepng_error_text to see the meaning of each code.
@@ -1981,7 +1981,7 @@ https://github.com/lvandeve/lodepng
 *) 16 aug 2011: made the code less wide (max 120 characters per line).
 *) 17 apr 2011: code cleanup. Bugfixes. Convert low to 16-bit per sample colors.
 *) 21 feb 2011: fixed compiling for C90. Fixed compiling with sections disabled.
-*) 11 dec 2010: encoding is made faster, based on suggestion by Peter Eastman
+*) 11 dec 2010: encoding is made faster, based on suggestion by Peter eastman
     to optimize long sequences of zeros.
 *) 13 nov 2010: added LodePNG_InfoColor_hasPaletteAlpha and
     LodePNG_InfoColor_canHaveAlpha functions for convenience.

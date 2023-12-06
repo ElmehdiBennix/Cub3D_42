@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MLX42.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/11/26 04:20:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/06 00:15:16 by hasalam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,7 +489,7 @@ const char* mlx_strerror(mlx_errno_t val);
  * @param[in] height The height of the window.
  * @param[in] title The title of the window.
  * @param[in] resize Enable window resizing.
- * @returns Ptr to the MLX handle or null on failure.
+ * @return_s Ptr to the MLX handle or null on failure.
  */
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize);
 
@@ -626,11 +626,11 @@ void mlx_set_window_title(mlx_t* mlx, const char* title);
 //= Input Functions =//
 
 /**
- * Returns true or false if the key is down or not.
+ * Return_s true or false if the key is down or not.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] key The keycode to check, use MLX_KEY_... to specify!
- * @returns True or false if the key is down or not.
+ * @return_s True or false if the key is down or not.
  */
 bool mlx_is_key_down(mlx_t* mlx, keys_t key);
 
@@ -639,12 +639,12 @@ bool mlx_is_key_down(mlx_t* mlx, keys_t key);
  * 
  * @param[in] mlx The MLX instance handle. 
  * @param[in] key A specific mouse key. e.g MLX_MOUSE_BUTTON_0
- * @returns True or false if the mouse key is down or not.
+ * @return_s True or false if the mouse key is down or not.
  */
 bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key);
 
 /**
- * Returns the current, relative, mouse cursor position on the window, starting
+ * Return_s the current, relative, mouse cursor position on the window, starting
  * from the top left corner.
  * 
  * Negative values or values greater than window width or height 
@@ -687,7 +687,7 @@ mlx_win_cursor_t* mlx_create_std_cursor(cursor_t type);
  * Cursors are destroyed at mlx_terminate().
  * 
  * @param[in] texture The texture to use as cursor.
- * @returns The cursor object or null on failure.
+ * @return_s The cursor object or null on failure.
  */
 mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture);
 
@@ -775,7 +775,7 @@ void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
  * @param[in] mlx The MLX instance handle.
  * @param[in] f The function.
  * @param[in] param The parameter to pass on to the function.
- * @returns Whether or not the hook was added successfully. 
+ * @return_s Whether or not the hook was added successfully. 
  */
 bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
 
@@ -793,7 +793,7 @@ mlx_texture_t* mlx_load_png(const char* path);
  * Loads an XPM42 texture from the given file path.
  * 
  * @param[in] path The file path to the XPM texture.
- * @returns The XPM texture struct containing its information.
+ * @return_s The XPM texture struct containing its information.
  */
 xpm_t* mlx_load_xpm42(const char* path);
 
