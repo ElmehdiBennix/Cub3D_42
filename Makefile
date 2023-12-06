@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/12/06 17:33:54 by ebennix          ###   ########.fr        #
+#    Updated: 2023/12/06 17:42:10 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,4 @@ git :
 
 ########################################################################
 
-.PHONY : all clean fclean re git
-
-
-# if i change smthing in lib it dosnt remake fix it later
+.PHONY : all bonus clean fclean re git
