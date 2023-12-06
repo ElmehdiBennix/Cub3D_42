@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:53:35 by hasalam           #+#    #+#             */
-/*   Updated: 2023/12/06 01:20:57 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 20:29:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	walk_d_and_turn_d(mlx_key_data_t keycode, t_data *game)
 void	key_events(mlx_key_data_t keycode, t_data *game)
 {
 	if (keycode.key == MLX_KEY_ESCAPE)
-		exit(1);
+		return (free2d(game->map), free_texture(game), exit(1));
 	walk_d_and_turn_d(keycode, game);
 	if (keycode.key == MLX_KEY_D && keycode.action == MLX_PRESS)
 		game->player.side_w = 1;

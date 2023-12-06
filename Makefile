@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/12/06 20:21:49 by ebennix          ###   ########.fr        #
+#    Updated: 2023/12/06 20:32:46 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,11 @@ EXE := cub3D
 B_EXE := cub3D_bonus
 
 ARCH := lib/lib_42.a
-
 MLX_ARCH = MLX42/build/libmlx42.a
 
 CC := cc -Ofast
 
-CFLAGS := -g -Wall -Wextra -Werror 
-
+CFLAGS := -g -Wall -Wextra -Werror
 MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -lglfw
 
 I = -I/Users/${USER}/.brew/Cellar/glfw/3.3.8/include/GLFW
@@ -67,6 +65,7 @@ B_SRC := $(B_FILES:=.c)
 B_OBJ := $(B_SRC:.c=.o)
 
 RM := rm -rf
+
 m := finished
 
 ########################################################################
