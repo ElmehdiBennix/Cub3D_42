@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/12/06 17:48:06 by ebennix          ###   ########.fr        #
+#    Updated: 2023/12/06 20:21:49 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,7 @@ fclean : clean
 re : fclean all
 
 git :
-	make fclean
+	make clean
 	git add .
 	git status
 	git commit -m "$(m)"
