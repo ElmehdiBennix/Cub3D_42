@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:57:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/06 17:04:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/06 17:34:26 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,6 @@ typedef struct s_state
 	float			turn_s;
 	float			fov_angle;
 }					t_state;
-
-typedef struct s_images
-{
-	mlx_image_t		*world_3d;
-	mlx_image_t		*hud;
-}					t_images;
-
 typedef struct s_data
 {
 	mlx_t			*mlx;
@@ -89,8 +82,7 @@ typedef struct s_data
 	t_RGB			c_floor;
 	t_RGB			c_ceiling;
 
-	t_images		canvas;
-
+	mlx_image_t		*world_3d;
 	t_Ray			rays;
 }					t_data;
 
@@ -107,17 +99,6 @@ struct				s_draw_3d
 	int				txt_offset_x;
 	int				txt_offset_y;
 	int				dist_from_top;
-};
-struct				s_mini_map
-{
-	float			cam_x;
-	float			cam_y;
-	int				draw_x;
-	int				draw_y;
-	int				x_dist;
-	int				y_dist;
-	int				x;
-	int				y;
 };
 
 struct				s_cast_ray
@@ -148,18 +129,12 @@ struct				s_cast_ray
 	int				is_ray_fac_l;
 };
 
-struct				s_draw_gun
-{
-	int				animat[7];
-	int				i;
-};
-
 struct				s_valid_map
 {
 	int				i;
 	int				j;
 	int				longest;
-	int				player;	
+	int				player;
 };
 
 struct				s_file_data
@@ -180,34 +155,10 @@ struct				s_update_state
 	float			tmp;
 };
 
-struct				s_init_image
-{
-	bool			check;
-	char			*path;
-};
-
 struct				s_var
 {
 	int				i;
-	int				j;	
-};
-
-struct				s_d_line
-{
-	float			dx;
-	float			dy;
-	float			step;
-	float			x;
-	float			y;
-	int				i;
-};
-
-struct				s_draw_line
-{
-	float			x0;
-	float			y0;
-	float			x1;
-	float			y1;
+	int				j;
 };
 
 #endif

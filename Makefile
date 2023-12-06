@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 19:40:18 by ebennix           #+#    #+#              #
-#    Updated: 2023/12/06 16:56:35 by ebennix          ###   ########.fr        #
+#    Updated: 2023/12/06 17:33:54 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ I = -I/Users/${USER}/.brew/Cellar/glfw/3.3.8/include/GLFW
 L = -L/Users/${USER}/.brew/Cellar/glfw/3.3.8/lib
 
 M_HEADER := Mandatory/inc/cub3d.h		Mandatory/inc/structs.h		Mandatory/inc/defin.h \
-B_HEADER := Bonus/inc/cub3d.h		Bonus/inc/structs.h		Bonus/inc/defin.h \
+B_HEADER := Bonus/inc/cub3d.h			Bonus/inc/structs.h			Bonus/inc/defin.h \
 
 M_FILES := Mandatory/main \
 		 Mandatory/parse/read_file \
@@ -37,13 +37,11 @@ M_FILES := Mandatory/main \
 		 Mandatory/loader/init_textures \
 		 Mandatory/loader/events \
 		 Mandatory/tools/free_game \
-		 Mandatory/tools/draw_tools \
 		 Mandatory/tools/cub_tools \
 		 Mandatory/tools/ray_tools \
 		 Mandatory/graphics/draw3d \
 		 Mandatory/graphics/raycasting \
 		 Mandatory/graphics/raycast_helper \
-		 Mandatory/graphics/mini_map \
 
 B_FILES := Bonus/main \
 		 Bonus/parse/read_file \

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:45:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/06 17:04:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/12/06 17:25:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 static void	drawing(t_data *game)
 {
-	game->canvas.hud->enabled = false;
 	update_state(game);
 	cast_all_rays(game);
 	generate3d_map(game);
-	mini_map(game, 3, 3);
 }
 
 static void	gerphec(t_data *game)
@@ -29,7 +27,6 @@ static void	gerphec(t_data *game)
 	init_images(game);
 	mlx_loop_hook(game->mlx, (void *)drawing, game);
 	mlx_key_hook(game->mlx, (void *)key_events, game);
-
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }

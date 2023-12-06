@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 06:21:16 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/06 01:04:46 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 17:38:06 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ void	free_texture(t_data *game);
 float	normalize_angle(float angle);
 float	distancebetween_points(float x1, float y1, float x2, float y2);
 int		check_walls(t_data *game, float px, float py, int flag);
-int		check_walls1(t_data *game, float px, float py);
-int		check_walls2(t_data *game, float px, float py);
+
 #endif
