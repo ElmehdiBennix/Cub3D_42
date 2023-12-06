@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasalam <hasalam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:11:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/12/06 00:16:47 by hasalam          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:59:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	free_texture(t_data *game)
 		mlx_delete_texture(game->west.texture);
 	if (game->east.texture)
 		mlx_delete_texture(game->east.texture);
+	if (game->door)
+		mlx_delete_texture(game->door);
 }
 
 void	ft_error(void)
