@@ -76,6 +76,7 @@ bonus : $(B_EXE)
 
 library:
 	make -C lib
+	cd MLX42 && cmake -B build
 
 $(EXE): $(M_OBJ)
 	$(CC) $(CFLAGS) $(MLXFLAGS) $(M_OBJ) $(ARCH) $(MLX_ARCH) $(L) $(I) -o $(EXE)
@@ -98,7 +99,7 @@ fclean : clean
 
 re : fclean all
 
-git :
+push : fclean
 	make clean
 	git add .
 	git status
@@ -107,4 +108,4 @@ git :
 
 ########################################################################
 
-.PHONY : all bonus clean fclean re git
+.PHONY : all bonus clean fclean re push library
